@@ -25,12 +25,13 @@ public class prevTemp extends MIDlet implements CommandListener {
 
     private Vector dia = new Vector();
     private Vector tempo = new Vector();
-    private Vector uf = new Vector();
+    //private Vector uf = new Vector();
     private Vector tempMaxima = new Vector();
     private Vector tempMinima = new Vector();
 
     private String codCidade;
     private Image imgTempo;
+    private String cidadeEstado;
 
     //substitui o ' ' por %20, por causa da URL
     private String replace( String str, String pattern, String replace ){
@@ -48,67 +49,83 @@ public class prevTemp extends MIDlet implements CommandListener {
 }
 
 //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
-    private Command okCommand;
     private Command exitCommand;
     private Command avisosCommand;
     private Command backToListCommand;
     private Command backCommand1;
-    private Command detalhesCommand;
-    private Command itemCommand;
+    private Command previsaoCommand;
+    private Command proxCommand1;
     private Command itemCommand1;
     private Command buscarCommand;
+    private Command okCommand;
+    private Command okCommand1;
+    private Command backCommand;
+    private Command provCommand;
+    private Command backCommand2;
     private Form form;
-    private TextField cidadetextField;
     private StringItem stringItem;
+    private TextField cidadetextField;
     private ImageItem imageItem;
     private List list;
-    private Form detalhesform;
+    private Form previsaoForm;
+    private StringItem temperaturaStringItem;
     private StringItem localdataSringItem;
     private StringItem tempoStringItem;
-    private StringItem temperaturaStringItem;
     private ImageItem tempoImageItem;
+    private Form proxForm;
+    private StringItem data1StringItem;
+    private StringItem prev1StringItem;
+    private StringItem temp1StringItem;
+    private StringItem data2StringItem;
+    private StringItem prev2StringItem;
+    private StringItem temp2StringItem;
+    private ImageItem imageItem1;
     private Image buttonImage;
-    private Image pnt;
-    private Image n;
     private Image pn;
     private Image in;
     private Image ppm;
     private Image ncn;
-    private Image pp;
-    private Image ncm;
-    private Image ppt;
-    private Image ppn;
-    private Image psc;
+    private Image pnt;
+    private Image n;
     private Image g;
-    private Image ps;
+    private Image psc;
     private Image ec;
-    private Image pcn;
-    private Image pct;
-    private Image pm;
-    private Image npp;
-    private Image npn;
+    private Image ps;
+    private Image ncm;
+    private Image pp;
+    private Image ppn;
+    private Image ppt;
     private Image npm;
-    private Image t;
+    private Image npn;
     private Image pcm;
-    private Image pt;
-    private Image pc;
-    private Image nv;
-    private Image npt;
-    private Image ne;
-    private Image np;
+    private Image t;
+    private Image pct;
+    private Image pcn;
+    private Image npp;
+    private Image pm;
     private Image ch;
     private Image nct;
-    private Image c;
-    private Image nd;
-    private Image cv;
-    private Image ct;
-    private Image vn;
-    private Image e;
+    private Image ne;
+    private Image np;
+    private Image nv;
+    private Image npt;
+    private Image pt;
+    private Image pc;
     private Image cl;
     private Image ci;
-    private Image cn;
-    private Image cm;
+    private Image vn;
+    private Image e;
+    private Image cv;
+    private Image ct;
+    private Image c;
+    private Image nd;
     private Image logo;
+    private Image cm;
+    private Image cn;
+    private Font font;
+    private Font font1;
+    private Font font2;
+    private Image linha;
 //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -189,14 +206,8 @@ public class prevTemp extends MIDlet implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == detalhesform) {//GEN-BEGIN:|7-commandAction|1|30-preAction
-            if (command == backToListCommand) {//GEN-END:|7-commandAction|1|30-preAction
-                // write pre-action user code here
-                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|30-postAction
-                // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|57-preAction
-        } else if (displayable == form) {
-            if (command == buscarCommand) {//GEN-END:|7-commandAction|3|57-preAction
+        if (displayable == form) {//GEN-BEGIN:|7-commandAction|1|57-preAction
+            if (command == buscarCommand) {//GEN-END:|7-commandAction|1|57-preAction
                 String cidade = cidadetextField.getString();
                 cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
                 String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
@@ -212,12 +223,13 @@ public class prevTemp extends MIDlet implements CommandListener {
                         }
                         public void characters(char[] ch, int start, int lenght) throws SAXException{
                             String chars = new String(ch, start, lenght).trim();
-                            String nomeCidade;
-                            String ufCidade;
                             if(chars.length() > 0){
-                                if (currentName.equals("nome")){
-                                    getList().append(chars, getButtonImage());
-                                }else if(currentName.equals("id")){
+                                if (currentName.equals("nome")){ // nome da cidade
+                                    cidadeEstado = chars;
+                                }if(currentName.equals("uf")){
+                                    // Inserir a sigla da UF depois do nome da cidade na lista
+                                    getList().append(cidadeEstado+" - "+chars, getButtonImage());
+                                }else if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
                                     codCidade = chars;
                                 }
                             }
@@ -232,7 +244,6 @@ public class prevTemp extends MIDlet implements CommandListener {
 
                 url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidade+"/previsao.xml";
                 try{
-                    //getList().deleteAll();
                     StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
                     SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
                     saxParser.parse(connection.openDataInputStream(), new DefaultHandler(){
@@ -243,15 +254,21 @@ public class prevTemp extends MIDlet implements CommandListener {
                         public void characters(char[] ch, int start, int lenght) throws SAXException{
                             String chars = new String(ch, start, lenght).trim();
                             if(chars.length() > 0){
-                                if(currentName.equals("dia")){
-                                    dia.addElement(chars);
-                                }else if(currentName.equals("uf")){
-                                    uf.addElement(chars);
+                                if(currentName.equals("dia")){ // Data no formato AAAA-MM-DD
+                                    // Mudar o formato da data DD/MM/AAAA
+                                    String a = chars.substring(0, 4);
+                                    String m = chars.substring(5, 7);
+                                    String d = chars.substring(8, 10);
+                                    String data = d+"/"+m+"/"+a;
+                                    dia.addElement(data); 
                                 }else if(currentName.equals("maxima")){
                                     tempMaxima.addElement(chars);
                                 }else if(currentName.equals("minima")){
                                     tempMinima.addElement(chars);
                                 }else if(currentName.equals("tempo")){
+                                    /*XML retorna a previsão com siglas (ec, ci, c...), 
+                                     foi criado condicionais para atribuir a descrição
+                                     e a imagem de acordo com a sigla */
                                     if(chars.equals("ec")){
                                         chars = "Encoberto com Chuvas Isoladas";
                                         imgTempo = getEc();
@@ -383,44 +400,82 @@ public class prevTemp extends MIDlet implements CommandListener {
                     mensagem.setTimeout(3000);
                     getDisplay().setCurrent(mensagem);
                 }
-                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|4|57-postAction
+                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
 
-            } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|5|19-preAction
+            } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|6|19-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|26-preAction
+            }//GEN-BEGIN:|7-commandAction|5|26-preAction
         } else if (displayable == list) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|26-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|26-preAction
                 // write pre-action user code here
-                listAction();//GEN-LINE:|7-commandAction|8|26-postAction
+                listAction();//GEN-LINE:|7-commandAction|6|26-postAction
                 // write post-action user code here
-            } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|9|32-preAction
+            } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|7|32-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|10|32-postAction
+                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|8|32-postAction
                 // write post-action user code here
-            } else if (command == detalhesCommand) {//GEN-LINE:|7-commandAction|11|37-preAction
+            } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getDetalhesform());//GEN-LINE:|7-commandAction|12|37-postAction
+                switchDisplayable(null, getPrevisaoForm());//GEN-LINE:|7-commandAction|10|37-postAction
                 // write post-action user code here
-                //String cidade = getList().getString(getList().getSelectedIndex());
-                //String dataCidade = (String) dia.elementAt(getList().getSelectedIndex());
-                String tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex());
-                String tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex());
-                String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex());
+                String cidade = getList().getString(getList().getSelectedIndex()); // Obtem o nome da cidade na lista
+                String tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex()); // Obtem a temp máxima da lista
+                String tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex()); // Obtem a temp minima da lista
+                String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
                 
-                //localdataSringItem.setText("Previsão p/ "+cidade+", "+dataCidade);
-                temperaturaStringItem.setText("Min: "+tempMinimoCidade+"ºC e Máx: "+tempMaximaCidade+"ºC");
-               
-                //maximaStringItem.setText(tempMaximaCidade+" Cº");
-                //minimaStringItem.setText(tempMinimoCidade+" Cº");
-                tempoStringItem.setText(tempoCidade);
-                tempoImageItem.setImage(imgTempo);
-            }//GEN-BEGIN:|7-commandAction|13|7-postCommandAction
-        }//GEN-END:|7-commandAction|13|7-postCommandAction
+                previsaoForm.setTitle(cidade); // Nome da cidade no detalhesForm
+                temperaturaStringItem.setText(tempMinimoCidade+"ºC Mínima "+tempMaximaCidade+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                tempoStringItem.setText(tempoCidade); //Descrição da previsão do tempo no detalhesForm
+                tempoImageItem.setImage(imgTempo); // Iagem da previsão do tempo no detalhesForm
+            } else if (command == provCommand) {//GEN-LINE:|7-commandAction|11|129-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|12|129-postAction
+                // write post-action user code here
+                proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
+                
+                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
+                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
+                
+                data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
+                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
+                
+            }//GEN-BEGIN:|7-commandAction|13|30-preAction
+        } else if (displayable == previsaoForm) {
+            if (command == backToListCommand) {//GEN-END:|7-commandAction|13|30-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|14|30-postAction
+                // write post-action user code here
+            } else if (command == proxCommand1) {//GEN-LINE:|7-commandAction|15|132-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|16|132-postAction
+                // write post-action user code here
+                proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
+                
+                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
+                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
+                
+                data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da data da previsão no detalhesForm
+                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
+                
+            }//GEN-BEGIN:|7-commandAction|17|137-preAction
+        } else if (displayable == proxForm) {
+            if (command == backCommand2) {//GEN-END:|7-commandAction|17|137-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|18|137-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|19|7-postCommandAction
+        }//GEN-END:|7-commandAction|19|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|14|
-//</editor-fold>//GEN-END:|7-commandAction|14|
+    }//GEN-BEGIN:|7-commandAction|20|
+//</editor-fold>//GEN-END:|7-commandAction|20|
+
+
 
 
 //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
@@ -491,19 +546,19 @@ public class prevTemp extends MIDlet implements CommandListener {
     }
 //</editor-fold>//GEN-END:|31-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
     /**
-     * Returns an initialized instance of detalhesCommand component.
+     * Returns an initialized instance of previsaoCommand component.
      *
      * @return the initialized component instance
      */
-    public Command getDetalhesCommand() {
-        if (detalhesCommand == null) {//GEN-END:|36-getter|0|36-preInit
+    public Command getPrevisaoCommand() {
+        if (previsaoCommand == null) {//GEN-END:|36-getter|0|36-preInit
             // write pre-init user code here
-            detalhesCommand = new Command("Temperatura", Command.ITEM, 0);//GEN-LINE:|36-getter|1|36-postInit
+            previsaoCommand = new Command("Previs\u00E3o p/ Hoje", Command.ITEM, 0);//GEN-LINE:|36-getter|1|36-postInit
             // write post-init user code here
         }//GEN-BEGIN:|36-getter|2|
-        return detalhesCommand;
+        return previsaoCommand;
     }
 //</editor-fold>//GEN-END:|36-getter|2|
 
@@ -520,7 +575,8 @@ public class prevTemp extends MIDlet implements CommandListener {
             // write pre-init user code here
             list = new List("list", Choice.IMPLICIT);//GEN-BEGIN:|24-getter|1|24-postInit
             list.addCommand(getBackCommand1());
-            list.addCommand(getDetalhesCommand());
+            list.addCommand(getPrevisaoCommand());
+            list.addCommand(getProvCommand());
             list.setCommandListener(this);
             list.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);//GEN-END:|24-getter|1|24-postInit
             // write post-init user code here
@@ -541,37 +597,38 @@ public class prevTemp extends MIDlet implements CommandListener {
     }//GEN-BEGIN:|24-action|2|
 //</editor-fold>//GEN-END:|24-action|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesform ">//GEN-BEGIN:|28-getter|0|28-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoForm ">//GEN-BEGIN:|28-getter|0|28-preInit
     /**
-     * Returns an initialized instance of detalhesform component.
+     * Returns an initialized instance of previsaoForm component.
      *
      * @return the initialized component instance
      */
-    public Form getDetalhesform() {
-        if (detalhesform == null) {//GEN-END:|28-getter|0|28-preInit
+    public Form getPrevisaoForm() {
+        if (previsaoForm == null) {//GEN-END:|28-getter|0|28-preInit
             // write pre-init user code here
-            detalhesform = new Form("Previs\u00E3o do Tempo p/ Hoje", new Item[]{getTempoImageItem(), getTempoStringItem(), getTemperaturaStringItem(), getLocaldataSringItem()});//GEN-BEGIN:|28-getter|1|28-postInit
-            detalhesform.addCommand(getBackToListCommand());
-            detalhesform.setCommandListener(this);//GEN-END:|28-getter|1|28-postInit
+            previsaoForm = new Form("Previs\u00E3o do Tempo p/ Hoje", new Item[]{getTempoImageItem(), getTempoStringItem(), getTemperaturaStringItem(), getLocaldataSringItem()});//GEN-BEGIN:|28-getter|1|28-postInit
+            previsaoForm.addCommand(getBackToListCommand());
+            previsaoForm.addCommand(getProxCommand1());
+            previsaoForm.setCommandListener(this);//GEN-END:|28-getter|1|28-postInit
             // write post-init user code here
         }//GEN-BEGIN:|28-getter|2|
-        return detalhesform;
+        return previsaoForm;
     }
 //</editor-fold>//GEN-END:|28-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand ">//GEN-BEGIN:|47-getter|0|47-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxCommand1 ">//GEN-BEGIN:|47-getter|0|47-preInit
     /**
-     * Returns an initialized instance of itemCommand component.
+     * Returns an initialized instance of proxCommand1 component.
      *
      * @return the initialized component instance
      */
-    public Command getItemCommand() {
-        if (itemCommand == null) {//GEN-END:|47-getter|0|47-preInit
+    public Command getProxCommand1() {
+        if (proxCommand1 == null) {//GEN-END:|47-getter|0|47-preInit
             // write pre-init user code here
-            itemCommand = new Command("Item", Command.ITEM, 0);//GEN-LINE:|47-getter|1|47-postInit
+            proxCommand1 = new Command("Pr\u00F3x. Dias", Command.ITEM, 0);//GEN-LINE:|47-getter|1|47-postInit
             // write post-init user code here
         }//GEN-BEGIN:|47-getter|2|
-        return itemCommand;
+        return proxCommand1;
     }
 //</editor-fold>//GEN-END:|47-getter|2|
 
@@ -604,7 +661,8 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (temperaturaStringItem == null) {//GEN-END:|53-getter|0|53-preInit
             // write pre-init user code here
             temperaturaStringItem = new StringItem("", "");//GEN-BEGIN:|53-getter|1|53-postInit
-            temperaturaStringItem.setLayout(ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER);//GEN-END:|53-getter|1|53-postInit
+            temperaturaStringItem.setLayout(ImageItem.LAYOUT_DEFAULT | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
+            temperaturaStringItem.setFont(getFont());//GEN-END:|53-getter|1|53-postInit
             // write post-init user code here
         }//GEN-BEGIN:|53-getter|2|
         return temperaturaStringItem;
@@ -741,7 +799,8 @@ public class prevTemp extends MIDlet implements CommandListener {
     public StringItem getStringItem() {
         if (stringItem == null) {//GEN-END:|39-getter|0|39-preInit
             // write pre-init user code here
-            stringItem = new StringItem("", "Digite o nome da cidade para verificar a previs\u00E3o de do tempo.");//GEN-LINE:|39-getter|1|39-postInit
+            stringItem = new StringItem("", "Digite o nome da cidade para verificar a previs\u00E3o de do tempo.");//GEN-BEGIN:|39-getter|1|39-postInit
+            stringItem.setFont(getFont1());//GEN-END:|39-getter|1|39-postInit
             // write post-init user code here
         }//GEN-BEGIN:|39-getter|2|
         return stringItem;
@@ -758,7 +817,8 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (tempoStringItem == null) {//GEN-END:|72-getter|0|72-preInit
             // write pre-init user code here
             tempoStringItem = new StringItem("", "");//GEN-BEGIN:|72-getter|1|72-postInit
-            tempoStringItem.setLayout(ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER);//GEN-END:|72-getter|1|72-postInit
+            tempoStringItem.setLayout(ImageItem.LAYOUT_RIGHT | Item.LAYOUT_TOP | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
+            tempoStringItem.setFont(getFont1());//GEN-END:|72-getter|1|72-postInit
             // write post-init user code here
         }//GEN-BEGIN:|72-getter|2|
         return tempoStringItem;
@@ -1617,6 +1677,290 @@ public class prevTemp extends MIDlet implements CommandListener {
         return logo;
     }
 //</editor-fold>//GEN-END:|117-getter|3|
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font ">//GEN-BEGIN:|120-getter|0|120-preInit
+    /**
+     * Returns an initialized instance of font component.
+     *
+     * @return the initialized component instance
+     */
+    public Font getFont() {
+        if (font == null) {//GEN-END:|120-getter|0|120-preInit
+            // write pre-init user code here
+            font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE);//GEN-LINE:|120-getter|1|120-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|120-getter|2|
+        return font;
+    }
+//</editor-fold>//GEN-END:|120-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font1 ">//GEN-BEGIN:|121-getter|0|121-preInit
+    /**
+     * Returns an initialized instance of font1 component.
+     *
+     * @return the initialized component instance
+     */
+    public Font getFont1() {
+        if (font1 == null) {//GEN-END:|121-getter|0|121-preInit
+            // write pre-init user code here
+            font1 = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL);//GEN-LINE:|121-getter|1|121-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|121-getter|2|
+        return font1;
+    }
+//</editor-fold>//GEN-END:|121-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|122-getter|0|122-preInit
+    /**
+     * Returns an initialized instance of okCommand1 component.
+     *
+     * @return the initialized component instance
+     */
+    public Command getOkCommand1() {
+        if (okCommand1 == null) {//GEN-END:|122-getter|0|122-preInit
+            // write pre-init user code here
+            okCommand1 = new Command("Ok", Command.OK, 0);//GEN-LINE:|122-getter|1|122-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|122-getter|2|
+        return okCommand1;
+    }
+//</editor-fold>//GEN-END:|122-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|126-getter|0|126-preInit
+    /**
+     * Returns an initialized instance of backCommand component.
+     *
+     * @return the initialized component instance
+     */
+    public Command getBackCommand() {
+        if (backCommand == null) {//GEN-END:|126-getter|0|126-preInit
+            // write pre-init user code here
+            backCommand = new Command("Back", Command.BACK, 0);//GEN-LINE:|126-getter|1|126-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|126-getter|2|
+        return backCommand;
+    }
+//</editor-fold>//GEN-END:|126-getter|2|
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: provCommand ">//GEN-BEGIN:|128-getter|0|128-preInit
+    /**
+     * Returns an initialized instance of provCommand component.
+     *
+     * @return the initialized component instance
+     */
+    public Command getProvCommand() {
+        if (provCommand == null) {//GEN-END:|128-getter|0|128-preInit
+            // write pre-init user code here
+            provCommand = new Command("Pr\u00F3x. DIas", Command.ITEM, 0);//GEN-LINE:|128-getter|1|128-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|128-getter|2|
+        return provCommand;
+    }
+//</editor-fold>//GEN-END:|128-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand2 ">//GEN-BEGIN:|136-getter|0|136-preInit
+    /**
+     * Returns an initialized instance of backCommand2 component.
+     *
+     * @return the initialized component instance
+     */
+    public Command getBackCommand2() {
+        if (backCommand2 == null) {//GEN-END:|136-getter|0|136-preInit
+            // write pre-init user code here
+            backCommand2 = new Command("Back", Command.BACK, 0);//GEN-LINE:|136-getter|1|136-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|136-getter|2|
+        return backCommand2;
+    }
+//</editor-fold>//GEN-END:|136-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxForm ">//GEN-BEGIN:|135-getter|0|135-preInit
+    /**
+     * Returns an initialized instance of proxForm component.
+     *
+     * @return the initialized component instance
+     */
+    public Form getProxForm() {
+        if (proxForm == null) {//GEN-END:|135-getter|0|135-preInit
+            // write pre-init user code here
+            proxForm = new Form("Previs\u00E3o p/ Pr\u00F3ximos Dias", new Item[]{getData1StringItem(), getPrev1StringItem(), getTemp1StringItem(), getImageItem1(), getData2StringItem(), getPrev2StringItem(), getTemp2StringItem()});//GEN-BEGIN:|135-getter|1|135-postInit
+            proxForm.addCommand(getBackCommand2());
+            proxForm.setCommandListener(this);//GEN-END:|135-getter|1|135-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|135-getter|2|
+        return proxForm;
+    }
+//</editor-fold>//GEN-END:|135-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: data1StringItem ">//GEN-BEGIN:|140-getter|0|140-preInit
+    /**
+     * Returns an initialized instance of data1StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getData1StringItem() {
+        if (data1StringItem == null) {//GEN-END:|140-getter|0|140-preInit
+            // write pre-init user code here
+            data1StringItem = new StringItem("", "data1");//GEN-BEGIN:|140-getter|1|140-postInit
+            data1StringItem.setFont(getFont1());//GEN-END:|140-getter|1|140-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|140-getter|2|
+        return data1StringItem;
+    }
+//</editor-fold>//GEN-END:|140-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: prev1StringItem ">//GEN-BEGIN:|141-getter|0|141-preInit
+    /**
+     * Returns an initialized instance of prev1StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getPrev1StringItem() {
+        if (prev1StringItem == null) {//GEN-END:|141-getter|0|141-preInit
+            // write pre-init user code here
+            prev1StringItem = new StringItem("", "previsao1");//GEN-BEGIN:|141-getter|1|141-postInit
+            prev1StringItem.setFont(getFont1());//GEN-END:|141-getter|1|141-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|141-getter|2|
+        return prev1StringItem;
+    }
+//</editor-fold>//GEN-END:|141-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp1StringItem ">//GEN-BEGIN:|142-getter|0|142-preInit
+    /**
+     * Returns an initialized instance of temp1StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getTemp1StringItem() {
+        if (temp1StringItem == null) {//GEN-END:|142-getter|0|142-preInit
+            // write pre-init user code here
+            temp1StringItem = new StringItem("", "temp1");//GEN-BEGIN:|142-getter|1|142-postInit
+            temp1StringItem.setFont(getFont2());//GEN-END:|142-getter|1|142-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|142-getter|2|
+        return temp1StringItem;
+    }
+//</editor-fold>//GEN-END:|142-getter|2|
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: data2StringItem ">//GEN-BEGIN:|144-getter|0|144-preInit
+    /**
+     * Returns an initialized instance of data2StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getData2StringItem() {
+        if (data2StringItem == null) {//GEN-END:|144-getter|0|144-preInit
+            // write pre-init user code here
+            data2StringItem = new StringItem("", "data2");//GEN-BEGIN:|144-getter|1|144-postInit
+            data2StringItem.setFont(getFont1());//GEN-END:|144-getter|1|144-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|144-getter|2|
+        return data2StringItem;
+    }
+//</editor-fold>//GEN-END:|144-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: prev2StringItem ">//GEN-BEGIN:|145-getter|0|145-preInit
+    /**
+     * Returns an initialized instance of prev2StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getPrev2StringItem() {
+        if (prev2StringItem == null) {//GEN-END:|145-getter|0|145-preInit
+            // write pre-init user code here
+            prev2StringItem = new StringItem("", "previsao2");//GEN-BEGIN:|145-getter|1|145-postInit
+            prev2StringItem.setFont(getFont1());//GEN-END:|145-getter|1|145-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|145-getter|2|
+        return prev2StringItem;
+    }
+//</editor-fold>//GEN-END:|145-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp2StringItem ">//GEN-BEGIN:|146-getter|0|146-preInit
+    /**
+     * Returns an initialized instance of temp2StringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getTemp2StringItem() {
+        if (temp2StringItem == null) {//GEN-END:|146-getter|0|146-preInit
+            // write pre-init user code here
+            temp2StringItem = new StringItem("", "temp2");//GEN-BEGIN:|146-getter|1|146-postInit
+            temp2StringItem.setFont(getFont2());//GEN-END:|146-getter|1|146-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|146-getter|2|
+        return temp2StringItem;
+    }
+//</editor-fold>//GEN-END:|146-getter|2|
+
+
+
+
+
+
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font2 ">//GEN-BEGIN:|151-getter|0|151-preInit
+    /**
+     * Returns an initialized instance of font2 component.
+     *
+     * @return the initialized component instance
+     */
+    public Font getFont2() {
+        if (font2 == null) {//GEN-END:|151-getter|0|151-preInit
+            // write pre-init user code here
+            font2 = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM);//GEN-LINE:|151-getter|1|151-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|151-getter|2|
+        return font2;
+    }
+//</editor-fold>//GEN-END:|151-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem1 ">//GEN-BEGIN:|152-getter|0|152-preInit
+    /**
+     * Returns an initialized instance of imageItem1 component.
+     *
+     * @return the initialized component instance
+     */
+    public ImageItem getImageItem1() {
+        if (imageItem1 == null) {//GEN-END:|152-getter|0|152-preInit
+            // write pre-init user code here
+            imageItem1 = new ImageItem("", getLinha(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|152-getter|1|152-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|152-getter|2|
+        return imageItem1;
+    }
+//</editor-fold>//GEN-END:|152-getter|2|
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: linha ">//GEN-BEGIN:|153-getter|0|153-preInit
+    /**
+     * Returns an initialized instance of linha component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getLinha() {
+        if (linha == null) {//GEN-END:|153-getter|0|153-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|153-getter|1|153-@java.io.IOException
+                linha = Image.createImage("/prevTemp/images/linha.png");
+            } catch (java.io.IOException e) {//GEN-END:|153-getter|1|153-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|153-getter|2|153-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|153-getter|3|
+        return linha;
+    }
+//</editor-fold>//GEN-END:|153-getter|3|
 
 
 
