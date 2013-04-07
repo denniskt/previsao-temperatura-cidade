@@ -8,8 +8,8 @@ package prevTemp;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
-import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import javax.microedition.midlet.*;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
@@ -24,17 +24,19 @@ public class prevTemp extends MIDlet implements CommandListener {
     private boolean midletPaused = false;
 
     private Vector dia = new Vector();
+    private Vector tempo = new Vector();
+    private Vector uf = new Vector();
     private Vector tempMaxima = new Vector();
     private Vector tempMinima = new Vector();
 
     private String codCidade;
+    private Image imgTempo;
 
-    private String replace( String str, String pattern, String replace )
-{
+    //substitui o ' ' por %20, por causa da URL
+    private String replace( String str, String pattern, String replace ){
     int s = 0;
     int e = 0;
     StringBuffer result = new StringBuffer();
-
     while ( (e = str.indexOf( pattern, s ) ) >= 0 )
     {
         result.append(str.substring( s, e ) );
@@ -45,7 +47,8 @@ public class prevTemp extends MIDlet implements CommandListener {
     return result.toString();
 }
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
+//<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
+    private Command okCommand;
     private Command exitCommand;
     private Command avisosCommand;
     private Command backToListCommand;
@@ -57,14 +60,56 @@ public class prevTemp extends MIDlet implements CommandListener {
     private Form form;
     private TextField cidadetextField;
     private StringItem stringItem;
+    private ImageItem imageItem;
     private List list;
     private Form detalhesform;
-    private StringItem minimaStringItem;
-    private StringItem dataStringItem;
-    private StringItem maximaStringItem;
-    private StringItem cidadeStringItem;
+    private StringItem localdataSringItem;
+    private StringItem tempoStringItem;
+    private StringItem temperaturaStringItem;
+    private ImageItem tempoImageItem;
     private Image buttonImage;
-    //</editor-fold>//GEN-END:|fields|0|
+    private Image pnt;
+    private Image n;
+    private Image pn;
+    private Image in;
+    private Image ppm;
+    private Image ncn;
+    private Image pp;
+    private Image ncm;
+    private Image ppt;
+    private Image ppn;
+    private Image psc;
+    private Image g;
+    private Image ps;
+    private Image ec;
+    private Image pcn;
+    private Image pct;
+    private Image pm;
+    private Image npp;
+    private Image npn;
+    private Image npm;
+    private Image t;
+    private Image pcm;
+    private Image pt;
+    private Image pc;
+    private Image nv;
+    private Image npt;
+    private Image ne;
+    private Image np;
+    private Image ch;
+    private Image nct;
+    private Image c;
+    private Image nd;
+    private Image cv;
+    private Image ct;
+    private Image vn;
+    private Image e;
+    private Image cl;
+    private Image ci;
+    private Image cn;
+    private Image cm;
+    private Image logo;
+//</editor-fold>//GEN-END:|fields|0|
 
     /**
      * The prevTemp constructor.
@@ -72,22 +117,23 @@ public class prevTemp extends MIDlet implements CommandListener {
     public prevTemp() {
     }
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
-    //</editor-fold>//GEN-END:|methods|0|
+//<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
+//</editor-fold>//GEN-END:|methods|0|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: initialize ">//GEN-BEGIN:|0-initialize|0|0-preInitialize
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: initialize ">//GEN-BEGIN:|0-initialize|0|0-preInitialize
     /**
-     * Initilizes the application.
-     * It is called only once when the MIDlet is started. The method is called before the <code>startMIDlet</code> method.
+     * Initializes the application. It is called only once when the MIDlet is
+     * started. The method is called before the
+     * <code>startMIDlet</code> method.
      */
     private void initialize() {//GEN-END:|0-initialize|0|0-preInitialize
         // write pre-initialize user code here
 //GEN-LINE:|0-initialize|1|0-postInitialize
         // write post-initialize user code here
     }//GEN-BEGIN:|0-initialize|2|
-    //</editor-fold>//GEN-END:|0-initialize|2|
+//</editor-fold>//GEN-END:|0-initialize|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: startMIDlet ">//GEN-BEGIN:|3-startMIDlet|0|3-preAction
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: startMIDlet ">//GEN-BEGIN:|3-startMIDlet|0|3-preAction
     /**
      * Performs an action assigned to the Mobile Device - MIDlet Started point.
      */
@@ -96,9 +142,9 @@ public class prevTemp extends MIDlet implements CommandListener {
         switchDisplayable(null, getForm());//GEN-LINE:|3-startMIDlet|1|3-postAction
         // write post-action user code here
     }//GEN-BEGIN:|3-startMIDlet|2|
-    //</editor-fold>//GEN-END:|3-startMIDlet|2|
+//</editor-fold>//GEN-END:|3-startMIDlet|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: resumeMIDlet ">//GEN-BEGIN:|4-resumeMIDlet|0|4-preAction
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: resumeMIDlet ">//GEN-BEGIN:|4-resumeMIDlet|0|4-preAction
     /**
      * Performs an action assigned to the Mobile Device - MIDlet Resumed point.
      */
@@ -107,12 +153,18 @@ public class prevTemp extends MIDlet implements CommandListener {
 //GEN-LINE:|4-resumeMIDlet|1|4-postAction
         // write post-action user code here
     }//GEN-BEGIN:|4-resumeMIDlet|2|
-    //</editor-fold>//GEN-END:|4-resumeMIDlet|2|
+//</editor-fold>//GEN-END:|4-resumeMIDlet|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: switchDisplayable ">//GEN-BEGIN:|5-switchDisplayable|0|5-preSwitch
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: switchDisplayable ">//GEN-BEGIN:|5-switchDisplayable|0|5-preSwitch
     /**
-     * Switches a current displayable in a display. The <code>display</code> instance is taken from <code>getDisplay</code> method. This method is used by all actions in the design for switching displayable.
-     * @param alert the Alert which is temporarily set to the display; if <code>null</code>, then <code>nextDisplayable</code> is set immediately
+     * Switches a current displayable in a display. The
+     * <code>display</code> instance is taken from
+     * <code>getDisplay</code> method. This method is used by all actions in the
+     * design for switching displayable.
+     *
+     * @param alert the Alert which is temporarily set to the display;
+     * if <code>null</code>, then <code>nextDisplayable</code> is set
+     * immediately
      * @param nextDisplayable the Displayable to be set
      */
     public void switchDisplayable(Alert alert, Displayable nextDisplayable) {//GEN-END:|5-switchDisplayable|0|5-preSwitch
@@ -125,11 +177,13 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-END:|5-switchDisplayable|1|5-postSwitch
         // write post-switch user code here
     }//GEN-BEGIN:|5-switchDisplayable|2|
-    //</editor-fold>//GEN-END:|5-switchDisplayable|2|
+//</editor-fold>//GEN-END:|5-switchDisplayable|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
     /**
-     * Called by a system to indicated that a command has been invoked on a particular displayable.
+     * Called by a system to indicated that a command has been invoked on a
+     * particular displayable.
+     *
      * @param command the Command that was invoked
      * @param displayable the Displayable where the command was invoked
      */
@@ -144,9 +198,9 @@ public class prevTemp extends MIDlet implements CommandListener {
         } else if (displayable == form) {
             if (command == buscarCommand) {//GEN-END:|7-commandAction|3|57-preAction
                 String cidade = cidadetextField.getString();
-                cidade = replace(cidade, " ", "%20");
-                String uf = "";
+                cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
                 String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
+                
                 try{
                     getList().deleteAll();
                     StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
@@ -158,6 +212,8 @@ public class prevTemp extends MIDlet implements CommandListener {
                         }
                         public void characters(char[] ch, int start, int lenght) throws SAXException{
                             String chars = new String(ch, start, lenght).trim();
+                            String nomeCidade;
+                            String ufCidade;
                             if(chars.length() > 0){
                                 if (currentName.equals("nome")){
                                     getList().append(chars, getButtonImage());
@@ -174,7 +230,6 @@ public class prevTemp extends MIDlet implements CommandListener {
                     getDisplay().setCurrent(mensagem);
                 }
 
-
                 url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidade+"/previsao.xml";
                 try{
                     //getList().deleteAll();
@@ -190,10 +245,134 @@ public class prevTemp extends MIDlet implements CommandListener {
                             if(chars.length() > 0){
                                 if(currentName.equals("dia")){
                                     dia.addElement(chars);
-                                }if(currentName.equals("maxima")){
+                                }else if(currentName.equals("uf")){
+                                    uf.addElement(chars);
+                                }else if(currentName.equals("maxima")){
                                     tempMaxima.addElement(chars);
                                 }else if(currentName.equals("minima")){
                                     tempMinima.addElement(chars);
+                                }else if(currentName.equals("tempo")){
+                                    if(chars.equals("ec")){
+                                        chars = "Encoberto com Chuvas Isoladas";
+                                        imgTempo = getEc();
+                                    }else if(chars.equals("ci")){
+                                        chars = "Chuvas Isoladas";
+                                        imgTempo = getCi();
+                                    }else if(chars.equals("c")){
+                                        chars = "Chuva";
+                                        imgTempo = getC();
+                                    }else if(chars.equals("in")){
+                                        chars = "Instável";
+                                        imgTempo = getIn();
+                                    }else if(chars.equals("pp")){
+                                        chars = "Poss. de Pancadas de Chuva";
+                                        imgTempo = getPp();
+                                    }else if(chars.equals("cm")){
+                                        chars = "Chuva pela Manhã";
+                                        imgTempo = getCm();
+                                    }else if(chars.equals("cn")){
+                                        chars = "Chuva a Noite";
+                                        imgTempo = getCn();
+                                    }else if(chars.equals("pt")){
+                                        chars = "Pancadas de Chuva a Tarde";
+                                        imgTempo = getPt();
+                                    }else if(chars.equals("pm")){
+                                        chars = "Pancadas de Chuva pela Manhã";
+                                        imgTempo = getPm();
+                                    }else if(chars.equals("np")){
+                                        chars = "Nublado e Pancadas de Chuva";
+                                        imgTempo = getNp();
+                                    }else if(chars.equals("pc")){
+                                        chars = "Pancadas de Chuva";
+                                        imgTempo = getPc();
+                                    }else if(chars.equals("pn")){
+                                        chars = "Parcialmente Nublado";
+                                        imgTempo = getPn();
+                                    }else if(chars.equals("cv")){
+                                        chars = "Chuvisco";
+                                        imgTempo = getCv();
+                                    }else if(chars.equals("ch")){
+                                        chars = "Chuvoso";
+                                        imgTempo = getCh();
+                                    }else if(chars.equals("t")){
+                                        chars = "Tempestade";
+                                        imgTempo = getT();
+                                    }else if(chars.equals("ps")){
+                                        chars = "Predomínio de Sol";
+                                        imgTempo = getPs();
+                                    }else if(chars.equals("e")){
+                                        chars = "Encoberto";
+                                        imgTempo = getE();
+                                    }else if(chars.equals("n")){
+                                        chars = "Nublado";
+                                        imgTempo = getN();
+                                    }else if(chars.equals("cl")){
+                                        chars = "Céu Claro";
+                                        imgTempo = getCl();
+                                    }else if(chars.equals("nv")){
+                                        chars = "Nevoeiro";
+                                        imgTempo = getNv();
+                                    }else if(chars.equals("g")){
+                                        chars = "Geada";
+                                        imgTempo = getG();
+                                    }else if(chars.equals("ne")){
+                                        chars = "Neve";
+                                        imgTempo = getNe();
+                                    }else if(chars.equals("pnt")){
+                                        chars = "Pancadas de Chuva a Noite";
+                                        imgTempo = getPnt();
+                                    }else if(chars.equals("psc")){
+                                        chars = "Possibilidade de Chuva";
+                                        imgTempo = getPsc();
+                                    }else if(chars.equals("pcm")){
+                                        chars = "Possibilidade de Chuva pela Manhã";
+                                        imgTempo = getPsc();
+                                    }else if(chars.equals("pct")){
+                                        chars = "Possibilidade de Chuva a Tarde";
+                                        imgTempo = getPct();
+                                    }else if(chars.equals("pcn")){
+                                        chars = "Possibilidade de Chuva a Noite";
+                                        imgTempo = getPcn();
+                                    }else if(chars.equals("npt")){
+                                        chars = "Nublado com Pancadas a Tarde";
+                                        imgTempo = getNpt();
+                                    }else if(chars.equals("npn")){
+                                        chars = "Nublado com Pancadas a Noite";
+                                        imgTempo = getNpn();
+                                    }else if(chars.equals("ncn")){
+                                        chars = "Nublado com Poss. de Chuva a Noite";
+                                        imgTempo = getNcn();
+                                    }else if(chars.equals("nct")){
+                                        chars = "Nublado com Poss. de Chuva a Tarde";
+                                        imgTempo = getNct();
+                                    }else if(chars.equals("ncm")){
+                                        chars = "Nubl. c/ Poss. de Chuva pela Manhã";
+                                        imgTempo = getNcm();
+                                    }else if(chars.equals("npm")){
+                                        chars = "Nublado com Pancadas pela Manhã";
+                                        imgTempo = getNpm();
+                                    }else if(chars.equals("npp")){
+                                        chars = "Nublado com Possibilidade de Chuva";
+                                        imgTempo = getNpp();
+                                    }else if(chars.equals("vn")){
+                                        chars = "Variação de Nebulosidade";
+                                        imgTempo = getVn();
+                                    }else if(chars.equals("ct")){
+                                        chars = "Chuva a Tarde";
+                                        imgTempo = getCt();
+                                    }else if(chars.equals("ppn")){
+                                        chars = "Poss. de Panc. de Chuva a Noite";
+                                        imgTempo = getPpn();
+                                    }else if(chars.equals("ppt")){
+                                        chars = "Poss. de Panc. de Chuva a Tarde";
+                                        imgTempo = getPpt();
+                                    }else if(chars.equals("ppm")){
+                                        chars = "Poss. de Panc. de Chuva pela Manhã";
+                                        imgTempo = getPpm();
+                                    }else{
+                                        chars = "Não Definido";
+                                    }	
+                                    tempo.addElement(chars);
                                 }
                             }
                         }
@@ -224,23 +403,30 @@ public class prevTemp extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 switchDisplayable(null, getDetalhesform());//GEN-LINE:|7-commandAction|12|37-postAction
                 // write post-action user code here
-                String cidade = getList().getString(getList().getSelectedIndex());
-                String dataCidade = (String) dia.elementAt(getList().getSelectedIndex());
+                //String cidade = getList().getString(getList().getSelectedIndex());
+                //String dataCidade = (String) dia.elementAt(getList().getSelectedIndex());
                 String tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex());
                 String tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex());
-                cidadeStringItem.setText(cidade);
-                dataStringItem.setText(dataCidade);
-                maximaStringItem.setText(tempMaximaCidade+" Cº");
-                minimaStringItem.setText(tempMinimoCidade+" Cº");
+                String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex());
+                
+                //localdataSringItem.setText("Previsão p/ "+cidade+", "+dataCidade);
+                temperaturaStringItem.setText("Min: "+tempMinimoCidade+"ºC e Máx: "+tempMaximaCidade+"ºC");
+               
+                //maximaStringItem.setText(tempMaximaCidade+" Cº");
+                //minimaStringItem.setText(tempMinimoCidade+" Cº");
+                tempoStringItem.setText(tempoCidade);
+                tempoImageItem.setImage(imgTempo);
             }//GEN-BEGIN:|7-commandAction|13|7-postCommandAction
         }//GEN-END:|7-commandAction|13|7-postCommandAction
         // write post-action user code here
     }//GEN-BEGIN:|7-commandAction|14|
-    //</editor-fold>//GEN-END:|7-commandAction|14|
+//</editor-fold>//GEN-END:|7-commandAction|14|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
-     * Returns an initiliazed instance of exitCommand component.
+     * Returns an initialized instance of exitCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getExitCommand() {
@@ -251,31 +437,16 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|18-getter|2|
         return exitCommand;
     }
-    //</editor-fold>//GEN-END:|18-getter|2|
+//</editor-fold>//GEN-END:|18-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
+
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: avisosCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
     /**
-     * Returns an initiliazed instance of form component.
-     * @return the initialized component instance
-     */
-    public Form getForm() {
-        if (form == null) {//GEN-END:|14-getter|0|14-preInit
-            // write pre-init user code here
-            form = new Form("Previs\u00E3o de Temperatura Hoje", new Item[] { getStringItem(), getCidadetextField() });//GEN-BEGIN:|14-getter|1|14-postInit
-            form.addCommand(getExitCommand());
-            form.addCommand(getBuscarCommand());
-            form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|14-getter|2|
-        return form;
-    }
-    //</editor-fold>//GEN-END:|14-getter|2|
-
-
-
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: avisosCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
-    /**
-     * Returns an initiliazed instance of avisosCommand component.
+     * Returns an initialized instance of avisosCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getAvisosCommand() {
@@ -286,11 +457,12 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|22-getter|2|
         return avisosCommand;
     }
-    //</editor-fold>//GEN-END:|22-getter|2|
+//</editor-fold>//GEN-END:|22-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backToListCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backToListCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
     /**
-     * Returns an initiliazed instance of backToListCommand component.
+     * Returns an initialized instance of backToListCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getBackToListCommand() {
@@ -301,11 +473,12 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|29-getter|2|
         return backToListCommand;
     }
-    //</editor-fold>//GEN-END:|29-getter|2|
+//</editor-fold>//GEN-END:|29-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand1 ">//GEN-BEGIN:|31-getter|0|31-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand1 ">//GEN-BEGIN:|31-getter|0|31-preInit
     /**
-     * Returns an initiliazed instance of backCommand1 component.
+     * Returns an initialized instance of backCommand1 component.
+     *
      * @return the initialized component instance
      */
     public Command getBackCommand1() {
@@ -316,11 +489,12 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|31-getter|2|
         return backCommand1;
     }
-    //</editor-fold>//GEN-END:|31-getter|2|
+//</editor-fold>//GEN-END:|31-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
     /**
-     * Returns an initiliazed instance of detalhesCommand component.
+     * Returns an initialized instance of detalhesCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getDetalhesCommand() {
@@ -331,26 +505,14 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|36-getter|2|
         return detalhesCommand;
     }
-    //</editor-fold>//GEN-END:|36-getter|2|
+//</editor-fold>//GEN-END:|36-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|39-getter|0|39-preInit
-    /**
-     * Returns an initiliazed instance of stringItem component.
-     * @return the initialized component instance
-     */
-    public StringItem getStringItem() {
-        if (stringItem == null) {//GEN-END:|39-getter|0|39-preInit
-            // write pre-init user code here
-            stringItem = new StringItem("", "Digite o nome da cidade para verificar a previs\u00E3o de temperatura m\u00E1xima e m\u00EDnima.");//GEN-LINE:|39-getter|1|39-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|39-getter|2|
-        return stringItem;
-    }
-    //</editor-fold>//GEN-END:|39-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: list ">//GEN-BEGIN:|24-getter|0|24-preInit
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: list ">//GEN-BEGIN:|24-getter|0|24-preInit
     /**
-     * Returns an initiliazed instance of list component.
+     * Returns an initialized instance of list component.
+     *
      * @return the initialized component instance
      */
     public List getList() {
@@ -359,44 +521,48 @@ public class prevTemp extends MIDlet implements CommandListener {
             list = new List("list", Choice.IMPLICIT);//GEN-BEGIN:|24-getter|1|24-postInit
             list.addCommand(getBackCommand1());
             list.addCommand(getDetalhesCommand());
-            list.setCommandListener(this);//GEN-END:|24-getter|1|24-postInit
+            list.setCommandListener(this);
+            list.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);//GEN-END:|24-getter|1|24-postInit
             // write post-init user code here
         }//GEN-BEGIN:|24-getter|2|
         return list;
     }
-    //</editor-fold>//GEN-END:|24-getter|2|
+//</editor-fold>//GEN-END:|24-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: listAction ">//GEN-BEGIN:|24-action|0|24-preAction
+//<editor-fold defaultstate="collapsed" desc=" Generated Method: listAction ">//GEN-BEGIN:|24-action|0|24-preAction
     /**
-     * Performs an action assigned to the selected list element in the list component.
+     * Performs an action assigned to the selected list element in the list
+     * component.
      */
     public void listAction() {//GEN-END:|24-action|0|24-preAction
         // enter pre-action user code here
         String __selectedString = getList().getString(getList().getSelectedIndex());//GEN-LINE:|24-action|1|24-postAction
         // enter post-action user code here
     }//GEN-BEGIN:|24-action|2|
-    //</editor-fold>//GEN-END:|24-action|2|
+//</editor-fold>//GEN-END:|24-action|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesform ">//GEN-BEGIN:|28-getter|0|28-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: detalhesform ">//GEN-BEGIN:|28-getter|0|28-preInit
     /**
-     * Returns an initiliazed instance of detalhesform component.
+     * Returns an initialized instance of detalhesform component.
+     *
      * @return the initialized component instance
      */
     public Form getDetalhesform() {
         if (detalhesform == null) {//GEN-END:|28-getter|0|28-preInit
             // write pre-init user code here
-            detalhesform = new Form("Temperatura Hoje", new Item[] { getDataStringItem(), getCidadeStringItem(), getMaximaStringItem(), getMinimaStringItem() });//GEN-BEGIN:|28-getter|1|28-postInit
+            detalhesform = new Form("Previs\u00E3o do Tempo p/ Hoje", new Item[]{getTempoImageItem(), getTempoStringItem(), getTemperaturaStringItem(), getLocaldataSringItem()});//GEN-BEGIN:|28-getter|1|28-postInit
             detalhesform.addCommand(getBackToListCommand());
             detalhesform.setCommandListener(this);//GEN-END:|28-getter|1|28-postInit
             // write post-init user code here
         }//GEN-BEGIN:|28-getter|2|
         return detalhesform;
     }
-    //</editor-fold>//GEN-END:|28-getter|2|
+//</editor-fold>//GEN-END:|28-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand ">//GEN-BEGIN:|47-getter|0|47-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand ">//GEN-BEGIN:|47-getter|0|47-preInit
     /**
-     * Returns an initiliazed instance of itemCommand component.
+     * Returns an initialized instance of itemCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getItemCommand() {
@@ -407,11 +573,12 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|47-getter|2|
         return itemCommand;
     }
-    //</editor-fold>//GEN-END:|47-getter|2|
+//</editor-fold>//GEN-END:|47-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand1 ">//GEN-BEGIN:|49-getter|0|49-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand1 ">//GEN-BEGIN:|49-getter|0|49-preInit
     /**
-     * Returns an initiliazed instance of itemCommand1 component.
+     * Returns an initialized instance of itemCommand1 component.
+     *
      * @return the initialized component instance
      */
     public Command getItemCommand1() {
@@ -422,50 +589,40 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|49-getter|2|
         return itemCommand1;
     }
-    //</editor-fold>//GEN-END:|49-getter|2|
+//</editor-fold>//GEN-END:|49-getter|2|
     //</editor-fold>
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cidadeStringItem ">//GEN-BEGIN:|53-getter|0|53-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temperaturaStringItem ">//GEN-BEGIN:|53-getter|0|53-preInit
     /**
-     * Returns an initiliazed instance of cidadeStringItem component.
+     * Returns an initialized instance of temperaturaStringItem component.
+     *
      * @return the initialized component instance
      */
-    public StringItem getCidadeStringItem() {
-        if (cidadeStringItem == null) {//GEN-END:|53-getter|0|53-preInit
+    public StringItem getTemperaturaStringItem() {
+        if (temperaturaStringItem == null) {//GEN-END:|53-getter|0|53-preInit
             // write pre-init user code here
-            cidadeStringItem = new StringItem("Cidade:", "");//GEN-LINE:|53-getter|1|53-postInit
+            temperaturaStringItem = new StringItem("", "");//GEN-BEGIN:|53-getter|1|53-postInit
+            temperaturaStringItem.setLayout(ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER);//GEN-END:|53-getter|1|53-postInit
             // write post-init user code here
         }//GEN-BEGIN:|53-getter|2|
-        return cidadeStringItem;
+        return temperaturaStringItem;
     }
-    //</editor-fold>//GEN-END:|53-getter|2|
+//</editor-fold>//GEN-END:|53-getter|2|
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: maximaStringItem ">//GEN-BEGIN:|54-getter|0|54-preInit
-    /**
-     * Returns an initiliazed instance of maximaStringItem component.
-     * @return the initialized component instance
-     */
-    public StringItem getMaximaStringItem() {
-        if (maximaStringItem == null) {//GEN-END:|54-getter|0|54-preInit
-            // write pre-init user code here
-            maximaStringItem = new StringItem("Temperatura M\u00EDnima:", "");//GEN-LINE:|54-getter|1|54-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|54-getter|2|
-        return maximaStringItem;
-    }
-    //</editor-fold>//GEN-END:|54-getter|2|
+
     //</editor-fold>
 
 
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: buscarCommand ">//GEN-BEGIN:|56-getter|0|56-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: buscarCommand ">//GEN-BEGIN:|56-getter|0|56-preInit
     /**
-     * Returns an initiliazed instance of buscarCommand component.
+     * Returns an initialized instance of buscarCommand component.
+     *
      * @return the initialized component instance
      */
     public Command getBuscarCommand() {
@@ -476,20 +633,21 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|56-getter|2|
         return buscarCommand;
     }
-    //</editor-fold>//GEN-END:|56-getter|2|
+//</editor-fold>//GEN-END:|56-getter|2|
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: buttonImage ">//GEN-BEGIN:|60-getter|0|60-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: buttonImage ">//GEN-BEGIN:|60-getter|0|60-preInit
     /**
-     * Returns an initiliazed instance of buttonImage component.
+     * Returns an initialized instance of buttonImage component.
+     *
      * @return the initialized component instance
      */
     public Image getButtonImage() {
         if (buttonImage == null) {//GEN-END:|60-getter|0|60-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|60-getter|1|60-@java.io.IOException
-                buttonImage = Image.createImage("/hello/images/seta.jpg");
+                buttonImage = Image.createImage("/prevTemp/images/seta.jpg");
             } catch (java.io.IOException e) {//GEN-END:|60-getter|1|60-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|60-getter|2|60-postInit
@@ -497,55 +655,972 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|60-getter|3|
         return buttonImage;
     }
-    //</editor-fold>//GEN-END:|60-getter|3|
+//</editor-fold>//GEN-END:|60-getter|3|
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cidadetextField ">//GEN-BEGIN:|64-getter|0|64-preInit
+
+    //</editor-fold>
+
+
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: localdataSringItem ">//GEN-BEGIN:|70-getter|0|70-preInit
     /**
-     * Returns an initiliazed instance of cidadetextField component.
+     * Returns an initialized instance of localdataSringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getLocaldataSringItem() {
+        if (localdataSringItem == null) {//GEN-END:|70-getter|0|70-preInit
+            // write pre-init user code here
+            localdataSringItem = new StringItem("", "");//GEN-LINE:|70-getter|1|70-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|70-getter|2|
+        return localdataSringItem;
+    }
+//</editor-fold>//GEN-END:|70-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|71-getter|0|71-preInit
+    /**
+     * Returns an initialized instance of okCommand component.
+     *
+     * @return the initialized component instance
+     */
+    public Command getOkCommand() {
+        if (okCommand == null) {//GEN-END:|71-getter|0|71-preInit
+            // write pre-init user code here
+            okCommand = new Command("Ok", Command.OK, 0);//GEN-LINE:|71-getter|1|71-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|71-getter|2|
+        return okCommand;
+    }
+//</editor-fold>//GEN-END:|71-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
+    /**
+     * Returns an initialized instance of form component.
+     *
+     * @return the initialized component instance
+     */
+    public Form getForm() {
+        if (form == null) {//GEN-END:|14-getter|0|14-preInit
+            // write pre-init user code here
+            form = new Form("Previs\u00E3o de Tempo", new Item[]{getImageItem(), getStringItem(), getCidadetextField()});//GEN-BEGIN:|14-getter|1|14-postInit
+            form.addCommand(getExitCommand());
+            form.addCommand(getBuscarCommand());
+            form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|14-getter|2|
+        return form;
+    }
+//</editor-fold>//GEN-END:|14-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cidadetextField ">//GEN-BEGIN:|64-getter|0|64-preInit
+    /**
+     * Returns an initialized instance of cidadetextField component.
+     *
      * @return the initialized component instance
      */
     public TextField getCidadetextField() {
         if (cidadetextField == null) {//GEN-END:|64-getter|0|64-preInit
             // write pre-init user code here
-            cidadetextField = new TextField("Nome da cidade:", "", 32, TextField.ANY);//GEN-LINE:|64-getter|1|64-postInit
+            cidadetextField = new TextField("Nome da cidade:", "", 32, TextField.ANY | TextField.INITIAL_CAPS_WORD);//GEN-BEGIN:|64-getter|1|64-postInit
+            cidadetextField.setInitialInputMode("ABC");//GEN-END:|64-getter|1|64-postInit
             // write post-init user code here
         }//GEN-BEGIN:|64-getter|2|
         return cidadetextField;
     }
-    //</editor-fold>//GEN-END:|64-getter|2|
-    //</editor-fold>
+//</editor-fold>//GEN-END:|64-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: minimaStringItem ">//GEN-BEGIN:|69-getter|0|69-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|39-getter|0|39-preInit
     /**
-     * Returns an initiliazed instance of minimaStringItem component.
+     * Returns an initialized instance of stringItem component.
+     *
      * @return the initialized component instance
      */
-    public StringItem getMinimaStringItem() {
-        if (minimaStringItem == null) {//GEN-END:|69-getter|0|69-preInit
+    public StringItem getStringItem() {
+        if (stringItem == null) {//GEN-END:|39-getter|0|39-preInit
             // write pre-init user code here
-            minimaStringItem = new StringItem("Temperatura M\u00EDnima:", "");//GEN-LINE:|69-getter|1|69-postInit
+            stringItem = new StringItem("", "Digite o nome da cidade para verificar a previs\u00E3o de do tempo.");//GEN-LINE:|39-getter|1|39-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|69-getter|2|
-        return minimaStringItem;
+        }//GEN-BEGIN:|39-getter|2|
+        return stringItem;
     }
-    //</editor-fold>//GEN-END:|69-getter|2|
+//</editor-fold>//GEN-END:|39-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: dataStringItem ">//GEN-BEGIN:|70-getter|0|70-preInit
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoStringItem ">//GEN-BEGIN:|72-getter|0|72-preInit
     /**
-     * Returns an initiliazed instance of dataStringItem component.
+     * Returns an initialized instance of tempoStringItem component.
+     *
      * @return the initialized component instance
      */
-    public StringItem getDataStringItem() {
-        if (dataStringItem == null) {//GEN-END:|70-getter|0|70-preInit
+    public StringItem getTempoStringItem() {
+        if (tempoStringItem == null) {//GEN-END:|72-getter|0|72-preInit
             // write pre-init user code here
-            dataStringItem = new StringItem("Data", "");//GEN-LINE:|70-getter|1|70-postInit
+            tempoStringItem = new StringItem("", "");//GEN-BEGIN:|72-getter|1|72-postInit
+            tempoStringItem.setLayout(ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER);//GEN-END:|72-getter|1|72-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|70-getter|2|
-        return dataStringItem;
+        }//GEN-BEGIN:|72-getter|2|
+        return tempoStringItem;
     }
-    //</editor-fold>//GEN-END:|70-getter|2|
+//</editor-fold>//GEN-END:|72-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoImageItem ">//GEN-BEGIN:|73-getter|0|73-preInit
+    /**
+     * Returns an initialized instance of tempoImageItem component.
+     *
+     * @return the initialized component instance
+     */
+    public ImageItem getTempoImageItem() {
+        if (tempoImageItem == null) {//GEN-END:|73-getter|0|73-preInit
+            // write pre-init user code here
+            tempoImageItem = new ImageItem("", null, ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND, "SEM PREVIS\u00C3O", Item.PLAIN);//GEN-LINE:|73-getter|1|73-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|73-getter|2|
+        return tempoImageItem;
+    }
+//</editor-fold>//GEN-END:|73-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pnt ">//GEN-BEGIN:|74-getter|0|74-preInit
+    /**
+     * Returns an initialized instance of pnt component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPnt() {
+        if (pnt == null) {//GEN-END:|74-getter|0|74-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|74-getter|1|74-@java.io.IOException
+                pnt = Image.createImage("/prevTemp/images/pnt.png");
+            } catch (java.io.IOException e) {//GEN-END:|74-getter|1|74-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|74-getter|2|74-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|74-getter|3|
+        return pnt;
+    }
+//</editor-fold>//GEN-END:|74-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: n ">//GEN-BEGIN:|75-getter|0|75-preInit
+    /**
+     * Returns an initialized instance of n component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getN() {
+        if (n == null) {//GEN-END:|75-getter|0|75-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|75-getter|1|75-@java.io.IOException
+                n = Image.createImage("/prevTemp/images/n.png");
+            } catch (java.io.IOException e) {//GEN-END:|75-getter|1|75-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|75-getter|2|75-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|75-getter|3|
+        return n;
+    }
+//</editor-fold>//GEN-END:|75-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pn ">//GEN-BEGIN:|76-getter|0|76-preInit
+    /**
+     * Returns an initialized instance of pn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPn() {
+        if (pn == null) {//GEN-END:|76-getter|0|76-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|76-getter|1|76-@java.io.IOException
+                pn = Image.createImage("/prevTemp/images/pn.png");
+            } catch (java.io.IOException e) {//GEN-END:|76-getter|1|76-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|76-getter|2|76-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|76-getter|3|
+        return pn;
+    }
+//</editor-fold>//GEN-END:|76-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: in ">//GEN-BEGIN:|77-getter|0|77-preInit
+    /**
+     * Returns an initialized instance of in component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getIn() {
+        if (in == null) {//GEN-END:|77-getter|0|77-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|77-getter|1|77-@java.io.IOException
+                in = Image.createImage("/prevTemp/images/in.png");
+            } catch (java.io.IOException e) {//GEN-END:|77-getter|1|77-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|77-getter|2|77-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|77-getter|3|
+        return in;
+    }
+//</editor-fold>//GEN-END:|77-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppm ">//GEN-BEGIN:|78-getter|0|78-preInit
+    /**
+     * Returns an initialized instance of ppm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPpm() {
+        if (ppm == null) {//GEN-END:|78-getter|0|78-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|78-getter|1|78-@java.io.IOException
+                ppm = Image.createImage("/prevTemp/images/ppm.png");
+            } catch (java.io.IOException e) {//GEN-END:|78-getter|1|78-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|78-getter|2|78-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|78-getter|3|
+        return ppm;
+    }
+//</editor-fold>//GEN-END:|78-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncn ">//GEN-BEGIN:|79-getter|0|79-preInit
+    /**
+     * Returns an initialized instance of ncn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNcn() {
+        if (ncn == null) {//GEN-END:|79-getter|0|79-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|79-getter|1|79-@java.io.IOException
+                ncn = Image.createImage("/prevTemp/images/ncn.png");
+            } catch (java.io.IOException e) {//GEN-END:|79-getter|1|79-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|79-getter|2|79-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|79-getter|3|
+        return ncn;
+    }
+//</editor-fold>//GEN-END:|79-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pp ">//GEN-BEGIN:|80-getter|0|80-preInit
+    /**
+     * Returns an initialized instance of pp component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPp() {
+        if (pp == null) {//GEN-END:|80-getter|0|80-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|80-getter|1|80-@java.io.IOException
+                pp = Image.createImage("/prevTemp/images/pp.png");
+            } catch (java.io.IOException e) {//GEN-END:|80-getter|1|80-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|80-getter|2|80-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|80-getter|3|
+        return pp;
+    }
+//</editor-fold>//GEN-END:|80-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncm ">//GEN-BEGIN:|81-getter|0|81-preInit
+    /**
+     * Returns an initialized instance of ncm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNcm() {
+        if (ncm == null) {//GEN-END:|81-getter|0|81-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|81-getter|1|81-@java.io.IOException
+                ncm = Image.createImage("/prevTemp/images/ncm.png");
+            } catch (java.io.IOException e) {//GEN-END:|81-getter|1|81-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|81-getter|2|81-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|81-getter|3|
+        return ncm;
+    }
+//</editor-fold>//GEN-END:|81-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppt ">//GEN-BEGIN:|82-getter|0|82-preInit
+    /**
+     * Returns an initialized instance of ppt component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPpt() {
+        if (ppt == null) {//GEN-END:|82-getter|0|82-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|82-getter|1|82-@java.io.IOException
+                ppt = Image.createImage("/prevTemp/images/ppt.png");
+            } catch (java.io.IOException e) {//GEN-END:|82-getter|1|82-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|82-getter|2|82-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|82-getter|3|
+        return ppt;
+    }
+//</editor-fold>//GEN-END:|82-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppn ">//GEN-BEGIN:|83-getter|0|83-preInit
+    /**
+     * Returns an initialized instance of ppn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPpn() {
+        if (ppn == null) {//GEN-END:|83-getter|0|83-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|83-getter|1|83-@java.io.IOException
+                ppn = Image.createImage("/prevTemp/images/ppn.png");
+            } catch (java.io.IOException e) {//GEN-END:|83-getter|1|83-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|83-getter|2|83-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|83-getter|3|
+        return ppn;
+    }
+//</editor-fold>//GEN-END:|83-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: psc ">//GEN-BEGIN:|84-getter|0|84-preInit
+    /**
+     * Returns an initialized instance of psc component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPsc() {
+        if (psc == null) {//GEN-END:|84-getter|0|84-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|84-getter|1|84-@java.io.IOException
+                psc = Image.createImage("/prevTemp/images/psc.png");
+            } catch (java.io.IOException e) {//GEN-END:|84-getter|1|84-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|84-getter|2|84-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|84-getter|3|
+        return psc;
+    }
+//</editor-fold>//GEN-END:|84-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: g ">//GEN-BEGIN:|85-getter|0|85-preInit
+    /**
+     * Returns an initialized instance of g component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getG() {
+        if (g == null) {//GEN-END:|85-getter|0|85-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|85-getter|1|85-@java.io.IOException
+                g = Image.createImage("/prevTemp/images/g.png");
+            } catch (java.io.IOException e) {//GEN-END:|85-getter|1|85-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|85-getter|2|85-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|85-getter|3|
+        return g;
+    }
+//</editor-fold>//GEN-END:|85-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ps ">//GEN-BEGIN:|86-getter|0|86-preInit
+    /**
+     * Returns an initialized instance of ps component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPs() {
+        if (ps == null) {//GEN-END:|86-getter|0|86-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|86-getter|1|86-@java.io.IOException
+                ps = Image.createImage("/prevTemp/images/ps.png");
+            } catch (java.io.IOException e) {//GEN-END:|86-getter|1|86-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|86-getter|2|86-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|86-getter|3|
+        return ps;
+    }
+//</editor-fold>//GEN-END:|86-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ec ">//GEN-BEGIN:|87-getter|0|87-preInit
+    /**
+     * Returns an initialized instance of ec component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getEc() {
+        if (ec == null) {//GEN-END:|87-getter|0|87-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|87-getter|1|87-@java.io.IOException
+                ec = Image.createImage("/prevTemp/images/ec.png");
+            } catch (java.io.IOException e) {//GEN-END:|87-getter|1|87-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|87-getter|2|87-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|87-getter|3|
+        return ec;
+    }
+//</editor-fold>//GEN-END:|87-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcn ">//GEN-BEGIN:|88-getter|0|88-preInit
+    /**
+     * Returns an initialized instance of pcn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPcn() {
+        if (pcn == null) {//GEN-END:|88-getter|0|88-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|88-getter|1|88-@java.io.IOException
+                pcn = Image.createImage("/prevTemp/images/pcn.png");
+            } catch (java.io.IOException e) {//GEN-END:|88-getter|1|88-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|88-getter|2|88-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|88-getter|3|
+        return pcn;
+    }
+//</editor-fold>//GEN-END:|88-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pct ">//GEN-BEGIN:|89-getter|0|89-preInit
+    /**
+     * Returns an initialized instance of pct component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPct() {
+        if (pct == null) {//GEN-END:|89-getter|0|89-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|89-getter|1|89-@java.io.IOException
+                pct = Image.createImage("/prevTemp/images/pct.png");
+            } catch (java.io.IOException e) {//GEN-END:|89-getter|1|89-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|89-getter|2|89-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|89-getter|3|
+        return pct;
+    }
+//</editor-fold>//GEN-END:|89-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pm ">//GEN-BEGIN:|90-getter|0|90-preInit
+    /**
+     * Returns an initialized instance of pm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPm() {
+        if (pm == null) {//GEN-END:|90-getter|0|90-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|90-getter|1|90-@java.io.IOException
+                pm = Image.createImage("/prevTemp/images/pm.png");
+            } catch (java.io.IOException e) {//GEN-END:|90-getter|1|90-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|90-getter|2|90-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|90-getter|3|
+        return pm;
+    }
+//</editor-fold>//GEN-END:|90-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npp ">//GEN-BEGIN:|91-getter|0|91-preInit
+    /**
+     * Returns an initialized instance of npp component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNpp() {
+        if (npp == null) {//GEN-END:|91-getter|0|91-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|91-getter|1|91-@java.io.IOException
+                npp = Image.createImage("/prevTemp/images/npp.png");
+            } catch (java.io.IOException e) {//GEN-END:|91-getter|1|91-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|91-getter|2|91-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|91-getter|3|
+        return npp;
+    }
+//</editor-fold>//GEN-END:|91-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npn ">//GEN-BEGIN:|92-getter|0|92-preInit
+    /**
+     * Returns an initialized instance of npn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNpn() {
+        if (npn == null) {//GEN-END:|92-getter|0|92-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|92-getter|1|92-@java.io.IOException
+                npn = Image.createImage("/prevTemp/images/npn.png");
+            } catch (java.io.IOException e) {//GEN-END:|92-getter|1|92-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|92-getter|2|92-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|92-getter|3|
+        return npn;
+    }
+//</editor-fold>//GEN-END:|92-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npm ">//GEN-BEGIN:|93-getter|0|93-preInit
+    /**
+     * Returns an initialized instance of npm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNpm() {
+        if (npm == null) {//GEN-END:|93-getter|0|93-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|93-getter|1|93-@java.io.IOException
+                npm = Image.createImage("/prevTemp/images/npm.png");
+            } catch (java.io.IOException e) {//GEN-END:|93-getter|1|93-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|93-getter|2|93-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|93-getter|3|
+        return npm;
+    }
+//</editor-fold>//GEN-END:|93-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: t ">//GEN-BEGIN:|94-getter|0|94-preInit
+    /**
+     * Returns an initialized instance of t component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getT() {
+        if (t == null) {//GEN-END:|94-getter|0|94-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|94-getter|1|94-@java.io.IOException
+                t = Image.createImage("/prevTemp/images/t.png");
+            } catch (java.io.IOException e) {//GEN-END:|94-getter|1|94-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|94-getter|2|94-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|94-getter|3|
+        return t;
+    }
+//</editor-fold>//GEN-END:|94-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcm ">//GEN-BEGIN:|95-getter|0|95-preInit
+    /**
+     * Returns an initialized instance of pcm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPcm() {
+        if (pcm == null) {//GEN-END:|95-getter|0|95-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|95-getter|1|95-@java.io.IOException
+                pcm = Image.createImage("/prevTemp/images/pcm.png");
+            } catch (java.io.IOException e) {//GEN-END:|95-getter|1|95-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|95-getter|2|95-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|95-getter|3|
+        return pcm;
+    }
+//</editor-fold>//GEN-END:|95-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pt ">//GEN-BEGIN:|96-getter|0|96-preInit
+    /**
+     * Returns an initialized instance of pt component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPt() {
+        if (pt == null) {//GEN-END:|96-getter|0|96-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|96-getter|1|96-@java.io.IOException
+                pt = Image.createImage("/prevTemp/images/pt.png");
+            } catch (java.io.IOException e) {//GEN-END:|96-getter|1|96-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|96-getter|2|96-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|96-getter|3|
+        return pt;
+    }
+//</editor-fold>//GEN-END:|96-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pc ">//GEN-BEGIN:|97-getter|0|97-preInit
+    /**
+     * Returns an initialized instance of pc component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getPc() {
+        if (pc == null) {//GEN-END:|97-getter|0|97-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|97-getter|1|97-@java.io.IOException
+                pc = Image.createImage("/prevTemp/images/pc.png");
+            } catch (java.io.IOException e) {//GEN-END:|97-getter|1|97-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|97-getter|2|97-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|97-getter|3|
+        return pc;
+    }
+//</editor-fold>//GEN-END:|97-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nv ">//GEN-BEGIN:|98-getter|0|98-preInit
+    /**
+     * Returns an initialized instance of nv component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNv() {
+        if (nv == null) {//GEN-END:|98-getter|0|98-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|98-getter|1|98-@java.io.IOException
+                nv = Image.createImage("/prevTemp/images/nv.png");
+            } catch (java.io.IOException e) {//GEN-END:|98-getter|1|98-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|98-getter|2|98-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|98-getter|3|
+        return nv;
+    }
+//</editor-fold>//GEN-END:|98-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npt ">//GEN-BEGIN:|99-getter|0|99-preInit
+    /**
+     * Returns an initialized instance of npt component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNpt() {
+        if (npt == null) {//GEN-END:|99-getter|0|99-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|99-getter|1|99-@java.io.IOException
+                npt = Image.createImage("/prevTemp/images/npt.png");
+            } catch (java.io.IOException e) {//GEN-END:|99-getter|1|99-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|99-getter|2|99-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|99-getter|3|
+        return npt;
+    }
+//</editor-fold>//GEN-END:|99-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ne ">//GEN-BEGIN:|100-getter|0|100-preInit
+    /**
+     * Returns an initialized instance of ne component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNe() {
+        if (ne == null) {//GEN-END:|100-getter|0|100-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|100-getter|1|100-@java.io.IOException
+                ne = Image.createImage("/prevTemp/images/ne.png");
+            } catch (java.io.IOException e) {//GEN-END:|100-getter|1|100-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|100-getter|2|100-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|100-getter|3|
+        return ne;
+    }
+//</editor-fold>//GEN-END:|100-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: np ">//GEN-BEGIN:|101-getter|0|101-preInit
+    /**
+     * Returns an initialized instance of np component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNp() {
+        if (np == null) {//GEN-END:|101-getter|0|101-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|101-getter|1|101-@java.io.IOException
+                np = Image.createImage("/prevTemp/images/np.png");
+            } catch (java.io.IOException e) {//GEN-END:|101-getter|1|101-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|101-getter|2|101-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|101-getter|3|
+        return np;
+    }
+//</editor-fold>//GEN-END:|101-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ch ">//GEN-BEGIN:|102-getter|0|102-preInit
+    /**
+     * Returns an initialized instance of ch component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCh() {
+        if (ch == null) {//GEN-END:|102-getter|0|102-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|102-getter|1|102-@java.io.IOException
+                ch = Image.createImage("/prevTemp/images/ch.png");
+            } catch (java.io.IOException e) {//GEN-END:|102-getter|1|102-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|102-getter|2|102-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|102-getter|3|
+        return ch;
+    }
+//</editor-fold>//GEN-END:|102-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nct ">//GEN-BEGIN:|103-getter|0|103-preInit
+    /**
+     * Returns an initialized instance of nct component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNct() {
+        if (nct == null) {//GEN-END:|103-getter|0|103-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|103-getter|1|103-@java.io.IOException
+                nct = Image.createImage("/prevTemp/images/nct.png");
+            } catch (java.io.IOException e) {//GEN-END:|103-getter|1|103-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|103-getter|2|103-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|103-getter|3|
+        return nct;
+    }
+//</editor-fold>//GEN-END:|103-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: c ">//GEN-BEGIN:|104-getter|0|104-preInit
+    /**
+     * Returns an initialized instance of c component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getC() {
+        if (c == null) {//GEN-END:|104-getter|0|104-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|104-getter|1|104-@java.io.IOException
+                c = Image.createImage("/prevTemp/images/c.png");
+            } catch (java.io.IOException e) {//GEN-END:|104-getter|1|104-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|104-getter|2|104-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|104-getter|3|
+        return c;
+    }
+//</editor-fold>//GEN-END:|104-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nd ">//GEN-BEGIN:|105-getter|0|105-preInit
+    /**
+     * Returns an initialized instance of nd component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getNd() {
+        if (nd == null) {//GEN-END:|105-getter|0|105-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|105-getter|1|105-@java.io.IOException
+                nd = Image.createImage("/prevTemp/images/nd.png");
+            } catch (java.io.IOException e) {//GEN-END:|105-getter|1|105-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|105-getter|2|105-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|105-getter|3|
+        return nd;
+    }
+//</editor-fold>//GEN-END:|105-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cv ">//GEN-BEGIN:|106-getter|0|106-preInit
+    /**
+     * Returns an initialized instance of cv component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCv() {
+        if (cv == null) {//GEN-END:|106-getter|0|106-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|106-getter|1|106-@java.io.IOException
+                cv = Image.createImage("/prevTemp/images/cv.png");
+            } catch (java.io.IOException e) {//GEN-END:|106-getter|1|106-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|106-getter|2|106-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|106-getter|3|
+        return cv;
+    }
+//</editor-fold>//GEN-END:|106-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ct ">//GEN-BEGIN:|107-getter|0|107-preInit
+    /**
+     * Returns an initialized instance of ct component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCt() {
+        if (ct == null) {//GEN-END:|107-getter|0|107-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|107-getter|1|107-@java.io.IOException
+                ct = Image.createImage("/prevTemp/images/ct.png");
+            } catch (java.io.IOException e) {//GEN-END:|107-getter|1|107-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|107-getter|2|107-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|107-getter|3|
+        return ct;
+    }
+//</editor-fold>//GEN-END:|107-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: vn ">//GEN-BEGIN:|108-getter|0|108-preInit
+    /**
+     * Returns an initialized instance of vn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getVn() {
+        if (vn == null) {//GEN-END:|108-getter|0|108-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|108-getter|1|108-@java.io.IOException
+                vn = Image.createImage("/prevTemp/images/vn.png");
+            } catch (java.io.IOException e) {//GEN-END:|108-getter|1|108-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|108-getter|2|108-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|108-getter|3|
+        return vn;
+    }
+//</editor-fold>//GEN-END:|108-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: e ">//GEN-BEGIN:|109-getter|0|109-preInit
+    /**
+     * Returns an initialized instance of e component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getE() {
+        if (e == null) {//GEN-END:|109-getter|0|109-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|109-getter|1|109-@java.io.IOException
+                e = Image.createImage("/prevTemp/images/e.png");
+            } catch (java.io.IOException e) {//GEN-END:|109-getter|1|109-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|109-getter|2|109-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|109-getter|3|
+        return e;
+    }
+//</editor-fold>//GEN-END:|109-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cl ">//GEN-BEGIN:|110-getter|0|110-preInit
+    /**
+     * Returns an initialized instance of cl component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCl() {
+        if (cl == null) {//GEN-END:|110-getter|0|110-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|110-getter|1|110-@java.io.IOException
+                cl = Image.createImage("/prevTemp/images/cl.png");
+            } catch (java.io.IOException e) {//GEN-END:|110-getter|1|110-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|110-getter|2|110-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|110-getter|3|
+        return cl;
+    }
+//</editor-fold>//GEN-END:|110-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ci ">//GEN-BEGIN:|111-getter|0|111-preInit
+    /**
+     * Returns an initialized instance of ci component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCi() {
+        if (ci == null) {//GEN-END:|111-getter|0|111-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|111-getter|1|111-@java.io.IOException
+                ci = Image.createImage("/prevTemp/images/ci.png");
+            } catch (java.io.IOException e) {//GEN-END:|111-getter|1|111-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|111-getter|2|111-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|111-getter|3|
+        return ci;
+    }
+//</editor-fold>//GEN-END:|111-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cn ">//GEN-BEGIN:|112-getter|0|112-preInit
+    /**
+     * Returns an initialized instance of cn component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCn() {
+        if (cn == null) {//GEN-END:|112-getter|0|112-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|112-getter|1|112-@java.io.IOException
+                cn = Image.createImage("/prevTemp/images/cn.png");
+            } catch (java.io.IOException e) {//GEN-END:|112-getter|1|112-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|112-getter|2|112-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|112-getter|3|
+        return cn;
+    }
+//</editor-fold>//GEN-END:|112-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cm ">//GEN-BEGIN:|113-getter|0|113-preInit
+    /**
+     * Returns an initialized instance of cm component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getCm() {
+        if (cm == null) {//GEN-END:|113-getter|0|113-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|113-getter|1|113-@java.io.IOException
+                cm = Image.createImage("/prevTemp/images/cm.png");
+            } catch (java.io.IOException e) {//GEN-END:|113-getter|1|113-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|113-getter|2|113-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|113-getter|3|
+        return cm;
+    }
+//</editor-fold>//GEN-END:|113-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem ">//GEN-BEGIN:|118-getter|0|118-preInit
+    /**
+     * Returns an initialized instance of imageItem component.
+     *
+     * @return the initialized component instance
+     */
+    public ImageItem getImageItem() {
+        if (imageItem == null) {//GEN-END:|118-getter|0|118-preInit
+            // write pre-init user code here
+            imageItem = new ImageItem("", getLogo(), ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND, "<Missing Image>");//GEN-BEGIN:|118-getter|1|118-postInit
+            imageItem.setPreferredSize(20, -1);//GEN-END:|118-getter|1|118-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|118-getter|2|
+        return imageItem;
+    }
+//</editor-fold>//GEN-END:|118-getter|2|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: logo ">//GEN-BEGIN:|117-getter|0|117-preInit
+    /**
+     * Returns an initialized instance of logo component.
+     *
+     * @return the initialized component instance
+     */
+    public Image getLogo() {
+        if (logo == null) {//GEN-END:|117-getter|0|117-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|117-getter|1|117-@java.io.IOException
+                logo = Image.createImage("/prevTemp/images/logopequeno200.png");
+            } catch (java.io.IOException e) {//GEN-END:|117-getter|1|117-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|117-getter|2|117-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|117-getter|3|
+        return logo;
+    }
+//</editor-fold>//GEN-END:|117-getter|3|
+
+
+
+
 
 
 
