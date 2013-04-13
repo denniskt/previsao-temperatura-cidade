@@ -1,4 +1,6 @@
+#summary Telas da Aplicação
 #labels Telas,PrintScream
+
 =Telas da Aplicação=
 
 Descrição das telas da aplicação.
