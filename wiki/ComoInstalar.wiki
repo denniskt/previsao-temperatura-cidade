@@ -1,5 +1,5 @@
-#summary One-sentence summary of this page.
-#labels Instalação
+#labels Instalação,Instruções
+#Manual de instação do aplicativo
 
 = Introduction =
 
