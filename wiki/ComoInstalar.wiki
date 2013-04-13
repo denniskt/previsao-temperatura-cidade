@@ -1,14 +1,13 @@
 #summary Instruções de instalação.
 #labels Instalação,Instruções
 
-= Introduction =
+= Instruções de Instalação =
 
-Add your content here.
+== Observações ==
+  * Necessário que o aparelho tenha suporte para a tecnologia JAVA;
+  * Necessário que o aparelho tenha conexão com a internet para consulta dos dados;
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Instalação ==
+  # Realizar o download do arquivo prevTempo.jar<br>Disponível em: https://code.google.com/p/previsao-temperatura-cidade/downloads/detail?name=prevTempo.jar<br>
+  # Realizar a cópia para seu dispositivo;<br>
+  # Executar o arquivo prevTempo.jar.
