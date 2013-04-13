@@ -3,9 +3,9 @@
 
 Descrição das telas da aplicação.
 
-|| *Tela* || *Descrição* ||
-|| http://i.imgur.com/DW4jgnr.jpg || Tela inicial do aplicativo, com o campo para realizar a busca da cidade por nome. ||
-|| http://i.imgur.com/tEwyBXR.jpg || Resultado da busca de cidade realizada, onde é apresentada a lista com as cidades encontradas e seu Estado. ||
-|| http://i.imgur.com/TEzYhzB.jpg || Ao acionar o menu será exibida as opções:<br>1. Previsão p/ Hoje<br>2. Próx. Dias. ||
-|| http://i.imgur.com/XRGTlTT.jpg || _N/A_ ||
-|| http://i.imgur.com/ZN4ly4J.jpg || -2 ||
+
+|| http://i.imgur.com/DW4jgnr.jpg || http://i.imgur.com/tEwyBXR.jpg || http://i.imgur.com/TEzYhzB.jpg ||
+|| Tela Inicial || Lista Cidades || Menu Opções ||
+
+|| http://i.imgur.com/XRGTlTT.jpg || http://i.imgur.com/ZN4ly4J.jpg || 
+|| Previsão Hoje || Próx. Dias || 
