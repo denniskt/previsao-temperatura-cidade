@@ -3,7 +3,9 @@
 =Instruções de Uso=
 
 Instruções de uso do aplicativo de Previsão do Tempo
-<code>*obs.: É NECESSÁRIO QUE O APARELHO ONDE O APLICATIVO DE PREVISÃO DO TEMPO VAI SER INSTALADO TENHA CONEXÃO COM A INTERNET PARA SEU FUNCIONAMENTO.*</code>
+<code>*obs.: É NECESSÁRIO QUE O APARELHO ONDE O APLICATIVO DE PREVISÃO
+DO TEMPO VAI SER INSTALADO TENHA CONEXÃO COM A INTERNET PARA SEU 
+FUNCIONAMENTO.*</code>
 <code>Problemas de utilização favor consultar a guia de problemas pelo link
 https://code.google.com/p/previsao-temperatura-cidade/wiki/ProblemasMensagensErro</code>
 
