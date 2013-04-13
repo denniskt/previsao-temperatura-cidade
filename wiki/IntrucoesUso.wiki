@@ -1,5 +1,5 @@
 #labels Instruções
-<h1>Instruções de Uso</h1>
+=Instruções de Uso=
 
 Instruções de uso do aplicativo de Previsão do Tempo
 
