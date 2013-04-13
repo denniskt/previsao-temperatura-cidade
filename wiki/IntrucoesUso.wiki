@@ -3,8 +3,6 @@
 =Instruções de Uso=
 
 Instruções de uso do aplicativo de Previsão do Tempo
-<p>Problemas de utilização favor consultar a guia de problemas pelo link:<br>
-<a href="https://code.google.com/p/previsao-temperatura-cidade/wiki/ProblemasUtilizacao">https://code.google.com/p/previsao-temperatura-cidade/wiki/ProblemasUtilizacao</a>
 <br><br>
 || *Tela* || *Instruções* ||
 || http://i.imgur.com/DW4jgnr.jpg || <p>Importante: É NECESSÁRIO QUE O DISPOSITIVO ONDE O APLICATIVO DE PREVISÃO DO TEMPO VAI SER INSTALADO TENHA CONEXÃO COM A INTERNET PARA SEU FUNCIONAMENTO.<p> 1- Ao executar o aplicativo, será apresentada a tela inicial, com o campo para digitar o nome da cidade que deseja consultar;<br>2- Após digitar o nome da cidade, selecione a opção MENU e em seguida em PESQUISAR para realizar a busca;<br>3- O aplicativo irá realizar a busca.<p>Caso o aplicativo apresente mensagem de falha, é necessário verificar se sua conexão de internet está funcionando corretamente e se os serviços do IMPE estão indisponíveis. ||
@@ -12,3 +10,15 @@ Instruções de uso do aplicativo de Previsão do Tempo
 || http://i.imgur.com/TEzYhzB.jpg || 6- Serão exibidas 2 opções no MENU:<br> 6.1- PREVISÃO P/ HOJE, que exibirá a previsão do tempo, temperatura mínima e máxima para a data atual<br>6.2 - PROX. DIAS, que exibirá as previsões para os próximos dois dias. ||
 || http://i.imgur.com/XRGTlTT.jpg || 6.1 - PREVISÃO P/ HOJE, Será exibida a previsão do tempo e as temperaturas mínima e máxima para a data atual, ||
 || http://i.imgur.com/ZN4ly4J.jpg || 6.2 - PRÓX. DIAS, Serão exibidas as previsões do tempo, temperatura mínima e máxima para para os próximos 2 (dois) dias. ||
+
+
+
+= Problemas e Mensagens de Erro =
+
+Descrição para as mensagens de falhas ou erros durante a utilização do aplicativo.
+<br><br>
+
+|| *Problema* || *Descrição* ||
+|| Não encontro minha cidade ||  - Verificar se o nome da cidade está digitado corretamente;<bR>- Sua cidade não é coberta pela previsão de tempo do IMPE. ||
+|| Mensagem "FALHA" ||  - O aplicativo não consegue acessar os dados pela internet, verifique sua conexão com a internet. ||
+|| Não exibe a previsão <br>de tempo e/ou clima ||  - A previsão para a cidade não foi fornecida total ou parcialmente pelo IMPE ||
