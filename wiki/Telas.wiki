@@ -3,10 +3,13 @@
 
 Imagens de todas as telas da aplicação.
 
+http://i.imgur.com/DW4jgnr.jpg<br>
+Tela inicial do aplicativo, com o campo para realizar a busca da cidade por nome.
 
-<table>
-<tr>
-<td>http://i.imgur.com/DW4jgnr.jpg http://i.imgur.com/tEwyBXR.jpg http://i.imgur.com/TEzYhzB.jpg</td>
+http://i.imgur.com/tEwyBXR.jpg <br>
+Resultado da busca de cidade realizada, onde é apresentada a lista com as cidades encontradas e seu Estado.
+
+http://i.imgur.com/TEzYhzB.jpg
 
 <tr>
 <td>http://i.imgur.com/ZN4ly4J.jpg http://i.imgur.com/XRGTlTT.jpg http://i.imgur.com/ZN4ly4J.jpg</td>
