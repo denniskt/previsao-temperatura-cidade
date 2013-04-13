@@ -1,0 +1,14 @@
+#summary Causas das mensagens de erro.
+#labels Instrução,Erro
+
+= Mensagens de Erro =
+
+Descrição para as mensagens de falhas ou erros durante a utilização do aplicativo.
+
+
+= Detalhes =
+
+|| *Problema* || *Descrição* ||
+|| Não encontro minha cidade ||  - Verificar se o nome da cidade está digitado corretamente;<bR>- Sua cidade não é coberta pela previsão de tempo do IMPE. ||
+|| Mensagem "FALHA" ||  - O aplicativo não consegue acessar os dados pela internet, verifique sua conexão com a internet;<bR>- Sua cidade não é coberta pela previsão de tempo do IMPE ||
+|| Não exibe a previsão ||  - A previsão não foi fornecida pelo IMPE ||
