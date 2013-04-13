@@ -3,7 +3,9 @@
 =Instruções de Uso=
 
 Instruções de uso do aplicativo de Previsão do Tempo
-<p>*É NECESSÁRIO QUE O APARELHO ONDE O APLICATIVO DE PREVISÃO DO TEMPO VAI SER INSTALADO TENHA CONEXÃO COM A INTERNET PARA SEU FUNCIONAMENTO.*</p>
+<p>*obs.: É NECESSÁRIO QUE O APARELHO ONDE O APLICATIVO DE PREVISÃO DO TEMPO VAI SER INSTALADO TENHA CONEXÃO COM A INTERNET PARA SEU FUNCIONAMENTO.*</p>
+<p>Problemas de utilização favor consultar a guia de problemas pelo link</p>
+https://code.google.com/p/previsao-temperatura-cidade/wiki/ProblemasMensagensErro
 
 || *Tela* || *Instruções* ||
 || http://i.imgur.com/DW4jgnr.jpg || 1- Ao executar o aplicativo, será apresentada a tela inicial, com o campo para digitar o nome da cidade que deseja consultar;<br>2- Após digitar o nome da cidade, selecione a opção MENU e em seguida em PESQUISAR para realizar a busca;<br>3- O aplicativo irá realizar a busca.<p>Caso o aplicativo apresente mensagem de falha, é necessário verificar se sua conexão de internet está funcionando corretamente e se os serviços do IMPE estão indisponíveis. ||
