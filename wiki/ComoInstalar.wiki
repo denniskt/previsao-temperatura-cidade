@@ -1,5 +1,5 @@
 #labels Instalação,Instruções
-#Manual de instação do aplicativo
+#sumary Manual de instação do aplicativo
 
 = Introduction =
 
