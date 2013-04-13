@@ -1,0 +1,11 @@
+#labels Instruções
+<h1>Instruções de Uso</h1>
+
+Descrição das telas da aplicação.
+
+|| *Tela* || *Descrição* ||
+|| http://i.imgur.com/DW4jgnr.jpg || 1- Ao executar o aplicativo, será apresentada a tela inicial, com o campo para digitar o nome da cidade que deseja consultar;<br>2- Após digitar o nome da cidade, selecione a opção MENU e em seguida em PESQUISAR para realizar a busca;<br>3- O aplicativo irá realizar a busca.<p>Caso o aplicativo apresente mensagem de falha, é necessário verificar se sua conexão de internet está funcionando corretamente e se os serviços do IMPE estão indisponíveis. ||
+|| http://i.imgur.com/tEwyBXR.jpg || 4- O aplicativo exibirá uma lista com as cidades encontradas, e o Estado a que a cidade pertence, caso existam cidades com o mesmo nome.<br>5- Selecione a cidade desejada e selecione a opção MENU.<p>Caso o aplicativo não localize nenhuma cidade,  é necessário verificar se o nome da cidade está digitado corretamente, ressaltando que o aplicativo funciona apenas com cidades do Brasil.</p> ||
+|| http://i.imgur.com/TEzYhzB.jpg || 6- Serão exibidas 2 opções:<br> 6.1- PREVISÃO P/ HOJE, que exibirá a previsão do tempo, temperatura mínima e máxima para a data atual<br>6.2 - PROX. DIAS, que exibirá as previsões para os próximos dois dias. ||
+|| http://i.imgur.com/XRGTlTT.jpg || _N/A_ ||
+|| http://i.imgur.com/ZN4ly4J.jpg || -2 ||
