@@ -1,5 +1,5 @@
 #summary Causas das mensagens de erro.
-#labels Problemas,Erros,Instrução
+#labels Problema,Erro,Instruções
 
 = Problemas e Mensagens de Erro =
 
