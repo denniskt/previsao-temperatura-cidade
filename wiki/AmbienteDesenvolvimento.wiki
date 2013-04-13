@@ -1,14 +1,13 @@
 #summary Instruções para criação de ambiente de desenvolvimento.
 #labels Desenvolvimento
 
-= Introduction =
+= Instalação do Ambiente de Desenvolvimento =
 
-Add your content here.
+== Softwares Necessários ==
 
+NetBeans IDE 6.9.1 com suporte a JavaME<br>
+Disponível em: https://netbeans.org/downloads/6.9.1/index.html
 
-= Details =
+Java SE Development Kit 6 Update 43<br>
+Disponível em: http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
