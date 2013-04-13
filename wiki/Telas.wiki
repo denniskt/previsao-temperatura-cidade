@@ -4,7 +4,7 @@
 =Telas da Aplicação=
 
 Descrição das telas da aplicação.
-
+<br><br>
 
 || http://i.imgur.com/DW4jgnr.jpg || http://i.imgur.com/tEwyBXR.jpg || http://i.imgur.com/TEzYhzB.jpg ||
 || Tela Inicial || Lista Cidades || Menu Opções ||
