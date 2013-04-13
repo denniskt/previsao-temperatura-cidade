@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Instruções para criação de ambiente de desenvolvimento.
 #labels Desenvolvimento
 
 = Introduction =
