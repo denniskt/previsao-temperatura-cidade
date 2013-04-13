@@ -1,3 +1,4 @@
+#summary Como utilizar o aplicativo
 #labels Instruções
 =Instruções de Uso=
 
