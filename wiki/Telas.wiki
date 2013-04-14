@@ -1,5 +1,5 @@
 #summary Telas da Aplicação
-#labels Telas,PrintScream
+#labels Featured,Phase-Design
 
 =Telas da Aplicação=
 
