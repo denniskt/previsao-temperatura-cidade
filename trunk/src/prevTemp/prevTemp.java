@@ -48,19 +48,31 @@ public class prevTemp extends MIDlet implements CommandListener {
     return result.toString();
 }
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
+    private void limpar(){
+        getList().deleteAll();
+        dia.removeAllElements();
+        tempo.removeAllElements();
+        tempMaxima.removeAllElements();
+        tempMinima.removeAllElements();
+
+        codCidade = "";
+        imgTempo = null;
+        cidadeEstado = "";
+    }
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
     private Command avisosCommand;
-    private Command backToListCommand;
-    private Command backCommand1;
+    private Command homeBackCommand;
+    private Command homeListBackCommand;
     private Command previsaoCommand;
-    private Command proxCommand1;
+    private Command proxCommand;
     private Command itemCommand1;
     private Command buscarCommand;
     private Command okCommand;
     private Command backCommand;
     private Command okCommand1;
-    private Command backCommand2;
+    private Command hojeBackCommand;
     private Command provCommand;
     private Form form;
     private TextField cidadetextField;
@@ -73,12 +85,9 @@ public class prevTemp extends MIDlet implements CommandListener {
     private StringItem tempoStringItem;
     private ImageItem tempoImageItem;
     private Form proxForm;
-    private StringItem prev1StringItem;
     private StringItem data1StringItem;
     private StringItem temp1StringItem;
-    private ImageItem imageItem1;
     private StringItem data2StringItem;
-    private StringItem prev2StringItem;
     private StringItem temp2StringItem;
     private Image buttonImage;
     private Image pn;
@@ -122,11 +131,8 @@ public class prevTemp extends MIDlet implements CommandListener {
     private Image logo;
     private Image cm;
     private Image cn;
-    private Font font1;
-    private Font font;
-    private Image linha;
-    private Font font2;
-//</editor-fold>//GEN-END:|fields|0|
+    private Font fontTemp;
+    //</editor-fold>//GEN-END:|fields|0|
 
     /**
      * The prevTemp constructor.
@@ -134,23 +140,22 @@ public class prevTemp extends MIDlet implements CommandListener {
     public prevTemp() {
     }
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
-//</editor-fold>//GEN-END:|methods|0|
+    //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
+    //</editor-fold>//GEN-END:|methods|0|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: initialize ">//GEN-BEGIN:|0-initialize|0|0-preInitialize
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: initialize ">//GEN-BEGIN:|0-initialize|0|0-preInitialize
     /**
-     * Initializes the application. It is called only once when the MIDlet is
-     * started. The method is called before the
-     * <code>startMIDlet</code> method.
+     * Initilizes the application.
+     * It is called only once when the MIDlet is started. The method is called before the <code>startMIDlet</code> method.
      */
     private void initialize() {//GEN-END:|0-initialize|0|0-preInitialize
         // write pre-initialize user code here
 //GEN-LINE:|0-initialize|1|0-postInitialize
         // write post-initialize user code here
     }//GEN-BEGIN:|0-initialize|2|
-//</editor-fold>//GEN-END:|0-initialize|2|
+    //</editor-fold>//GEN-END:|0-initialize|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: startMIDlet ">//GEN-BEGIN:|3-startMIDlet|0|3-preAction
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: startMIDlet ">//GEN-BEGIN:|3-startMIDlet|0|3-preAction
     /**
      * Performs an action assigned to the Mobile Device - MIDlet Started point.
      */
@@ -159,9 +164,9 @@ public class prevTemp extends MIDlet implements CommandListener {
         switchDisplayable(null, getForm());//GEN-LINE:|3-startMIDlet|1|3-postAction
         // write post-action user code here
     }//GEN-BEGIN:|3-startMIDlet|2|
-//</editor-fold>//GEN-END:|3-startMIDlet|2|
+    //</editor-fold>//GEN-END:|3-startMIDlet|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: resumeMIDlet ">//GEN-BEGIN:|4-resumeMIDlet|0|4-preAction
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: resumeMIDlet ">//GEN-BEGIN:|4-resumeMIDlet|0|4-preAction
     /**
      * Performs an action assigned to the Mobile Device - MIDlet Resumed point.
      */
@@ -170,18 +175,12 @@ public class prevTemp extends MIDlet implements CommandListener {
 //GEN-LINE:|4-resumeMIDlet|1|4-postAction
         // write post-action user code here
     }//GEN-BEGIN:|4-resumeMIDlet|2|
-//</editor-fold>//GEN-END:|4-resumeMIDlet|2|
+    //</editor-fold>//GEN-END:|4-resumeMIDlet|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: switchDisplayable ">//GEN-BEGIN:|5-switchDisplayable|0|5-preSwitch
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: switchDisplayable ">//GEN-BEGIN:|5-switchDisplayable|0|5-preSwitch
     /**
-     * Switches a current displayable in a display. The
-     * <code>display</code> instance is taken from
-     * <code>getDisplay</code> method. This method is used by all actions in the
-     * design for switching displayable.
-     *
-     * @param alert the Alert which is temporarily set to the display;
-     * if <code>null</code>, then <code>nextDisplayable</code> is set
-     * immediately
+     * Switches a current displayable in a display. The <code>display</code> instance is taken from <code>getDisplay</code> method. This method is used by all actions in the design for switching displayable.
+     * @param alert the Alert which is temporarily set to the display; if <code>null</code>, then <code>nextDisplayable</code> is set immediately
      * @param nextDisplayable the Displayable to be set
      */
     public void switchDisplayable(Alert alert, Displayable nextDisplayable) {//GEN-END:|5-switchDisplayable|0|5-preSwitch
@@ -194,13 +193,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-END:|5-switchDisplayable|1|5-postSwitch
         // write post-switch user code here
     }//GEN-BEGIN:|5-switchDisplayable|2|
-//</editor-fold>//GEN-END:|5-switchDisplayable|2|
+    //</editor-fold>//GEN-END:|5-switchDisplayable|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: commandAction for Displayables ">//GEN-BEGIN:|7-commandAction|0|7-preCommandAction
     /**
-     * Called by a system to indicated that a command has been invoked on a
-     * particular displayable.
-     *
+     * Called by a system to indicated that a command has been invoked on a particular displayable.
      * @param command the Command that was invoked
      * @param displayable the Displayable where the command was invoked
      */
@@ -209,200 +206,206 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (displayable == form) {//GEN-BEGIN:|7-commandAction|1|57-preAction
             if (command == buscarCommand) {//GEN-END:|7-commandAction|1|57-preAction
                 String cidade = cidadetextField.getString();
-                cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
-                String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
-                codCidade = "";
-                
-                try{
-                    getList().deleteAll();
-                    StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
-                    SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
-                    saxParser.parse(connection.openDataInputStream(), new DefaultHandler(){
-                        private String currentName = "";
-                        public void startElement(String uri, String lName, String name, Attributes att) throws SAXException {
-                            currentName = name;
-                        }
-                        public void characters(char[] ch, int start, int lenght) throws SAXException{
-                            String chars = new String(ch, start, lenght).trim();
-                            if(chars.length() > 0){
-                                if (currentName.equals("nome")){ // nome da cidade
-                                    cidadeEstado = chars;
-                                }if(currentName.equals("uf")){
-                                    // Inserir a sigla da UF depois do nome da cidade na lista
-                                    getList().append(cidadeEstado+" - "+chars, getButtonImage());
-                                }if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
-                                    codCidade = chars;
-                                }
-                            }
-                        }
-                    });
-                } catch (Exception error) {
-                    Alert mensagem = new Alert("Falha");
-                    mensagem.setString(error.getMessage());
-                    mensagem.setTimeout(3000);
-                    getDisplay().setCurrent(mensagem);
-                }
+                if(cidade.length()<3){
+                    Alert mensagemCidade = new Alert("Digite no mínimo de 3 caracteres");
+                    mensagemCidade.setTimeout(5000);
+                    getDisplay().setCurrent(mensagemCidade);
+                }else{
+                    cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
+                    String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
+                    codCidade = "";
 
-                url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidade+"/previsao.xml";
-                try{
-                    StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
-                    SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
-                    saxParser.parse(connection.openDataInputStream(), new DefaultHandler(){
-                        private String currentName = "";
-                        public void startElement(String uri, String lName, String name, Attributes att) throws SAXException {
-                            currentName = name;
-                        }
-                        public void characters(char[] ch, int start, int lenght) throws SAXException{
-                            String chars = new String(ch, start, lenght).trim();
-                            if(chars.length() > 0){
-                                if(currentName.equals("dia")){ // Data no formato AAAA-MM-DD
-                                    // Mudar o formato da data DD/MM/AAAA
-                                    String a = chars.substring(0, 4);
-                                    String m = chars.substring(5, 7);
-                                    String d = chars.substring(8, 10);
-                                    String data = d+"/"+m+"/"+a;
-                                    dia.addElement(data); 
-                                }else if(currentName.equals("maxima")){
-                                    tempMaxima.addElement(chars);
-                                }else if(currentName.equals("minima")){
-                                    tempMinima.addElement(chars);
-                                }else if(currentName.equals("tempo")){
-                                    /*XML retorna a previsão com siglas (ec, ci, c...), 
-                                     foi criado condicionais para atribuir a descrição
-                                     e a imagem de acordo com a sigla */
-                                    if(chars.equals("ec")){
-                                        chars = "Encoberto com Chuvas Isoladas";
-                                        imgTempo = getEc();
-                                    }else if(chars.equals("ci")){
-                                        chars = "Previsão de Chuvas Isoladas";
-                                        imgTempo = getCi();
-                                    }else if(chars.equals("c")){
-                                        chars = "Previsão de Chuva durante o dia";
-                                        imgTempo = getC();
-                                    }else if(chars.equals("in")){
-                                        chars = "Previsão de Tempo Instável";
-                                        imgTempo = getIn();
-                                    }else if(chars.equals("pp")){
-                                        chars = "Poss. de Pancadas de Chuva";
-                                        imgTempo = getPp();
-                                    }else if(chars.equals("cm")){
-                                        chars = "Previsão de Chuva pela Manhã";
-                                        imgTempo = getCm();
-                                    }else if(chars.equals("cn")){
-                                        chars = "Previsão de Chuva a Noite";
-                                        imgTempo = getCn();
-                                    }else if(chars.equals("pt")){
-                                        chars = "Pancadas de Chuva a Tarde";
-                                        imgTempo = getPt();
-                                    }else if(chars.equals("pm")){
-                                        chars = "Pancadas de Chuva pela Manhã";
-                                        imgTempo = getPm();
-                                    }else if(chars.equals("np")){
-                                        chars = "Nublado e Pancadas de Chuva";
-                                        imgTempo = getNp();
-                                    }else if(chars.equals("pc")){
-                                        chars = "Previsão de Pancadas de Chuva";
-                                        imgTempo = getPc();
-                                    }else if(chars.equals("pn")){
-                                        chars = "Previsão de tempo parcialmente Nublado";
-                                        imgTempo = getPn();
-                                    }else if(chars.equals("cv")){
-                                        chars = "Previsão de Chuvisco durante o dia";
-                                        imgTempo = getCv();
-                                    }else if(chars.equals("ch")){
-                                        chars = "Tempo Chuvoso durante o dia";
-                                        imgTempo = getCh();
-                                    }else if(chars.equals("t")){
-                                        chars = "Previsão de Tempestade durante o dia";
-                                        imgTempo = getT();
-                                    }else if(chars.equals("ps")){
-                                        chars = "Predomínio de Sol durante o dia";
-                                        imgTempo = getPs();
-                                    }else if(chars.equals("e")){
-                                        chars = "Previsão de tempo Encoberto";
-                                        imgTempo = getE();
-                                    }else if(chars.equals("n")){
-                                        chars = "Previsão de tempo Nublado";
-                                        imgTempo = getN();
-                                    }else if(chars.equals("cl")){
-                                        chars = "Previsão de Céu Claro";
-                                        imgTempo = getCl();
-                                    }else if(chars.equals("nv")){
-                                        chars = "Previsão de Nevoeiro";
-                                        imgTempo = getNv();
-                                    }else if(chars.equals("g")){
-                                        chars = "Previsão de Geada";
-                                        imgTempo = getG();
-                                    }else if(chars.equals("ne")){
-                                        chars = "Previsão de Neve";
-                                        imgTempo = getNe();
-                                    }else if(chars.equals("pnt")){
-                                        chars = "Pancadas de Chuva a Noite";
-                                        imgTempo = getPnt();
-                                    }else if(chars.equals("psc")){
-                                        chars = "Possibilidade de Chuva";
-                                        imgTempo = getPsc();
-                                    }else if(chars.equals("pcm")){
-                                        chars = "Possibilidade de Chuva pela Manhã";
-                                        imgTempo = getPsc();
-                                    }else if(chars.equals("pct")){
-                                        chars = "Possibilidade de Chuva a Tarde";
-                                        imgTempo = getPct();
-                                    }else if(chars.equals("pcn")){
-                                        chars = "Possibilidade de Chuva a Noite";
-                                        imgTempo = getPcn();
-                                    }else if(chars.equals("npt")){
-                                        chars = "Nublado com Pancadas a Tarde";
-                                        imgTempo = getNpt();
-                                    }else if(chars.equals("npn")){
-                                        chars = "Nublado com Pancadas a Noite";
-                                        imgTempo = getNpn();
-                                    }else if(chars.equals("ncn")){
-                                        chars = "Nublado com Poss. de Chuva a Noite";
-                                        imgTempo = getNcn();
-                                    }else if(chars.equals("nct")){
-                                        chars = "Nublado com Poss. de Chuva a Tarde";
-                                        imgTempo = getNct();
-                                    }else if(chars.equals("ncm")){
-                                        chars = "Nubl. c/ Poss. de Chuva pela Manhã";
-                                        imgTempo = getNcm();
-                                    }else if(chars.equals("npm")){
-                                        chars = "Nublado com Pancadas pela Manhã";
-                                        imgTempo = getNpm();
-                                    }else if(chars.equals("npp")){
-                                        chars = "Nublado com Possibilidade de Chuva";
-                                        imgTempo = getNpp();
-                                    }else if(chars.equals("vn")){
-                                        chars = "Variação de Nebulosidade";
-                                        imgTempo = getVn();
-                                    }else if(chars.equals("ct")){
-                                        chars = "Previsão de chuva a Tarde";
-                                        imgTempo = getCt();
-                                    }else if(chars.equals("ppn")){
-                                        chars = "Poss. de Panc. de Chuva a Noite";
-                                        imgTempo = getPpn();
-                                    }else if(chars.equals("ppt")){
-                                        chars = "Poss. de Panc. de Chuva a Tarde";
-                                        imgTempo = getPpt();
-                                    }else if(chars.equals("ppm")){
-                                        chars = "Poss. de Panc. de Chuva pela Manhã";
-                                        imgTempo = getPpm();
-                                    }else{
-                                        chars = "Não Definido";
-                                    }	
-                                    tempo.addElement(chars);
+                    try{
+                        getList().deleteAll();
+                        StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
+                        SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+                        saxParser.parse(connection.openDataInputStream(), new DefaultHandler(){
+                            private String currentName = "";
+                            public void startElement(String uri, String lName, String name, Attributes att) throws SAXException {
+                                currentName = name;
+                            }
+                            public void characters(char[] ch, int start, int lenght) throws SAXException{
+                                String chars = new String(ch, start, lenght).trim();
+                                if(chars.length() > 0){
+                                    if (currentName.equals("nome")){ // nome da cidade
+                                        cidadeEstado = chars;
+                                    }if(currentName.equals("uf")){
+                                        // Inserir a sigla da UF depois do nome da cidade na lista
+                                        getList().append(cidadeEstado+" - "+chars, getButtonImage());
+                                    }if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
+                                        codCidade = chars;
+                                    }
                                 }
                             }
-                        }
-                    });
-                } catch (Exception error) {
-                    Alert mensagem = new Alert("Falha");
-                    mensagem.setString(error.getMessage());
-                    mensagem.setTimeout(3000);
-                    getDisplay().setCurrent(mensagem);
-                }
-                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
- 
+                        });
+                    } catch (Exception error) {
+                        Alert mensagem = new Alert("Falha");
+                        mensagem.setString(error.getMessage());
+                        mensagem.setTimeout(3000);
+                        getDisplay().setCurrent(mensagem);
+                    }
+
+                    url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidade+"/previsao.xml";
+                    try{
+                        StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
+                        SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+                        saxParser.parse(connection.openDataInputStream(), new DefaultHandler(){
+                            private String currentName = "";
+                            public void startElement(String uri, String lName, String name, Attributes att) throws SAXException {
+                                currentName = name;
+                            }
+                            public void characters(char[] ch, int start, int lenght) throws SAXException{
+                                String chars = new String(ch, start, lenght).trim();
+                                if(chars.length() > 0){
+                                    if(currentName.equals("dia")){ // Data no formato AAAA-MM-DD
+                                        // Mudar o formato da data DD/MM/AAAA
+                                        String a = chars.substring(0, 4);
+                                        String m = chars.substring(5, 7);
+                                        String d = chars.substring(8, 10);
+                                        String data = d+"/"+m+"/"+a;
+                                        dia.addElement(data);
+                                    }else if(currentName.equals("maxima")){
+                                        tempMaxima.addElement(chars);
+                                    }else if(currentName.equals("minima")){
+                                        tempMinima.addElement(chars);
+                                    }else if(currentName.equals("tempo")){
+                                        /*XML retorna a previsão com siglas (ec, ci, c...),
+                                         foi criado condicionais para atribuir a descrição
+                                         e a imagem de acordo com a sigla */
+                                        if(chars.equals("ec")){
+                                            chars = "Encoberto com Chuvas Isoladas";
+                                            imgTempo = getEc();
+                                        }else if(chars.equals("ci")){
+                                            chars = "Previsão de Chuvas Isoladas";
+                                            imgTempo = getCi();
+                                        }else if(chars.equals("c")){
+                                            chars = "Previsão de Chuva durante o dia";
+                                            imgTempo = getC();
+                                        }else if(chars.equals("in")){
+                                            chars = "Previsão de Tempo Instável";
+                                            imgTempo = getIn();
+                                        }else if(chars.equals("pp")){
+                                            chars = "Poss. de Pancadas de Chuva";
+                                            imgTempo = getPp();
+                                        }else if(chars.equals("cm")){
+                                            chars = "Previsão de Chuva pela Manhã";
+                                            imgTempo = getCm();
+                                        }else if(chars.equals("cn")){
+                                            chars = "Previsão de Chuva a Noite";
+                                            imgTempo = getCn();
+                                        }else if(chars.equals("pt")){
+                                            chars = "Pancadas de Chuva a Tarde";
+                                            imgTempo = getPt();
+                                        }else if(chars.equals("pm")){
+                                            chars = "Pancadas de Chuva pela Manhã";
+                                            imgTempo = getPm();
+                                        }else if(chars.equals("np")){
+                                            chars = "Nublado e Pancadas de Chuva";
+                                            imgTempo = getNp();
+                                        }else if(chars.equals("pc")){
+                                            chars = "Previsão de Pancadas de Chuva";
+                                            imgTempo = getPc();
+                                        }else if(chars.equals("pn")){
+                                            chars = "Previsão de tempo parcialmente Nublado";
+                                            imgTempo = getPn();
+                                        }else if(chars.equals("cv")){
+                                            chars = "Previsão de Chuvisco durante o dia";
+                                            imgTempo = getCv();
+                                        }else if(chars.equals("ch")){
+                                            chars = "Tempo Chuvoso durante o dia";
+                                            imgTempo = getCh();
+                                        }else if(chars.equals("t")){
+                                            chars = "Previsão de Tempestade durante o dia";
+                                            imgTempo = getT();
+                                        }else if(chars.equals("ps")){
+                                            chars = "Predomínio de Sol durante o dia";
+                                            imgTempo = getPs();
+                                        }else if(chars.equals("e")){
+                                            chars = "Previsão de tempo Encoberto";
+                                            imgTempo = getE();
+                                        }else if(chars.equals("n")){
+                                            chars = "Previsão de tempo Nublado";
+                                            imgTempo = getN();
+                                        }else if(chars.equals("cl")){
+                                            chars = "Previsão de Céu Claro";
+                                            imgTempo = getCl();
+                                        }else if(chars.equals("nv")){
+                                            chars = "Previsão de Nevoeiro";
+                                            imgTempo = getNv();
+                                        }else if(chars.equals("g")){
+                                            chars = "Previsão de Geada";
+                                            imgTempo = getG();
+                                        }else if(chars.equals("ne")){
+                                            chars = "Previsão de Neve";
+                                            imgTempo = getNe();
+                                        }else if(chars.equals("pnt")){
+                                            chars = "Pancadas de Chuva a Noite";
+                                            imgTempo = getPnt();
+                                        }else if(chars.equals("psc")){
+                                            chars = "Possibilidade de Chuva";
+                                            imgTempo = getPsc();
+                                        }else if(chars.equals("pcm")){
+                                            chars = "Possibilidade de Chuva pela Manhã";
+                                            imgTempo = getPsc();
+                                        }else if(chars.equals("pct")){
+                                            chars = "Possibilidade de Chuva a Tarde";
+                                            imgTempo = getPct();
+                                        }else if(chars.equals("pcn")){
+                                            chars = "Possibilidade de Chuva a Noite";
+                                            imgTempo = getPcn();
+                                        }else if(chars.equals("npt")){
+                                            chars = "Nublado com Pancadas a Tarde";
+                                            imgTempo = getNpt();
+                                        }else if(chars.equals("npn")){
+                                            chars = "Nublado com Pancadas a Noite";
+                                            imgTempo = getNpn();
+                                        }else if(chars.equals("ncn")){
+                                            chars = "Nublado com Poss. de Chuva a Noite";
+                                            imgTempo = getNcn();
+                                        }else if(chars.equals("nct")){
+                                            chars = "Nublado com Poss. de Chuva a Tarde";
+                                            imgTempo = getNct();
+                                        }else if(chars.equals("ncm")){
+                                            chars = "Nubl. c/ Poss. de Chuva pela Manhã";
+                                            imgTempo = getNcm();
+                                        }else if(chars.equals("npm")){
+                                            chars = "Nublado com Pancadas pela Manhã";
+                                            imgTempo = getNpm();
+                                        }else if(chars.equals("npp")){
+                                            chars = "Nublado com Possibilidade de Chuva";
+                                            imgTempo = getNpp();
+                                        }else if(chars.equals("vn")){
+                                            chars = "Variação de Nebulosidade";
+                                            imgTempo = getVn();
+                                        }else if(chars.equals("ct")){
+                                            chars = "Previsão de chuva a Tarde";
+                                            imgTempo = getCt();
+                                        }else if(chars.equals("ppn")){
+                                            chars = "Poss. de Panc. de Chuva a Noite";
+                                            imgTempo = getPpn();
+                                        }else if(chars.equals("ppt")){
+                                            chars = "Poss. de Panc. de Chuva a Tarde";
+                                            imgTempo = getPpt();
+                                        }else if(chars.equals("ppm")){
+                                            chars = "Poss. de Panc. de Chuva pela Manhã";
+                                            imgTempo = getPpm();
+                                        }else{
+                                            chars = "Não Definido";
+                                        }
+                                        tempo.addElement(chars);
+                                    }
+                                }
+                            }
+                        });
+                    } catch (Exception error) {
+                        Alert mensagem = new Alert("Falha");
+                        mensagem.setString(error.getMessage());
+                        mensagem.setTimeout(3000);
+                        getDisplay().setCurrent(mensagem);
+                    }
+
+                    switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
+}
             } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
@@ -413,19 +416,11 @@ public class prevTemp extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 listAction();//GEN-LINE:|7-commandAction|6|26-postAction
                 // write post-action user code here
-            } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|7|32-preAction
+            } else if (command == homeListBackCommand) {//GEN-LINE:|7-commandAction|7|32-preAction
                 // write pre-action user code here
-                getList().deleteAll();
-                dia.removeAllElements();
-                tempo.removeAllElements();
-                tempMaxima.removeAllElements();
-                tempMinima.removeAllElements();
-
-                codCidade = "";
-                imgTempo = null;
-                cidadeEstado = "";
                 switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|8|32-postAction
                 // write post-action user code here
+                limpar();
             } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getPrevisaoForm());//GEN-LINE:|7-commandAction|10|37-postAction
@@ -434,64 +429,51 @@ public class prevTemp extends MIDlet implements CommandListener {
                 String tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex()); // Obtem a temp máxima da lista
                 String tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex()); // Obtem a temp minima da lista
                 String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
-                
+
                 previsaoForm.setTitle(cidade); // Nome da cidade no detalhesForm
                 temperaturaStringItem.setText(tempMaximaCidade+"ºC Máxima\n"+tempMinimoCidade+"ºC Mínima"); // Temp. Min e Max no detalhesForm
                 tempoStringItem.setText(tempoCidade); //Descrição da previsão do tempo no detalhesForm
                 tempoImageItem.setImage(imgTempo); // Iagem da previsão do tempo no detalhesForm
-            } else if (command == provCommand) {//GEN-LINE:|7-commandAction|11|129-preAction
-                // write pre-action user code here
-                switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|12|129-postAction
-                // write post-action user code here
-                proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
-                
-                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
-                temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
-                
-                data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-                temp2StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-                
-            }//GEN-BEGIN:|7-commandAction|13|30-preAction
+            }//GEN-BEGIN:|7-commandAction|11|30-preAction
         } else if (displayable == previsaoForm) {
-            if (command == backToListCommand) {//GEN-END:|7-commandAction|13|30-preAction
+            if (command == homeBackCommand) {//GEN-END:|7-commandAction|11|30-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|14|30-postAction
+                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|12|30-postAction
                 // write post-action user code here
-            } else if (command == proxCommand1) {//GEN-LINE:|7-commandAction|15|132-preAction
+                limpar();
+            } else if (command == proxCommand) {//GEN-LINE:|7-commandAction|13|132-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|16|132-postAction
+                switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|14|132-postAction
                 // write post-action user code here
                 proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
-                
-                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
-                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima\n"+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
-                prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
-                
-                data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da data da previsão no detalhesForm
-                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima\n"+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
-                prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-                
-            }//GEN-BEGIN:|7-commandAction|17|137-preAction
+
+                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
+                temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                //prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
+
+                data2StringItem.setText("--------------------------\n"+(String) dia.elementAt(getList().getSelectedIndex()+2)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da data da previsão no detalhesForm
+                temp2StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                //prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
+
+            }//GEN-BEGIN:|7-commandAction|15|137-preAction
         } else if (displayable == proxForm) {
-            if (command == backCommand2) {//GEN-END:|7-commandAction|17|137-preAction
+            if (command == hojeBackCommand) {//GEN-END:|7-commandAction|15|137-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|18|137-postAction
+                switchDisplayable(null, getPrevisaoForm());//GEN-LINE:|7-commandAction|16|137-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|19|7-postCommandAction
-        }//GEN-END:|7-commandAction|19|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|17|7-postCommandAction
+        }//GEN-END:|7-commandAction|17|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|20|
-//</editor-fold>//GEN-END:|7-commandAction|20|
+    }//GEN-BEGIN:|7-commandAction|18|
+    //</editor-fold>//GEN-END:|7-commandAction|18|
 
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
-     * Returns an initialized instance of exitCommand component.
-     *
+     * Returns an initiliazed instance of exitCommand component.
      * @return the initialized component instance
      */
     public Command getExitCommand() {
@@ -502,16 +484,15 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|18-getter|2|
         return exitCommand;
     }
-//</editor-fold>//GEN-END:|18-getter|2|
+    //</editor-fold>//GEN-END:|18-getter|2|
 
 
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: avisosCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: avisosCommand ">//GEN-BEGIN:|22-getter|0|22-preInit
     /**
-     * Returns an initialized instance of avisosCommand component.
-     *
+     * Returns an initiliazed instance of avisosCommand component.
      * @return the initialized component instance
      */
     public Command getAvisosCommand() {
@@ -522,130 +503,124 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|22-getter|2|
         return avisosCommand;
     }
-//</editor-fold>//GEN-END:|22-getter|2|
+    //</editor-fold>//GEN-END:|22-getter|2|
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backToListCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: homeBackCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
     /**
-     * Returns an initialized instance of backToListCommand component.
-     *
+     * Returns an initiliazed instance of homeBackCommand component.
      * @return the initialized component instance
      */
-    public Command getBackToListCommand() {
-        if (backToListCommand == null) {//GEN-END:|29-getter|0|29-preInit
+    public Command getHomeBackCommand() {
+        if (homeBackCommand == null) {//GEN-END:|29-getter|0|29-preInit
             // write pre-init user code here
-            backToListCommand = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|29-getter|1|29-postInit
+            homeBackCommand = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|29-getter|1|29-postInit
             // write post-init user code here
         }//GEN-BEGIN:|29-getter|2|
-        return backToListCommand;
+        return homeBackCommand;
     }
-//</editor-fold>//GEN-END:|29-getter|2|
+    //</editor-fold>//GEN-END:|29-getter|2|
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand1 ">//GEN-BEGIN:|31-getter|0|31-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: homeListBackCommand ">//GEN-BEGIN:|31-getter|0|31-preInit
     /**
-     * Returns an initialized instance of backCommand1 component.
-     *
+     * Returns an initiliazed instance of homeListBackCommand component.
      * @return the initialized component instance
      */
-    public Command getBackCommand1() {
-        if (backCommand1 == null) {//GEN-END:|31-getter|0|31-preInit
+    public Command getHomeListBackCommand() {
+        if (homeListBackCommand == null) {//GEN-END:|31-getter|0|31-preInit
             // write pre-init user code here
-            backCommand1 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|31-getter|1|31-postInit
+            homeListBackCommand = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|31-getter|1|31-postInit
             // write post-init user code here
         }//GEN-BEGIN:|31-getter|2|
-        return backCommand1;
+        return homeListBackCommand;
     }
-//</editor-fold>//GEN-END:|31-getter|2|
+    //</editor-fold>//GEN-END:|31-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoCommand ">//GEN-BEGIN:|36-getter|0|36-preInit
     /**
-     * Returns an initialized instance of previsaoCommand component.
-     *
+     * Returns an initiliazed instance of previsaoCommand component.
      * @return the initialized component instance
      */
     public Command getPrevisaoCommand() {
         if (previsaoCommand == null) {//GEN-END:|36-getter|0|36-preInit
             // write pre-init user code here
-            previsaoCommand = new Command("Previs\u00E3o p/ Hoje", Command.ITEM, 0);//GEN-LINE:|36-getter|1|36-postInit
+            previsaoCommand = new Command("Previs\u00E3o", "Previs\u00E3o do tempo para hoje", Command.ITEM, 0);//GEN-LINE:|36-getter|1|36-postInit
             // write post-init user code here
         }//GEN-BEGIN:|36-getter|2|
         return previsaoCommand;
     }
-//</editor-fold>//GEN-END:|36-getter|2|
+    //</editor-fold>//GEN-END:|36-getter|2|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: list ">//GEN-BEGIN:|24-getter|0|24-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: list ">//GEN-BEGIN:|24-getter|0|24-preInit
     /**
-     * Returns an initialized instance of list component.
-     *
+     * Returns an initiliazed instance of list component.
      * @return the initialized component instance
      */
     public List getList() {
         if (list == null) {//GEN-END:|24-getter|0|24-preInit
             // write pre-init user code here
             list = new List("Selecione a cidade", Choice.IMPLICIT);//GEN-BEGIN:|24-getter|1|24-postInit
-            list.addCommand(getBackCommand1());
+            list.addCommand(getHomeListBackCommand());
             list.addCommand(getPrevisaoCommand());
-            list.addCommand(getProvCommand());
             list.setCommandListener(this);
             list.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);//GEN-END:|24-getter|1|24-postInit
             // write post-init user code here
         }//GEN-BEGIN:|24-getter|2|
         return list;
     }
-//</editor-fold>//GEN-END:|24-getter|2|
+    //</editor-fold>//GEN-END:|24-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Method: listAction ">//GEN-BEGIN:|24-action|0|24-preAction
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: listAction ">//GEN-BEGIN:|24-action|0|24-preAction
     /**
-     * Performs an action assigned to the selected list element in the list
-     * component.
+     * Performs an action assigned to the selected list element in the list component.
      */
     public void listAction() {//GEN-END:|24-action|0|24-preAction
         // enter pre-action user code here
         String __selectedString = getList().getString(getList().getSelectedIndex());//GEN-LINE:|24-action|1|24-postAction
         // enter post-action user code here
     }//GEN-BEGIN:|24-action|2|
-//</editor-fold>//GEN-END:|24-action|2|
+    //</editor-fold>//GEN-END:|24-action|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoForm ">//GEN-BEGIN:|28-getter|0|28-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: previsaoForm ">//GEN-BEGIN:|28-getter|0|28-preInit
     /**
-     * Returns an initialized instance of previsaoForm component.
-     *
+     * Returns an initiliazed instance of previsaoForm component.
      * @return the initialized component instance
      */
     public Form getPrevisaoForm() {
         if (previsaoForm == null) {//GEN-END:|28-getter|0|28-preInit
             // write pre-init user code here
-            previsaoForm = new Form("Previs\u00E3o do Tempo p/ Hoje", new Item[]{getTempoImageItem(), getTempoStringItem(), getTemperaturaStringItem(), getLocaldataSringItem()});//GEN-BEGIN:|28-getter|1|28-postInit
-            previsaoForm.addCommand(getBackToListCommand());
-            previsaoForm.addCommand(getProxCommand1());
+            previsaoForm = new Form("Previs\u00E3o do Tempo p/ Hoje", new Item[] { getTempoImageItem(), getTempoStringItem(), getTemperaturaStringItem(), getLocaldataSringItem() });//GEN-BEGIN:|28-getter|1|28-postInit
+            previsaoForm.addCommand(getHomeBackCommand());
+            previsaoForm.addCommand(getProxCommand());
             previsaoForm.setCommandListener(this);//GEN-END:|28-getter|1|28-postInit
             // write post-init user code here
         }//GEN-BEGIN:|28-getter|2|
         return previsaoForm;
     }
-//</editor-fold>//GEN-END:|28-getter|2|
+    //</editor-fold>//GEN-END:|28-getter|2|
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxCommand1 ">//GEN-BEGIN:|47-getter|0|47-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxCommand ">//GEN-BEGIN:|47-getter|0|47-preInit
     /**
-     * Returns an initialized instance of proxCommand1 component.
-     *
+     * Returns an initiliazed instance of proxCommand component.
      * @return the initialized component instance
      */
-    public Command getProxCommand1() {
-        if (proxCommand1 == null) {//GEN-END:|47-getter|0|47-preInit
+    public Command getProxCommand() {
+        if (proxCommand == null) {//GEN-END:|47-getter|0|47-preInit
             // write pre-init user code here
-            proxCommand1 = new Command("Pr\u00F3x. Dias", Command.ITEM, 0);//GEN-LINE:|47-getter|1|47-postInit
+            proxCommand = new Command("Pr\u00F3x. Dias", Command.ITEM, 0);//GEN-LINE:|47-getter|1|47-postInit
             // write post-init user code here
         }//GEN-BEGIN:|47-getter|2|
-        return proxCommand1;
+        return proxCommand;
     }
-//</editor-fold>//GEN-END:|47-getter|2|
+    //</editor-fold>//GEN-END:|47-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand1 ">//GEN-BEGIN:|49-getter|0|49-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: itemCommand1 ">//GEN-BEGIN:|49-getter|0|49-preInit
     /**
-     * Returns an initialized instance of itemCommand1 component.
-     *
+     * Returns an initiliazed instance of itemCommand1 component.
      * @return the initialized component instance
      */
     public Command getItemCommand1() {
@@ -656,28 +631,27 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|49-getter|2|
         return itemCommand1;
     }
-//</editor-fold>//GEN-END:|49-getter|2|
+    //</editor-fold>//GEN-END:|49-getter|2|
     //</editor-fold>
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temperaturaStringItem ">//GEN-BEGIN:|53-getter|0|53-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: temperaturaStringItem ">//GEN-BEGIN:|53-getter|0|53-preInit
     /**
-     * Returns an initialized instance of temperaturaStringItem component.
-     *
+     * Returns an initiliazed instance of temperaturaStringItem component.
      * @return the initialized component instance
      */
     public StringItem getTemperaturaStringItem() {
         if (temperaturaStringItem == null) {//GEN-END:|53-getter|0|53-preInit
             // write pre-init user code here
             temperaturaStringItem = new StringItem("", "");//GEN-BEGIN:|53-getter|1|53-postInit
-            temperaturaStringItem.setLayout(ImageItem.LAYOUT_DEFAULT | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
-            temperaturaStringItem.setFont(getFont());//GEN-END:|53-getter|1|53-postInit
+            temperaturaStringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
+            temperaturaStringItem.setFont(getFontTemp());//GEN-END:|53-getter|1|53-postInit
             // write post-init user code here
         }//GEN-BEGIN:|53-getter|2|
         return temperaturaStringItem;
     }
-//</editor-fold>//GEN-END:|53-getter|2|
+    //</editor-fold>//GEN-END:|53-getter|2|
     //</editor-fold>
 
 
@@ -687,10 +661,9 @@ public class prevTemp extends MIDlet implements CommandListener {
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: buscarCommand ">//GEN-BEGIN:|56-getter|0|56-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: buscarCommand ">//GEN-BEGIN:|56-getter|0|56-preInit
     /**
-     * Returns an initialized instance of buscarCommand component.
-     *
+     * Returns an initiliazed instance of buscarCommand component.
      * @return the initialized component instance
      */
     public Command getBuscarCommand() {
@@ -701,14 +674,13 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|56-getter|2|
         return buscarCommand;
     }
-//</editor-fold>//GEN-END:|56-getter|2|
+    //</editor-fold>//GEN-END:|56-getter|2|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: buttonImage ">//GEN-BEGIN:|60-getter|0|60-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: buttonImage ">//GEN-BEGIN:|60-getter|0|60-preInit
     /**
-     * Returns an initialized instance of buttonImage component.
-     *
+     * Returns an initiliazed instance of buttonImage component.
      * @return the initialized component instance
      */
     public Image getButtonImage() {
@@ -723,7 +695,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|60-getter|3|
         return buttonImage;
     }
-//</editor-fold>//GEN-END:|60-getter|3|
+    //</editor-fold>//GEN-END:|60-getter|3|
 
 
 
@@ -732,10 +704,9 @@ public class prevTemp extends MIDlet implements CommandListener {
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: localdataSringItem ">//GEN-BEGIN:|70-getter|0|70-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: localdataSringItem ">//GEN-BEGIN:|70-getter|0|70-preInit
     /**
-     * Returns an initialized instance of localdataSringItem component.
-     *
+     * Returns an initiliazed instance of localdataSringItem component.
      * @return the initialized component instance
      */
     public StringItem getLocaldataSringItem() {
@@ -746,12 +717,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|70-getter|2|
         return localdataSringItem;
     }
-//</editor-fold>//GEN-END:|70-getter|2|
+    //</editor-fold>//GEN-END:|70-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|71-getter|0|71-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|71-getter|0|71-preInit
     /**
-     * Returns an initialized instance of okCommand component.
-     *
+     * Returns an initiliazed instance of okCommand component.
      * @return the initialized component instance
      */
     public Command getOkCommand() {
@@ -762,18 +732,17 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|71-getter|2|
         return okCommand;
     }
-//</editor-fold>//GEN-END:|71-getter|2|
+    //</editor-fold>//GEN-END:|71-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
     /**
-     * Returns an initialized instance of form component.
-     *
+     * Returns an initiliazed instance of form component.
      * @return the initialized component instance
      */
     public Form getForm() {
         if (form == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            form = new Form("Previs\u00E3o de Tempo", new Item[]{getImageItem(), getStringItem(), getCidadetextField()});//GEN-BEGIN:|14-getter|1|14-postInit
+            form = new Form("Previs\u00E3o de Tempo", new Item[] { getImageItem(), getStringItem(), getCidadetextField() });//GEN-BEGIN:|14-getter|1|14-postInit
             form.addCommand(getExitCommand());
             form.addCommand(getBuscarCommand());
             form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
@@ -781,12 +750,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|14-getter|2|
         return form;
     }
-//</editor-fold>//GEN-END:|14-getter|2|
+    //</editor-fold>//GEN-END:|14-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cidadetextField ">//GEN-BEGIN:|64-getter|0|64-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cidadetextField ">//GEN-BEGIN:|64-getter|0|64-preInit
     /**
-     * Returns an initialized instance of cidadetextField component.
-     *
+     * Returns an initiliazed instance of cidadetextField component.
      * @return the initialized component instance
      */
     public TextField getCidadetextField() {
@@ -798,48 +766,44 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|64-getter|2|
         return cidadetextField;
     }
-//</editor-fold>//GEN-END:|64-getter|2|
+    //</editor-fold>//GEN-END:|64-getter|2|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoStringItem ">//GEN-BEGIN:|72-getter|0|72-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoStringItem ">//GEN-BEGIN:|72-getter|0|72-preInit
     /**
-     * Returns an initialized instance of tempoStringItem component.
-     *
+     * Returns an initiliazed instance of tempoStringItem component.
      * @return the initialized component instance
      */
     public StringItem getTempoStringItem() {
         if (tempoStringItem == null) {//GEN-END:|72-getter|0|72-preInit
             // write pre-init user code here
             tempoStringItem = new StringItem("", "");//GEN-BEGIN:|72-getter|1|72-postInit
-            tempoStringItem.setLayout(ImageItem.LAYOUT_RIGHT | Item.LAYOUT_TOP | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
-            tempoStringItem.setFont(getFont1());//GEN-END:|72-getter|1|72-postInit
+            tempoStringItem.setLayout(ImageItem.LAYOUT_DEFAULT);//GEN-END:|72-getter|1|72-postInit
             // write post-init user code here
         }//GEN-BEGIN:|72-getter|2|
         return tempoStringItem;
     }
-//</editor-fold>//GEN-END:|72-getter|2|
+    //</editor-fold>//GEN-END:|72-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoImageItem ">//GEN-BEGIN:|73-getter|0|73-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoImageItem ">//GEN-BEGIN:|73-getter|0|73-preInit
     /**
-     * Returns an initialized instance of tempoImageItem component.
-     *
+     * Returns an initiliazed instance of tempoImageItem component.
      * @return the initialized component instance
      */
     public ImageItem getTempoImageItem() {
         if (tempoImageItem == null) {//GEN-END:|73-getter|0|73-preInit
             // write pre-init user code here
-            tempoImageItem = new ImageItem("", null, ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND, "SEM PREVIS\u00C3O", Item.PLAIN);//GEN-LINE:|73-getter|1|73-postInit
+            tempoImageItem = new ImageItem("", null, ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND, "SEM PREVIS\u00C3O", Item.PLAIN);//GEN-LINE:|73-getter|1|73-postInit
             // write post-init user code here
         }//GEN-BEGIN:|73-getter|2|
         return tempoImageItem;
     }
-//</editor-fold>//GEN-END:|73-getter|2|
+    //</editor-fold>//GEN-END:|73-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pnt ">//GEN-BEGIN:|74-getter|0|74-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pnt ">//GEN-BEGIN:|74-getter|0|74-preInit
     /**
-     * Returns an initialized instance of pnt component.
-     *
+     * Returns an initiliazed instance of pnt component.
      * @return the initialized component instance
      */
     public Image getPnt() {
@@ -854,12 +818,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|74-getter|3|
         return pnt;
     }
-//</editor-fold>//GEN-END:|74-getter|3|
+    //</editor-fold>//GEN-END:|74-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: n ">//GEN-BEGIN:|75-getter|0|75-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: n ">//GEN-BEGIN:|75-getter|0|75-preInit
     /**
-     * Returns an initialized instance of n component.
-     *
+     * Returns an initiliazed instance of n component.
      * @return the initialized component instance
      */
     public Image getN() {
@@ -874,12 +837,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|75-getter|3|
         return n;
     }
-//</editor-fold>//GEN-END:|75-getter|3|
+    //</editor-fold>//GEN-END:|75-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pn ">//GEN-BEGIN:|76-getter|0|76-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pn ">//GEN-BEGIN:|76-getter|0|76-preInit
     /**
-     * Returns an initialized instance of pn component.
-     *
+     * Returns an initiliazed instance of pn component.
      * @return the initialized component instance
      */
     public Image getPn() {
@@ -894,12 +856,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|76-getter|3|
         return pn;
     }
-//</editor-fold>//GEN-END:|76-getter|3|
+    //</editor-fold>//GEN-END:|76-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: in ">//GEN-BEGIN:|77-getter|0|77-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: in ">//GEN-BEGIN:|77-getter|0|77-preInit
     /**
-     * Returns an initialized instance of in component.
-     *
+     * Returns an initiliazed instance of in component.
      * @return the initialized component instance
      */
     public Image getIn() {
@@ -914,12 +875,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|77-getter|3|
         return in;
     }
-//</editor-fold>//GEN-END:|77-getter|3|
+    //</editor-fold>//GEN-END:|77-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppm ">//GEN-BEGIN:|78-getter|0|78-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppm ">//GEN-BEGIN:|78-getter|0|78-preInit
     /**
-     * Returns an initialized instance of ppm component.
-     *
+     * Returns an initiliazed instance of ppm component.
      * @return the initialized component instance
      */
     public Image getPpm() {
@@ -934,12 +894,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|78-getter|3|
         return ppm;
     }
-//</editor-fold>//GEN-END:|78-getter|3|
+    //</editor-fold>//GEN-END:|78-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncn ">//GEN-BEGIN:|79-getter|0|79-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncn ">//GEN-BEGIN:|79-getter|0|79-preInit
     /**
-     * Returns an initialized instance of ncn component.
-     *
+     * Returns an initiliazed instance of ncn component.
      * @return the initialized component instance
      */
     public Image getNcn() {
@@ -954,12 +913,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|79-getter|3|
         return ncn;
     }
-//</editor-fold>//GEN-END:|79-getter|3|
+    //</editor-fold>//GEN-END:|79-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pp ">//GEN-BEGIN:|80-getter|0|80-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pp ">//GEN-BEGIN:|80-getter|0|80-preInit
     /**
-     * Returns an initialized instance of pp component.
-     *
+     * Returns an initiliazed instance of pp component.
      * @return the initialized component instance
      */
     public Image getPp() {
@@ -974,12 +932,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|80-getter|3|
         return pp;
     }
-//</editor-fold>//GEN-END:|80-getter|3|
+    //</editor-fold>//GEN-END:|80-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncm ">//GEN-BEGIN:|81-getter|0|81-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ncm ">//GEN-BEGIN:|81-getter|0|81-preInit
     /**
-     * Returns an initialized instance of ncm component.
-     *
+     * Returns an initiliazed instance of ncm component.
      * @return the initialized component instance
      */
     public Image getNcm() {
@@ -994,12 +951,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|81-getter|3|
         return ncm;
     }
-//</editor-fold>//GEN-END:|81-getter|3|
+    //</editor-fold>//GEN-END:|81-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppt ">//GEN-BEGIN:|82-getter|0|82-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppt ">//GEN-BEGIN:|82-getter|0|82-preInit
     /**
-     * Returns an initialized instance of ppt component.
-     *
+     * Returns an initiliazed instance of ppt component.
      * @return the initialized component instance
      */
     public Image getPpt() {
@@ -1014,12 +970,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|82-getter|3|
         return ppt;
     }
-//</editor-fold>//GEN-END:|82-getter|3|
+    //</editor-fold>//GEN-END:|82-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppn ">//GEN-BEGIN:|83-getter|0|83-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ppn ">//GEN-BEGIN:|83-getter|0|83-preInit
     /**
-     * Returns an initialized instance of ppn component.
-     *
+     * Returns an initiliazed instance of ppn component.
      * @return the initialized component instance
      */
     public Image getPpn() {
@@ -1034,12 +989,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|83-getter|3|
         return ppn;
     }
-//</editor-fold>//GEN-END:|83-getter|3|
+    //</editor-fold>//GEN-END:|83-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: psc ">//GEN-BEGIN:|84-getter|0|84-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: psc ">//GEN-BEGIN:|84-getter|0|84-preInit
     /**
-     * Returns an initialized instance of psc component.
-     *
+     * Returns an initiliazed instance of psc component.
      * @return the initialized component instance
      */
     public Image getPsc() {
@@ -1054,12 +1008,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|84-getter|3|
         return psc;
     }
-//</editor-fold>//GEN-END:|84-getter|3|
+    //</editor-fold>//GEN-END:|84-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: g ">//GEN-BEGIN:|85-getter|0|85-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: g ">//GEN-BEGIN:|85-getter|0|85-preInit
     /**
-     * Returns an initialized instance of g component.
-     *
+     * Returns an initiliazed instance of g component.
      * @return the initialized component instance
      */
     public Image getG() {
@@ -1074,12 +1027,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|85-getter|3|
         return g;
     }
-//</editor-fold>//GEN-END:|85-getter|3|
+    //</editor-fold>//GEN-END:|85-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ps ">//GEN-BEGIN:|86-getter|0|86-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ps ">//GEN-BEGIN:|86-getter|0|86-preInit
     /**
-     * Returns an initialized instance of ps component.
-     *
+     * Returns an initiliazed instance of ps component.
      * @return the initialized component instance
      */
     public Image getPs() {
@@ -1094,12 +1046,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|86-getter|3|
         return ps;
     }
-//</editor-fold>//GEN-END:|86-getter|3|
+    //</editor-fold>//GEN-END:|86-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ec ">//GEN-BEGIN:|87-getter|0|87-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ec ">//GEN-BEGIN:|87-getter|0|87-preInit
     /**
-     * Returns an initialized instance of ec component.
-     *
+     * Returns an initiliazed instance of ec component.
      * @return the initialized component instance
      */
     public Image getEc() {
@@ -1114,12 +1065,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|87-getter|3|
         return ec;
     }
-//</editor-fold>//GEN-END:|87-getter|3|
+    //</editor-fold>//GEN-END:|87-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcn ">//GEN-BEGIN:|88-getter|0|88-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcn ">//GEN-BEGIN:|88-getter|0|88-preInit
     /**
-     * Returns an initialized instance of pcn component.
-     *
+     * Returns an initiliazed instance of pcn component.
      * @return the initialized component instance
      */
     public Image getPcn() {
@@ -1134,12 +1084,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|88-getter|3|
         return pcn;
     }
-//</editor-fold>//GEN-END:|88-getter|3|
+    //</editor-fold>//GEN-END:|88-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pct ">//GEN-BEGIN:|89-getter|0|89-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pct ">//GEN-BEGIN:|89-getter|0|89-preInit
     /**
-     * Returns an initialized instance of pct component.
-     *
+     * Returns an initiliazed instance of pct component.
      * @return the initialized component instance
      */
     public Image getPct() {
@@ -1154,12 +1103,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|89-getter|3|
         return pct;
     }
-//</editor-fold>//GEN-END:|89-getter|3|
+    //</editor-fold>//GEN-END:|89-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pm ">//GEN-BEGIN:|90-getter|0|90-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pm ">//GEN-BEGIN:|90-getter|0|90-preInit
     /**
-     * Returns an initialized instance of pm component.
-     *
+     * Returns an initiliazed instance of pm component.
      * @return the initialized component instance
      */
     public Image getPm() {
@@ -1174,12 +1122,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|90-getter|3|
         return pm;
     }
-//</editor-fold>//GEN-END:|90-getter|3|
+    //</editor-fold>//GEN-END:|90-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npp ">//GEN-BEGIN:|91-getter|0|91-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: npp ">//GEN-BEGIN:|91-getter|0|91-preInit
     /**
-     * Returns an initialized instance of npp component.
-     *
+     * Returns an initiliazed instance of npp component.
      * @return the initialized component instance
      */
     public Image getNpp() {
@@ -1194,12 +1141,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|91-getter|3|
         return npp;
     }
-//</editor-fold>//GEN-END:|91-getter|3|
+    //</editor-fold>//GEN-END:|91-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npn ">//GEN-BEGIN:|92-getter|0|92-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: npn ">//GEN-BEGIN:|92-getter|0|92-preInit
     /**
-     * Returns an initialized instance of npn component.
-     *
+     * Returns an initiliazed instance of npn component.
      * @return the initialized component instance
      */
     public Image getNpn() {
@@ -1214,12 +1160,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|92-getter|3|
         return npn;
     }
-//</editor-fold>//GEN-END:|92-getter|3|
+    //</editor-fold>//GEN-END:|92-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npm ">//GEN-BEGIN:|93-getter|0|93-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: npm ">//GEN-BEGIN:|93-getter|0|93-preInit
     /**
-     * Returns an initialized instance of npm component.
-     *
+     * Returns an initiliazed instance of npm component.
      * @return the initialized component instance
      */
     public Image getNpm() {
@@ -1234,12 +1179,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|93-getter|3|
         return npm;
     }
-//</editor-fold>//GEN-END:|93-getter|3|
+    //</editor-fold>//GEN-END:|93-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: t ">//GEN-BEGIN:|94-getter|0|94-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: t ">//GEN-BEGIN:|94-getter|0|94-preInit
     /**
-     * Returns an initialized instance of t component.
-     *
+     * Returns an initiliazed instance of t component.
      * @return the initialized component instance
      */
     public Image getT() {
@@ -1254,12 +1198,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|94-getter|3|
         return t;
     }
-//</editor-fold>//GEN-END:|94-getter|3|
+    //</editor-fold>//GEN-END:|94-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcm ">//GEN-BEGIN:|95-getter|0|95-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pcm ">//GEN-BEGIN:|95-getter|0|95-preInit
     /**
-     * Returns an initialized instance of pcm component.
-     *
+     * Returns an initiliazed instance of pcm component.
      * @return the initialized component instance
      */
     public Image getPcm() {
@@ -1274,12 +1217,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|95-getter|3|
         return pcm;
     }
-//</editor-fold>//GEN-END:|95-getter|3|
+    //</editor-fold>//GEN-END:|95-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pt ">//GEN-BEGIN:|96-getter|0|96-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pt ">//GEN-BEGIN:|96-getter|0|96-preInit
     /**
-     * Returns an initialized instance of pt component.
-     *
+     * Returns an initiliazed instance of pt component.
      * @return the initialized component instance
      */
     public Image getPt() {
@@ -1294,12 +1236,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|96-getter|3|
         return pt;
     }
-//</editor-fold>//GEN-END:|96-getter|3|
+    //</editor-fold>//GEN-END:|96-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: pc ">//GEN-BEGIN:|97-getter|0|97-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: pc ">//GEN-BEGIN:|97-getter|0|97-preInit
     /**
-     * Returns an initialized instance of pc component.
-     *
+     * Returns an initiliazed instance of pc component.
      * @return the initialized component instance
      */
     public Image getPc() {
@@ -1314,12 +1255,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|97-getter|3|
         return pc;
     }
-//</editor-fold>//GEN-END:|97-getter|3|
+    //</editor-fold>//GEN-END:|97-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nv ">//GEN-BEGIN:|98-getter|0|98-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: nv ">//GEN-BEGIN:|98-getter|0|98-preInit
     /**
-     * Returns an initialized instance of nv component.
-     *
+     * Returns an initiliazed instance of nv component.
      * @return the initialized component instance
      */
     public Image getNv() {
@@ -1334,12 +1274,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|98-getter|3|
         return nv;
     }
-//</editor-fold>//GEN-END:|98-getter|3|
+    //</editor-fold>//GEN-END:|98-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: npt ">//GEN-BEGIN:|99-getter|0|99-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: npt ">//GEN-BEGIN:|99-getter|0|99-preInit
     /**
-     * Returns an initialized instance of npt component.
-     *
+     * Returns an initiliazed instance of npt component.
      * @return the initialized component instance
      */
     public Image getNpt() {
@@ -1354,12 +1293,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|99-getter|3|
         return npt;
     }
-//</editor-fold>//GEN-END:|99-getter|3|
+    //</editor-fold>//GEN-END:|99-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ne ">//GEN-BEGIN:|100-getter|0|100-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ne ">//GEN-BEGIN:|100-getter|0|100-preInit
     /**
-     * Returns an initialized instance of ne component.
-     *
+     * Returns an initiliazed instance of ne component.
      * @return the initialized component instance
      */
     public Image getNe() {
@@ -1374,12 +1312,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|100-getter|3|
         return ne;
     }
-//</editor-fold>//GEN-END:|100-getter|3|
+    //</editor-fold>//GEN-END:|100-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: np ">//GEN-BEGIN:|101-getter|0|101-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: np ">//GEN-BEGIN:|101-getter|0|101-preInit
     /**
-     * Returns an initialized instance of np component.
-     *
+     * Returns an initiliazed instance of np component.
      * @return the initialized component instance
      */
     public Image getNp() {
@@ -1394,12 +1331,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|101-getter|3|
         return np;
     }
-//</editor-fold>//GEN-END:|101-getter|3|
+    //</editor-fold>//GEN-END:|101-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ch ">//GEN-BEGIN:|102-getter|0|102-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ch ">//GEN-BEGIN:|102-getter|0|102-preInit
     /**
-     * Returns an initialized instance of ch component.
-     *
+     * Returns an initiliazed instance of ch component.
      * @return the initialized component instance
      */
     public Image getCh() {
@@ -1414,12 +1350,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|102-getter|3|
         return ch;
     }
-//</editor-fold>//GEN-END:|102-getter|3|
+    //</editor-fold>//GEN-END:|102-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nct ">//GEN-BEGIN:|103-getter|0|103-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: nct ">//GEN-BEGIN:|103-getter|0|103-preInit
     /**
-     * Returns an initialized instance of nct component.
-     *
+     * Returns an initiliazed instance of nct component.
      * @return the initialized component instance
      */
     public Image getNct() {
@@ -1434,12 +1369,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|103-getter|3|
         return nct;
     }
-//</editor-fold>//GEN-END:|103-getter|3|
+    //</editor-fold>//GEN-END:|103-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: c ">//GEN-BEGIN:|104-getter|0|104-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: c ">//GEN-BEGIN:|104-getter|0|104-preInit
     /**
-     * Returns an initialized instance of c component.
-     *
+     * Returns an initiliazed instance of c component.
      * @return the initialized component instance
      */
     public Image getC() {
@@ -1454,12 +1388,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|104-getter|3|
         return c;
     }
-//</editor-fold>//GEN-END:|104-getter|3|
+    //</editor-fold>//GEN-END:|104-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: nd ">//GEN-BEGIN:|105-getter|0|105-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: nd ">//GEN-BEGIN:|105-getter|0|105-preInit
     /**
-     * Returns an initialized instance of nd component.
-     *
+     * Returns an initiliazed instance of nd component.
      * @return the initialized component instance
      */
     public Image getNd() {
@@ -1474,12 +1407,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|105-getter|3|
         return nd;
     }
-//</editor-fold>//GEN-END:|105-getter|3|
+    //</editor-fold>//GEN-END:|105-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cv ">//GEN-BEGIN:|106-getter|0|106-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cv ">//GEN-BEGIN:|106-getter|0|106-preInit
     /**
-     * Returns an initialized instance of cv component.
-     *
+     * Returns an initiliazed instance of cv component.
      * @return the initialized component instance
      */
     public Image getCv() {
@@ -1494,12 +1426,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|106-getter|3|
         return cv;
     }
-//</editor-fold>//GEN-END:|106-getter|3|
+    //</editor-fold>//GEN-END:|106-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ct ">//GEN-BEGIN:|107-getter|0|107-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ct ">//GEN-BEGIN:|107-getter|0|107-preInit
     /**
-     * Returns an initialized instance of ct component.
-     *
+     * Returns an initiliazed instance of ct component.
      * @return the initialized component instance
      */
     public Image getCt() {
@@ -1514,12 +1445,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|107-getter|3|
         return ct;
     }
-//</editor-fold>//GEN-END:|107-getter|3|
+    //</editor-fold>//GEN-END:|107-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: vn ">//GEN-BEGIN:|108-getter|0|108-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: vn ">//GEN-BEGIN:|108-getter|0|108-preInit
     /**
-     * Returns an initialized instance of vn component.
-     *
+     * Returns an initiliazed instance of vn component.
      * @return the initialized component instance
      */
     public Image getVn() {
@@ -1534,12 +1464,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|108-getter|3|
         return vn;
     }
-//</editor-fold>//GEN-END:|108-getter|3|
+    //</editor-fold>//GEN-END:|108-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: e ">//GEN-BEGIN:|109-getter|0|109-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: e ">//GEN-BEGIN:|109-getter|0|109-preInit
     /**
-     * Returns an initialized instance of e component.
-     *
+     * Returns an initiliazed instance of e component.
      * @return the initialized component instance
      */
     public Image getE() {
@@ -1554,12 +1483,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|109-getter|3|
         return e;
     }
-//</editor-fold>//GEN-END:|109-getter|3|
+    //</editor-fold>//GEN-END:|109-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cl ">//GEN-BEGIN:|110-getter|0|110-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cl ">//GEN-BEGIN:|110-getter|0|110-preInit
     /**
-     * Returns an initialized instance of cl component.
-     *
+     * Returns an initiliazed instance of cl component.
      * @return the initialized component instance
      */
     public Image getCl() {
@@ -1574,12 +1502,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|110-getter|3|
         return cl;
     }
-//</editor-fold>//GEN-END:|110-getter|3|
+    //</editor-fold>//GEN-END:|110-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: ci ">//GEN-BEGIN:|111-getter|0|111-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ci ">//GEN-BEGIN:|111-getter|0|111-preInit
     /**
-     * Returns an initialized instance of ci component.
-     *
+     * Returns an initiliazed instance of ci component.
      * @return the initialized component instance
      */
     public Image getCi() {
@@ -1594,12 +1521,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|111-getter|3|
         return ci;
     }
-//</editor-fold>//GEN-END:|111-getter|3|
+    //</editor-fold>//GEN-END:|111-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cn ">//GEN-BEGIN:|112-getter|0|112-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cn ">//GEN-BEGIN:|112-getter|0|112-preInit
     /**
-     * Returns an initialized instance of cn component.
-     *
+     * Returns an initiliazed instance of cn component.
      * @return the initialized component instance
      */
     public Image getCn() {
@@ -1614,12 +1540,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|112-getter|3|
         return cn;
     }
-//</editor-fold>//GEN-END:|112-getter|3|
+    //</editor-fold>//GEN-END:|112-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: cm ">//GEN-BEGIN:|113-getter|0|113-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: cm ">//GEN-BEGIN:|113-getter|0|113-preInit
     /**
-     * Returns an initialized instance of cm component.
-     *
+     * Returns an initiliazed instance of cm component.
      * @return the initialized component instance
      */
     public Image getCm() {
@@ -1634,12 +1559,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|113-getter|3|
         return cm;
     }
-//</editor-fold>//GEN-END:|113-getter|3|
+    //</editor-fold>//GEN-END:|113-getter|3|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem ">//GEN-BEGIN:|118-getter|0|118-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem ">//GEN-BEGIN:|118-getter|0|118-preInit
     /**
-     * Returns an initialized instance of imageItem component.
-     *
+     * Returns an initiliazed instance of imageItem component.
      * @return the initialized component instance
      */
     public ImageItem getImageItem() {
@@ -1651,12 +1575,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|118-getter|2|
         return imageItem;
     }
-//</editor-fold>//GEN-END:|118-getter|2|
+    //</editor-fold>//GEN-END:|118-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: logo ">//GEN-BEGIN:|117-getter|0|117-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: logo ">//GEN-BEGIN:|117-getter|0|117-preInit
     /**
-     * Returns an initialized instance of logo component.
-     *
+     * Returns an initiliazed instance of logo component.
      * @return the initialized component instance
      */
     public Image getLogo() {
@@ -1671,46 +1594,17 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|117-getter|3|
         return logo;
     }
-//</editor-fold>//GEN-END:|117-getter|3|
+    //</editor-fold>//GEN-END:|117-getter|3|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font ">//GEN-BEGIN:|120-getter|0|120-preInit
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|122-getter|0|122-preInit
     /**
-     * Returns an initialized instance of font component.
-     *
-     * @return the initialized component instance
-     */
-    public Font getFont() {
-        if (font == null) {//GEN-END:|120-getter|0|120-preInit
-            // write pre-init user code here
-            font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE);//GEN-LINE:|120-getter|1|120-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|120-getter|2|
-        return font;
-    }
-//</editor-fold>//GEN-END:|120-getter|2|
-
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font1 ">//GEN-BEGIN:|121-getter|0|121-preInit
-    /**
-     * Returns an initialized instance of font1 component.
-     *
-     * @return the initialized component instance
-     */
-    public Font getFont1() {
-        if (font1 == null) {//GEN-END:|121-getter|0|121-preInit
-            // write pre-init user code here
-            font1 = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL);//GEN-LINE:|121-getter|1|121-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|121-getter|2|
-        return font1;
-    }
-//</editor-fold>//GEN-END:|121-getter|2|
-
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|122-getter|0|122-preInit
-    /**
-     * Returns an initialized instance of okCommand1 component.
-     *
+     * Returns an initiliazed instance of okCommand1 component.
      * @return the initialized component instance
      */
     public Command getOkCommand1() {
@@ -1721,12 +1615,11 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|122-getter|2|
         return okCommand1;
     }
-//</editor-fold>//GEN-END:|122-getter|2|
+    //</editor-fold>//GEN-END:|122-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|126-getter|0|126-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|126-getter|0|126-preInit
     /**
-     * Returns an initialized instance of backCommand component.
-     *
+     * Returns an initiliazed instance of backCommand component.
      * @return the initialized component instance
      */
     public Command getBackCommand() {
@@ -1737,14 +1630,13 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|126-getter|2|
         return backCommand;
     }
-//</editor-fold>//GEN-END:|126-getter|2|
+    //</editor-fold>//GEN-END:|126-getter|2|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: provCommand ">//GEN-BEGIN:|128-getter|0|128-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: provCommand ">//GEN-BEGIN:|128-getter|0|128-preInit
     /**
-     * Returns an initialized instance of provCommand component.
-     *
+     * Returns an initiliazed instance of provCommand component.
      * @return the initialized component instance
      */
     public Command getProvCommand() {
@@ -1755,151 +1647,113 @@ public class prevTemp extends MIDlet implements CommandListener {
         }//GEN-BEGIN:|128-getter|2|
         return provCommand;
     }
-//</editor-fold>//GEN-END:|128-getter|2|
+    //</editor-fold>//GEN-END:|128-getter|2|
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand2 ">//GEN-BEGIN:|136-getter|0|136-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: hojeBackCommand ">//GEN-BEGIN:|136-getter|0|136-preInit
     /**
-     * Returns an initialized instance of backCommand2 component.
-     *
+     * Returns an initiliazed instance of hojeBackCommand component.
      * @return the initialized component instance
      */
-    public Command getBackCommand2() {
-        if (backCommand2 == null) {//GEN-END:|136-getter|0|136-preInit
+    public Command getHojeBackCommand() {
+        if (hojeBackCommand == null) {//GEN-END:|136-getter|0|136-preInit
             // write pre-init user code here
-            backCommand2 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|136-getter|1|136-postInit
+            hojeBackCommand = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|136-getter|1|136-postInit
             // write post-init user code here
         }//GEN-BEGIN:|136-getter|2|
-        return backCommand2;
+        return hojeBackCommand;
     }
-//</editor-fold>//GEN-END:|136-getter|2|
+    //</editor-fold>//GEN-END:|136-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxForm ">//GEN-BEGIN:|135-getter|0|135-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: proxForm ">//GEN-BEGIN:|135-getter|0|135-preInit
     /**
-     * Returns an initialized instance of proxForm component.
-     *
+     * Returns an initiliazed instance of proxForm component.
      * @return the initialized component instance
      */
     public Form getProxForm() {
         if (proxForm == null) {//GEN-END:|135-getter|0|135-preInit
             // write pre-init user code here
-            proxForm = new Form("Previs\u00E3o p/ Pr\u00F3ximos Dias", new Item[]{getData1StringItem(), getPrev1StringItem(), getTemp1StringItem(), getImageItem1(), getData2StringItem(), getPrev2StringItem(), getTemp2StringItem()});//GEN-BEGIN:|135-getter|1|135-postInit
-            proxForm.addCommand(getBackCommand2());
+            proxForm = new Form("Previs\u00E3o p/ Pr\u00F3ximos Dias", new Item[] { getData1StringItem(), getTemp1StringItem(), getData2StringItem(), getTemp2StringItem() });//GEN-BEGIN:|135-getter|1|135-postInit
+            proxForm.addCommand(getHojeBackCommand());
             proxForm.setCommandListener(this);//GEN-END:|135-getter|1|135-postInit
             // write post-init user code here
         }//GEN-BEGIN:|135-getter|2|
         return proxForm;
     }
-//</editor-fold>//GEN-END:|135-getter|2|
+    //</editor-fold>//GEN-END:|135-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: data1StringItem ">//GEN-BEGIN:|140-getter|0|140-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: data1StringItem ">//GEN-BEGIN:|140-getter|0|140-preInit
     /**
-     * Returns an initialized instance of data1StringItem component.
-     *
+     * Returns an initiliazed instance of data1StringItem component.
      * @return the initialized component instance
      */
     public StringItem getData1StringItem() {
         if (data1StringItem == null) {//GEN-END:|140-getter|0|140-preInit
             // write pre-init user code here
             data1StringItem = new StringItem("", "data1");//GEN-BEGIN:|140-getter|1|140-postInit
-            data1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT | ImageItem.LAYOUT_NEWLINE_AFTER);
-            data1StringItem.setFont(getFont1());//GEN-END:|140-getter|1|140-postInit
+            data1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);//GEN-END:|140-getter|1|140-postInit
             // write post-init user code here
         }//GEN-BEGIN:|140-getter|2|
         return data1StringItem;
     }
-//</editor-fold>//GEN-END:|140-getter|2|
+    //</editor-fold>//GEN-END:|140-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: prev1StringItem ">//GEN-BEGIN:|141-getter|0|141-preInit
-    /**
-     * Returns an initialized instance of prev1StringItem component.
-     *
-     * @return the initialized component instance
-     */
-    public StringItem getPrev1StringItem() {
-        if (prev1StringItem == null) {//GEN-END:|141-getter|0|141-preInit
-            // write pre-init user code here
-            prev1StringItem = new StringItem("", "previsao1");//GEN-BEGIN:|141-getter|1|141-postInit
-            prev1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT | ImageItem.LAYOUT_NEWLINE_BEFORE | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
-            prev1StringItem.setFont(getFont1());//GEN-END:|141-getter|1|141-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|141-getter|2|
-        return prev1StringItem;
-    }
-//</editor-fold>//GEN-END:|141-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp1StringItem ">//GEN-BEGIN:|142-getter|0|142-preInit
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp1StringItem ">//GEN-BEGIN:|142-getter|0|142-preInit
     /**
-     * Returns an initialized instance of temp1StringItem component.
-     *
+     * Returns an initiliazed instance of temp1StringItem component.
      * @return the initialized component instance
      */
     public StringItem getTemp1StringItem() {
         if (temp1StringItem == null) {//GEN-END:|142-getter|0|142-preInit
             // write pre-init user code here
             temp1StringItem = new StringItem("", "temp1");//GEN-BEGIN:|142-getter|1|142-postInit
-            temp1StringItem.setLayout(ImageItem.LAYOUT_LEFT | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
-            temp1StringItem.setFont(getFont2());//GEN-END:|142-getter|1|142-postInit
+            temp1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
+            temp1StringItem.setFont(getFontTemp());//GEN-END:|142-getter|1|142-postInit
             // write post-init user code here
         }//GEN-BEGIN:|142-getter|2|
         return temp1StringItem;
     }
-//</editor-fold>//GEN-END:|142-getter|2|
+    //</editor-fold>//GEN-END:|142-getter|2|
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: data2StringItem ">//GEN-BEGIN:|144-getter|0|144-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: data2StringItem ">//GEN-BEGIN:|144-getter|0|144-preInit
     /**
-     * Returns an initialized instance of data2StringItem component.
-     *
+     * Returns an initiliazed instance of data2StringItem component.
      * @return the initialized component instance
      */
     public StringItem getData2StringItem() {
         if (data2StringItem == null) {//GEN-END:|144-getter|0|144-preInit
             // write pre-init user code here
             data2StringItem = new StringItem("", "data2");//GEN-BEGIN:|144-getter|1|144-postInit
-            data2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
-            data2StringItem.setFont(getFont1());//GEN-END:|144-getter|1|144-postInit
+            data2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);//GEN-END:|144-getter|1|144-postInit
             // write post-init user code here
         }//GEN-BEGIN:|144-getter|2|
         return data2StringItem;
     }
-//</editor-fold>//GEN-END:|144-getter|2|
+    //</editor-fold>//GEN-END:|144-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: prev2StringItem ">//GEN-BEGIN:|145-getter|0|145-preInit
-    /**
-     * Returns an initialized instance of prev2StringItem component.
-     *
-     * @return the initialized component instance
-     */
-    public StringItem getPrev2StringItem() {
-        if (prev2StringItem == null) {//GEN-END:|145-getter|0|145-preInit
-            // write pre-init user code here
-            prev2StringItem = new StringItem("", "previsao2");//GEN-BEGIN:|145-getter|1|145-postInit
-            prev2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
-            prev2StringItem.setFont(getFont1());//GEN-END:|145-getter|1|145-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|145-getter|2|
-        return prev2StringItem;
-    }
-//</editor-fold>//GEN-END:|145-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp2StringItem ">//GEN-BEGIN:|146-getter|0|146-preInit
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp2StringItem ">//GEN-BEGIN:|146-getter|0|146-preInit
     /**
-     * Returns an initialized instance of temp2StringItem component.
-     *
+     * Returns an initiliazed instance of temp2StringItem component.
      * @return the initialized component instance
      */
     public StringItem getTemp2StringItem() {
         if (temp2StringItem == null) {//GEN-END:|146-getter|0|146-preInit
             // write pre-init user code here
             temp2StringItem = new StringItem("", "temp2");//GEN-BEGIN:|146-getter|1|146-postInit
-            temp2StringItem.setLayout(ImageItem.LAYOUT_LEFT | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
-            temp2StringItem.setFont(getFont2());//GEN-END:|146-getter|1|146-postInit
+            temp2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
+            temp2StringItem.setFont(getFontTemp());//GEN-END:|146-getter|1|146-postInit
             // write post-init user code here
         }//GEN-BEGIN:|146-getter|2|
         return temp2StringItem;
     }
-//</editor-fold>//GEN-END:|146-getter|2|
+    //</editor-fold>//GEN-END:|146-getter|2|
+    //</editor-fold>
 
 
 
@@ -1909,76 +1763,47 @@ public class prevTemp extends MIDlet implements CommandListener {
 
 
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: font2 ">//GEN-BEGIN:|151-getter|0|151-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: fontTemp ">//GEN-BEGIN:|151-getter|0|151-preInit
     /**
-     * Returns an initialized instance of font2 component.
-     *
+     * Returns an initiliazed instance of fontTemp component.
      * @return the initialized component instance
      */
-    public Font getFont2() {
-        if (font2 == null) {//GEN-END:|151-getter|0|151-preInit
+    public Font getFontTemp() {
+        if (fontTemp == null) {//GEN-END:|151-getter|0|151-preInit
             // write pre-init user code here
-            font2 = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM);//GEN-LINE:|151-getter|1|151-postInit
+            fontTemp = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE);//GEN-LINE:|151-getter|1|151-postInit
             // write post-init user code here
         }//GEN-BEGIN:|151-getter|2|
-        return font2;
+        return fontTemp;
     }
-//</editor-fold>//GEN-END:|151-getter|2|
+    //</editor-fold>//GEN-END:|151-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem1 ">//GEN-BEGIN:|152-getter|0|152-preInit
+
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|154-getter|0|154-preInit
     /**
-     * Returns an initialized instance of imageItem1 component.
-     *
-     * @return the initialized component instance
-     */
-    public ImageItem getImageItem1() {
-        if (imageItem1 == null) {//GEN-END:|152-getter|0|152-preInit
-            // write pre-init user code here
-            imageItem1 = new ImageItem("", getLinha(), ImageItem.LAYOUT_LEFT, "<Missing Image>");//GEN-LINE:|152-getter|1|152-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|152-getter|2|
-        return imageItem1;
-    }
-//</editor-fold>//GEN-END:|152-getter|2|
-
-
-
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: linha ">//GEN-BEGIN:|153-getter|0|153-preInit
-    /**
-     * Returns an initialized instance of linha component.
-     *
-     * @return the initialized component instance
-     */
-    public Image getLinha() {
-        if (linha == null) {//GEN-END:|153-getter|0|153-preInit
-            // write pre-init user code here
-            try {//GEN-BEGIN:|153-getter|1|153-@java.io.IOException
-                linha = Image.createImage("/prevTemp/images/linha2.png");
-            } catch (java.io.IOException e) {//GEN-END:|153-getter|1|153-@java.io.IOException
-                e.printStackTrace();
-            }//GEN-LINE:|153-getter|2|153-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|153-getter|3|
-        return linha;
-    }
-//</editor-fold>//GEN-END:|153-getter|3|
-
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|154-getter|0|154-preInit
-    /**
-     * Returns an initialized instance of stringItem component.
-     *
+     * Returns an initiliazed instance of stringItem component.
      * @return the initialized component instance
      */
     public StringItem getStringItem() {
         if (stringItem == null) {//GEN-END:|154-getter|0|154-preInit
             // write pre-init user code here
-            stringItem = new StringItem("", "Digite o nome da cidade que deseja verificar a previs\u00E3o do tempo.");//GEN-BEGIN:|154-getter|1|154-postInit
-            stringItem.setFont(getFont1());//GEN-END:|154-getter|1|154-postInit
+            stringItem = new StringItem("", "Digite o nome da cidade que deseja verificar a previs\u00E3o do tempo.");//GEN-LINE:|154-getter|1|154-postInit
             // write post-init user code here
         }//GEN-BEGIN:|154-getter|2|
         return stringItem;
     }
-//</editor-fold>//GEN-END:|154-getter|2|
+    //</editor-fold>//GEN-END:|154-getter|2|
+
+
+
+
+
+
 
 
 
