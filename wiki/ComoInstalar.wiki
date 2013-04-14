@@ -3,11 +3,11 @@
 
 = Instruções de Instalação =
 
-== Observações ==
+==http://i.imgur.com/7dZG5rQ.jpg Observações ==
   * Necessário que o aparelho tenha suporte para a tecnologia JAVA;
   * Necessário que o aparelho tenha conexão com a internet para consulta dos dados;
 
-== Instalação ==
+==http://i.imgur.com/7dZG5rQ.jpg Instalação ==
   # Realizar o download do arquivo prevTempo.jar<br>Disponível em: https://code.google.com/p/previsao-temperatura-cidade/downloads/detail?name=prevTempo.jar<br>
   # Realizar a cópia para seu dispositivo;<br>
   # Executar o arquivo prevTempo.jar.
