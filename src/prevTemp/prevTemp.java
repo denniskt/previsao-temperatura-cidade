@@ -211,6 +211,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                 String cidade = cidadetextField.getString();
                 cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
                 String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
+                codCidade = "";
                 
                 try{
                     getList().deleteAll();
@@ -401,7 +402,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                     getDisplay().setCurrent(mensagem);
                 }
                 switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
-
+ 
             } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
@@ -414,6 +415,15 @@ public class prevTemp extends MIDlet implements CommandListener {
                 // write post-action user code here
             } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|7|32-preAction
                 // write pre-action user code here
+                getList().deleteAll();
+                dia.removeAllElements();
+                tempo.removeAllElements();
+                tempMaxima.removeAllElements();
+                tempMinima.removeAllElements();
+
+                codCidade = "";
+                imgTempo = null;
+                cidadeEstado = "";
                 switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|8|32-postAction
                 // write post-action user code here
             } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
