@@ -6,8 +6,5 @@
 Descrição das telas da aplicação.
 <br><br>
 
-|| http://i.imgur.com/dykCTQz.jpg || http://i.imgur.com/tEwyBXR.jpg || http://i.imgur.com/TEzYhzB.jpg ||
-|| Tela Inicial || Lista Cidades || Menu Opções ||
-
-|| http://i.imgur.com/XRGTlTT.jpg || http://i.imgur.com/ZN4ly4J.jpg || 
-|| Previsão Hoje || Próx. Dias || 
+|| http://i.imgur.com/QdJLnYl.jpg || http://i.imgur.com/X4SZjH7.jpg || http://i.imgur.com/CjihYjF.jpg || http://i.imgur.com/lndFfl2.jpg ||
+|| Tela Inicial || Lista de Cidades || Previsão Hoje || Previsão Próximos Dias || 
