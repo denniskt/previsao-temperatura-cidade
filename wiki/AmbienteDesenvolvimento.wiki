@@ -11,7 +11,13 @@ Disponível em: https://netbeans.org/downloads/6.9.1/index.html
 Java SE Development Kit 6 Update 43<br>
 Disponível em: http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html
 
+Subversion 1.6.20 (Windows 32-bit)<Br>
+Disponível em: http://www.collab.net/downloads/svn-other
+
 ==http://i.imgur.com/7dZG5rQ.jpg Configuração ==
   # Realizar a instalação do Java SE Development Kit (JDK);
-  # Realizar a instalação do NetBeans IDE, habilitando a opção JavaME durante a instalação;
-  # Realizar o checkout do projeto https://code.google.com/p/previsao-temperatura-cidade/source/checkout
+  # Realizar a instalação do Subversion;
+  # Realizar a instalação do NetBeans, habilitando a opção JavaME durante a instalação;
+  # Realizar o checkout do projeto no NetBeans https://code.google.com/p/previsao-temperatura-cidade/source/checkout
+<code>URI do Repositório
+http://previsao-temperatura-cidade.googlecode.com/svn/trunk/</code>
