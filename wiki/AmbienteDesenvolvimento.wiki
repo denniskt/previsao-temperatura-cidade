@@ -12,3 +12,6 @@ Java SE Development Kit 6 Update 43<br>
 Disponível em: http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html
 
 ==http://i.imgur.com/7dZG5rQ.jpg Configuração ==
+  # Realizar a instalação do Java SE Development Kit (JDK);
+  # Realizar a instalação do NetBeans IDE, habilitando a opção JavaME durante a instalação;
+  # Realizar o checkout do projeto https://code.google.com/p/previsao-temperatura-cidade/source/checkout
