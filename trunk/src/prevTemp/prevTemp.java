@@ -742,7 +742,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public Form getForm() {
         if (form == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            form = new Form("Previs\u00E3o de Tempo", new Item[] { getImageItem(), getStringItem(), getCidadetextField() });//GEN-BEGIN:|14-getter|1|14-postInit
+            form = new Form("Previs\u00E3o do Tempo", new Item[] { getImageItem(), getStringItem(), getCidadetextField() });//GEN-BEGIN:|14-getter|1|14-postInit
             form.addCommand(getExitCommand());
             form.addCommand(getBuscarCommand());
             form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
