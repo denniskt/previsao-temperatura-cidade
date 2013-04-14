@@ -58,14 +58,14 @@ public class prevTemp extends MIDlet implements CommandListener {
     private Command itemCommand1;
     private Command buscarCommand;
     private Command okCommand;
-    private Command okCommand1;
     private Command backCommand;
-    private Command provCommand;
+    private Command okCommand1;
     private Command backCommand2;
+    private Command provCommand;
     private Form form;
-    private StringItem stringItem;
     private TextField cidadetextField;
     private ImageItem imageItem;
+    private StringItem stringItem;
     private List list;
     private Form previsaoForm;
     private StringItem temperaturaStringItem;
@@ -73,13 +73,13 @@ public class prevTemp extends MIDlet implements CommandListener {
     private StringItem tempoStringItem;
     private ImageItem tempoImageItem;
     private Form proxForm;
-    private StringItem data1StringItem;
     private StringItem prev1StringItem;
+    private StringItem data1StringItem;
     private StringItem temp1StringItem;
+    private ImageItem imageItem1;
     private StringItem data2StringItem;
     private StringItem prev2StringItem;
     private StringItem temp2StringItem;
-    private ImageItem imageItem1;
     private Image buttonImage;
     private Image pn;
     private Image in;
@@ -122,10 +122,10 @@ public class prevTemp extends MIDlet implements CommandListener {
     private Image logo;
     private Image cm;
     private Image cn;
-    private Font font;
     private Font font1;
-    private Font font2;
+    private Font font;
     private Image linha;
+    private Font font2;
 //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -229,7 +229,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                                 }if(currentName.equals("uf")){
                                     // Inserir a sigla da UF depois do nome da cidade na lista
                                     getList().append(cidadeEstado+" - "+chars, getButtonImage());
-                                }else if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
+                                }if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
                                     codCidade = chars;
                                 }
                             }
@@ -273,22 +273,22 @@ public class prevTemp extends MIDlet implements CommandListener {
                                         chars = "Encoberto com Chuvas Isoladas";
                                         imgTempo = getEc();
                                     }else if(chars.equals("ci")){
-                                        chars = "Chuvas Isoladas";
+                                        chars = "Previsão de Chuvas Isoladas";
                                         imgTempo = getCi();
                                     }else if(chars.equals("c")){
-                                        chars = "Chuva";
+                                        chars = "Previsão de Chuva durante o dia";
                                         imgTempo = getC();
                                     }else if(chars.equals("in")){
-                                        chars = "Instável";
+                                        chars = "Previsão de Tempo Instável";
                                         imgTempo = getIn();
                                     }else if(chars.equals("pp")){
                                         chars = "Poss. de Pancadas de Chuva";
                                         imgTempo = getPp();
                                     }else if(chars.equals("cm")){
-                                        chars = "Chuva pela Manhã";
+                                        chars = "Previsão de Chuva pela Manhã";
                                         imgTempo = getCm();
                                     }else if(chars.equals("cn")){
-                                        chars = "Chuva a Noite";
+                                        chars = "Previsão de Chuva a Noite";
                                         imgTempo = getCn();
                                     }else if(chars.equals("pt")){
                                         chars = "Pancadas de Chuva a Tarde";
@@ -300,40 +300,40 @@ public class prevTemp extends MIDlet implements CommandListener {
                                         chars = "Nublado e Pancadas de Chuva";
                                         imgTempo = getNp();
                                     }else if(chars.equals("pc")){
-                                        chars = "Pancadas de Chuva";
+                                        chars = "Previsão de Pancadas de Chuva";
                                         imgTempo = getPc();
                                     }else if(chars.equals("pn")){
-                                        chars = "Parcialmente Nublado";
+                                        chars = "Previsão de tempo parcialmente Nublado";
                                         imgTempo = getPn();
                                     }else if(chars.equals("cv")){
-                                        chars = "Chuvisco";
+                                        chars = "Previsão de Chuvisco durante o dia";
                                         imgTempo = getCv();
                                     }else if(chars.equals("ch")){
-                                        chars = "Chuvoso";
+                                        chars = "Tempo Chuvoso durante o dia";
                                         imgTempo = getCh();
                                     }else if(chars.equals("t")){
-                                        chars = "Tempestade";
+                                        chars = "Previsão de Tempestade durante o dia";
                                         imgTempo = getT();
                                     }else if(chars.equals("ps")){
-                                        chars = "Predomínio de Sol";
+                                        chars = "Predomínio de Sol durante o dia";
                                         imgTempo = getPs();
                                     }else if(chars.equals("e")){
-                                        chars = "Encoberto";
+                                        chars = "Previsão de tempo Encoberto";
                                         imgTempo = getE();
                                     }else if(chars.equals("n")){
-                                        chars = "Nublado";
+                                        chars = "Previsão de tempo Nublado";
                                         imgTempo = getN();
                                     }else if(chars.equals("cl")){
-                                        chars = "Céu Claro";
+                                        chars = "Previsão de Céu Claro";
                                         imgTempo = getCl();
                                     }else if(chars.equals("nv")){
-                                        chars = "Nevoeiro";
+                                        chars = "Previsão de Nevoeiro";
                                         imgTempo = getNv();
                                     }else if(chars.equals("g")){
-                                        chars = "Geada";
+                                        chars = "Previsão de Geada";
                                         imgTempo = getG();
                                     }else if(chars.equals("ne")){
-                                        chars = "Neve";
+                                        chars = "Previsão de Neve";
                                         imgTempo = getNe();
                                     }else if(chars.equals("pnt")){
                                         chars = "Pancadas de Chuva a Noite";
@@ -375,7 +375,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                                         chars = "Variação de Nebulosidade";
                                         imgTempo = getVn();
                                     }else if(chars.equals("ct")){
-                                        chars = "Chuva a Tarde";
+                                        chars = "Previsão de chuva a Tarde";
                                         imgTempo = getCt();
                                     }else if(chars.equals("ppn")){
                                         chars = "Poss. de Panc. de Chuva a Noite";
@@ -426,7 +426,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                 String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
                 
                 previsaoForm.setTitle(cidade); // Nome da cidade no detalhesForm
-                temperaturaStringItem.setText(tempMinimoCidade+"ºC Mínima "+tempMaximaCidade+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                temperaturaStringItem.setText(tempMaximaCidade+"ºC Máxima\n"+tempMinimoCidade+"ºC Mínima"); // Temp. Min e Max no detalhesForm
                 tempoStringItem.setText(tempoCidade); //Descrição da previsão do tempo no detalhesForm
                 tempoImageItem.setImage(imgTempo); // Iagem da previsão do tempo no detalhesForm
             } else if (command == provCommand) {//GEN-LINE:|7-commandAction|11|129-preAction
@@ -436,11 +436,11 @@ public class prevTemp extends MIDlet implements CommandListener {
                 proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
                 
                 data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
-                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
                 prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
                 
                 data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                temp2StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
                 prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
                 
             }//GEN-BEGIN:|7-commandAction|13|30-preAction
@@ -456,11 +456,11 @@ public class prevTemp extends MIDlet implements CommandListener {
                 proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
                 
                 data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
-                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                temp1StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Mínima\n"+(String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
                 prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
                 
                 data2StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+2)); //Descrição da data da previsão no detalhesForm
-                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima "+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
+                temp2StringItem.setText((String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Mínima\n"+(String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima"); // Temp. Min e Max no detalhesForm
                 prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
                 
             }//GEN-BEGIN:|7-commandAction|17|137-preAction
@@ -487,7 +487,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public Command getExitCommand() {
         if (exitCommand == null) {//GEN-END:|18-getter|0|18-preInit
             // write pre-init user code here
-            exitCommand = new Command("Exit", Command.EXIT, 0);//GEN-LINE:|18-getter|1|18-postInit
+            exitCommand = new Command("Sair", Command.EXIT, 0);//GEN-LINE:|18-getter|1|18-postInit
             // write post-init user code here
         }//GEN-BEGIN:|18-getter|2|
         return exitCommand;
@@ -573,7 +573,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public List getList() {
         if (list == null) {//GEN-END:|24-getter|0|24-preInit
             // write pre-init user code here
-            list = new List("list", Choice.IMPLICIT);//GEN-BEGIN:|24-getter|1|24-postInit
+            list = new List("Selecione a cidade", Choice.IMPLICIT);//GEN-BEGIN:|24-getter|1|24-postInit
             list.addCommand(getBackCommand1());
             list.addCommand(getPrevisaoCommand());
             list.addCommand(getProvCommand());
@@ -782,7 +782,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public TextField getCidadetextField() {
         if (cidadetextField == null) {//GEN-END:|64-getter|0|64-preInit
             // write pre-init user code here
-            cidadetextField = new TextField("Nome da cidade:", "", 32, TextField.ANY | TextField.INITIAL_CAPS_WORD);//GEN-BEGIN:|64-getter|1|64-postInit
+            cidadetextField = new TextField("", "", 32, TextField.ANY | TextField.INITIAL_CAPS_WORD);//GEN-BEGIN:|64-getter|1|64-postInit
             cidadetextField.setInitialInputMode("ABC");//GEN-END:|64-getter|1|64-postInit
             // write post-init user code here
         }//GEN-BEGIN:|64-getter|2|
@@ -790,22 +790,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     }
 //</editor-fold>//GEN-END:|64-getter|2|
 
-//<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|39-getter|0|39-preInit
-    /**
-     * Returns an initialized instance of stringItem component.
-     *
-     * @return the initialized component instance
-     */
-    public StringItem getStringItem() {
-        if (stringItem == null) {//GEN-END:|39-getter|0|39-preInit
-            // write pre-init user code here
-            stringItem = new StringItem("", "Digite o nome da cidade para verificar a previs\u00E3o de do tempo.");//GEN-BEGIN:|39-getter|1|39-postInit
-            stringItem.setFont(getFont1());//GEN-END:|39-getter|1|39-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|39-getter|2|
-        return stringItem;
-    }
-//</editor-fold>//GEN-END:|39-getter|2|
+
 
 //<editor-fold defaultstate="collapsed" desc=" Generated Getter: tempoStringItem ">//GEN-BEGIN:|72-getter|0|72-preInit
     /**
@@ -1668,7 +1653,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (logo == null) {//GEN-END:|117-getter|0|117-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|117-getter|1|117-@java.io.IOException
-                logo = Image.createImage("/prevTemp/images/logopequeno200.png");
+                logo = Image.createImage("/prevTemp/images/_logo150xnv2.png");
             } catch (java.io.IOException e) {//GEN-END:|117-getter|1|117-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|117-getter|2|117-postInit
@@ -1755,7 +1740,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public Command getProvCommand() {
         if (provCommand == null) {//GEN-END:|128-getter|0|128-preInit
             // write pre-init user code here
-            provCommand = new Command("Pr\u00F3x. DIas", Command.ITEM, 0);//GEN-LINE:|128-getter|1|128-postInit
+            provCommand = new Command("Pr\u00F3ximos DIas", Command.ITEM, 0);//GEN-LINE:|128-getter|1|128-postInit
             // write post-init user code here
         }//GEN-BEGIN:|128-getter|2|
         return provCommand;
@@ -1771,7 +1756,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public Command getBackCommand2() {
         if (backCommand2 == null) {//GEN-END:|136-getter|0|136-preInit
             // write pre-init user code here
-            backCommand2 = new Command("Back", Command.BACK, 0);//GEN-LINE:|136-getter|1|136-postInit
+            backCommand2 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|136-getter|1|136-postInit
             // write post-init user code here
         }//GEN-BEGIN:|136-getter|2|
         return backCommand2;
@@ -1806,6 +1791,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (data1StringItem == null) {//GEN-END:|140-getter|0|140-preInit
             // write pre-init user code here
             data1StringItem = new StringItem("", "data1");//GEN-BEGIN:|140-getter|1|140-postInit
+            data1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT | ImageItem.LAYOUT_NEWLINE_AFTER);
             data1StringItem.setFont(getFont1());//GEN-END:|140-getter|1|140-postInit
             // write post-init user code here
         }//GEN-BEGIN:|140-getter|2|
@@ -1823,6 +1809,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (prev1StringItem == null) {//GEN-END:|141-getter|0|141-preInit
             // write pre-init user code here
             prev1StringItem = new StringItem("", "previsao1");//GEN-BEGIN:|141-getter|1|141-postInit
+            prev1StringItem.setLayout(ImageItem.LAYOUT_DEFAULT | ImageItem.LAYOUT_NEWLINE_BEFORE | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
             prev1StringItem.setFont(getFont1());//GEN-END:|141-getter|1|141-postInit
             // write post-init user code here
         }//GEN-BEGIN:|141-getter|2|
@@ -1840,6 +1827,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (temp1StringItem == null) {//GEN-END:|142-getter|0|142-preInit
             // write pre-init user code here
             temp1StringItem = new StringItem("", "temp1");//GEN-BEGIN:|142-getter|1|142-postInit
+            temp1StringItem.setLayout(ImageItem.LAYOUT_LEFT | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
             temp1StringItem.setFont(getFont2());//GEN-END:|142-getter|1|142-postInit
             // write post-init user code here
         }//GEN-BEGIN:|142-getter|2|
@@ -1859,6 +1847,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (data2StringItem == null) {//GEN-END:|144-getter|0|144-preInit
             // write pre-init user code here
             data2StringItem = new StringItem("", "data2");//GEN-BEGIN:|144-getter|1|144-postInit
+            data2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
             data2StringItem.setFont(getFont1());//GEN-END:|144-getter|1|144-postInit
             // write post-init user code here
         }//GEN-BEGIN:|144-getter|2|
@@ -1876,6 +1865,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (prev2StringItem == null) {//GEN-END:|145-getter|0|145-preInit
             // write pre-init user code here
             prev2StringItem = new StringItem("", "previsao2");//GEN-BEGIN:|145-getter|1|145-postInit
+            prev2StringItem.setLayout(ImageItem.LAYOUT_DEFAULT);
             prev2StringItem.setFont(getFont1());//GEN-END:|145-getter|1|145-postInit
             // write post-init user code here
         }//GEN-BEGIN:|145-getter|2|
@@ -1893,6 +1883,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (temp2StringItem == null) {//GEN-END:|146-getter|0|146-preInit
             // write pre-init user code here
             temp2StringItem = new StringItem("", "temp2");//GEN-BEGIN:|146-getter|1|146-postInit
+            temp2StringItem.setLayout(ImageItem.LAYOUT_LEFT | ImageItem.LAYOUT_NEWLINE_AFTER | Item.LAYOUT_SHRINK | Item.LAYOUT_VSHRINK | Item.LAYOUT_EXPAND | Item.LAYOUT_VEXPAND);
             temp2StringItem.setFont(getFont2());//GEN-END:|146-getter|1|146-postInit
             // write post-init user code here
         }//GEN-BEGIN:|146-getter|2|
@@ -1933,7 +1924,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public ImageItem getImageItem1() {
         if (imageItem1 == null) {//GEN-END:|152-getter|0|152-preInit
             // write pre-init user code here
-            imageItem1 = new ImageItem("", getLinha(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|152-getter|1|152-postInit
+            imageItem1 = new ImageItem("", getLinha(), ImageItem.LAYOUT_LEFT, "<Missing Image>");//GEN-LINE:|152-getter|1|152-postInit
             // write post-init user code here
         }//GEN-BEGIN:|152-getter|2|
         return imageItem1;
@@ -1952,7 +1943,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         if (linha == null) {//GEN-END:|153-getter|0|153-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|153-getter|1|153-@java.io.IOException
-                linha = Image.createImage("/prevTemp/images/linha.png");
+                linha = Image.createImage("/prevTemp/images/linha2.png");
             } catch (java.io.IOException e) {//GEN-END:|153-getter|1|153-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|153-getter|2|153-postInit
@@ -1961,6 +1952,23 @@ public class prevTemp extends MIDlet implements CommandListener {
         return linha;
     }
 //</editor-fold>//GEN-END:|153-getter|3|
+
+//<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem ">//GEN-BEGIN:|154-getter|0|154-preInit
+    /**
+     * Returns an initialized instance of stringItem component.
+     *
+     * @return the initialized component instance
+     */
+    public StringItem getStringItem() {
+        if (stringItem == null) {//GEN-END:|154-getter|0|154-preInit
+            // write pre-init user code here
+            stringItem = new StringItem("", "Digite o nome da cidade que deseja verificar a previs\u00E3o do tempo.");//GEN-BEGIN:|154-getter|1|154-postInit
+            stringItem.setFont(getFont1());//GEN-END:|154-getter|1|154-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|154-getter|2|
+        return stringItem;
+    }
+//</editor-fold>//GEN-END:|154-getter|2|
 
 
 
