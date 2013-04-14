@@ -3,7 +3,7 @@
 
 = Instalação do Ambiente de Desenvolvimento =
 
-== Softwares Necessários ==
+==http://i.imgur.com/7dZG5rQ.jpg Softwares Necessários ==
 
 NetBeans IDE 6.9.1 com suporte a JavaME<br>
 Disponível em: https://netbeans.org/downloads/6.9.1/index.html
@@ -11,3 +11,4 @@ Disponível em: https://netbeans.org/downloads/6.9.1/index.html
 Java SE Development Kit 6 Update 43<br>
 Disponível em: http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html
 
+==http://i.imgur.com/7dZG5rQ.jpg Configuração ==
