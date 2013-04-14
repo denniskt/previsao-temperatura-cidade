@@ -1,5 +1,5 @@
 #summary Instruções para criação de ambiente de desenvolvimento.
-#labels Desenvolvimento
+#labels Featured,Phase-Implementation,Phase-Deploy
 
 = Instalação do Ambiente de Desenvolvimento =
 
