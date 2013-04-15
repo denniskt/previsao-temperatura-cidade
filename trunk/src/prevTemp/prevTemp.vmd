@@ -214,7 +214,7 @@
                         <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R29"/>
                         <Component componentID="35" typeID="C#SwitchDisplayableEventHandler">
                             <Property name="eventSource" typeID="C#EventSource" value="R30"/>
-                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R14"/>
+                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R24"/>
                         </Component>
                     </Component>
                     <Component componentID="53" typeID="Cjavax.microedition.lcdui.StringItem">
@@ -266,7 +266,7 @@
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R137"/>
                     <Property name="title" typeID="Pjava.lang.String" value="VPrevisão p/ Próximos Dias"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
-                    <Property name="items" typeID="1Cjavax.microedition.lcdui.Item" value="A4:4_R1404_R1424_R1444_R146"/>
+                    <Property name="items" typeID="1Cjavax.microedition.lcdui.Item" value="A6:4_R1404_R1424_R1444_R1464_R1594_R160"/>
                     <Component componentID="137" typeID="C#CommandEventSource">
                         <Property name="eventHandler" typeID="C#EventHandler" value="R158"/>
                         <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R135"/>
@@ -308,6 +308,21 @@
                         <Property name="layout" typeID="Pint" value="V0"/>
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="text" typeID="Pjava.lang.String" value="Vtemp2"/>
+                        <Property name="font" typeID="Cjavax.microedition.lcdui.Font" value="R151"/>
+                    </Component>
+                    <Component componentID="159" typeID="Cjavax.microedition.lcdui.StringItem">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="Vdata3StringItem"/>
+                        <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="V"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="text" typeID="Pjava.lang.String" value="Vdata3"/>
+                    </Component>
+                    <Component componentID="160" typeID="Cjavax.microedition.lcdui.StringItem">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="Vtemp3StringItem"/>
+                        <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="V"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="text" typeID="Pjava.lang.String" value="Vtemp3"/>
                         <Property name="font" typeID="Cjavax.microedition.lcdui.Font" value="R151"/>
                     </Component>
                 </Component>
@@ -536,10 +551,10 @@
         </Component>
     </Document>
     <FlowScene version="1">
-        <Node componentID="14" descriptorID="componentNode14" x="163" y="148"/>
         <Node componentID="2" descriptorID="componentNode2" x="3" y="24"/>
+        <Node componentID="28" descriptorID="componentNode28" x="444" y="416"/>
         <Node componentID="24" descriptorID="componentNode24" x="337" y="251"/>
+        <Node componentID="14" descriptorID="componentNode14" x="163" y="148"/>
         <Node componentID="135" descriptorID="componentNode135" x="640" y="338"/>
-        <Node componentID="28" descriptorID="componentNode28" x="423" y="414"/>
     </FlowScene>
 </VisualDesign>

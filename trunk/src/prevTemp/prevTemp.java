@@ -29,7 +29,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     private Vector tempMaxima = new Vector();
     private Vector tempMinima = new Vector();
 
-    private String codCidade;
+    private Vector  codCidade = new Vector();
     private Image imgTempo;
     private String cidadeEstado;
 
@@ -55,7 +55,7 @@ public class prevTemp extends MIDlet implements CommandListener {
         tempMaxima.removeAllElements();
         tempMinima.removeAllElements();
 
-        codCidade = "";
+        codCidade.removeAllElements();
         imgTempo = null;
         cidadeEstado = "";
     }
@@ -89,6 +89,8 @@ public class prevTemp extends MIDlet implements CommandListener {
     private StringItem temp1StringItem;
     private StringItem data2StringItem;
     private StringItem temp2StringItem;
+    private StringItem data3StringItem;
+    private StringItem temp3StringItem;
     private Image buttonImage;
     private Image pn;
     private Image in;
@@ -213,7 +215,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                 }else{
                     cidade = replace(cidade, " ", "%20"); // Substitui espaço em %20 por causa da URL
                     String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="+cidade;
-                    codCidade = "";
+                    codCidade.removeAllElements();
 
                     try{
                         getList().deleteAll();
@@ -233,7 +235,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                                         // Inserir a sigla da UF depois do nome da cidade na lista
                                         getList().append(cidadeEstado+" - "+chars, getButtonImage());
                                     }if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
-                                        codCidade = chars;
+                                        codCidade.addElement(chars);
                                     }
                                 }
                             }
@@ -245,7 +247,28 @@ public class prevTemp extends MIDlet implements CommandListener {
                         getDisplay().setCurrent(mensagem);
                     }
 
-                    url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidade+"/previsao.xml";
+
+                    switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
+}
+            } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
+                // write pre-action user code here
+                exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|26-preAction
+        } else if (displayable == list) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|26-preAction
+                // write pre-action user code here
+                listAction();//GEN-LINE:|7-commandAction|6|26-postAction
+                // write post-action user code here
+            } else if (command == homeListBackCommand) {//GEN-LINE:|7-commandAction|7|32-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|8|32-postAction
+                // write post-action user code here
+                limpar();
+            } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
+                // write pre-action user code here
+                String codCidadeUrl = (String) codCidade.elementAt(getList().getSelectedIndex());
+                String url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidadeUrl+"/previsao.xml";
                     try{
                         StreamConnection connection = (StreamConnection) Connector.open(url, Connector.READ_WRITE);
                         SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
@@ -404,31 +427,19 @@ public class prevTemp extends MIDlet implements CommandListener {
                         getDisplay().setCurrent(mensagem);
                     }
 
-                    switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|2|57-postAction
-}
-            } else if (command == exitCommand) {//GEN-LINE:|7-commandAction|3|19-preAction
-                // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|4|19-postAction
-                // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|26-preAction
-        } else if (displayable == list) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|26-preAction
-                // write pre-action user code here
-                listAction();//GEN-LINE:|7-commandAction|6|26-postAction
-                // write post-action user code here
-            } else if (command == homeListBackCommand) {//GEN-LINE:|7-commandAction|7|32-preAction
-                // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|8|32-postAction
-                // write post-action user code here
-                limpar();
-            } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
-                // write pre-action user code here
                 switchDisplayable(null, getPrevisaoForm());//GEN-LINE:|7-commandAction|10|37-postAction
                 // write post-action user code here
+                String tempMaximaCidade = "";
+                String tempMinimoCidade = "";
+                String tempoCidade = "";
+
                 String cidade = getList().getString(getList().getSelectedIndex()); // Obtem o nome da cidade na lista
-                String tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex()); // Obtem a temp máxima da lista
-                String tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex()); // Obtem a temp minima da lista
-                String tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
+                tempMaximaCidade = (String) tempMaxima.elementAt(0); // Obtem a temp máxima da lista
+                tempMinimoCidade = (String) tempMinima.elementAt(0); // Obtem a temp minima da lista
+                tempoCidade = (String) tempo.elementAt(0); // Obtem a descrição do tempo da lista
+                //tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex()); // Obtem a temp máxima da lista
+                //tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex()); // Obtem a temp minima da lista
+                //tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
 
                 previsaoForm.setTitle(cidade); // Nome da cidade no detalhesForm
                 temperaturaStringItem.setText(tempMaximaCidade+"ºC Máxima\n"+tempMinimoCidade+"ºC Mínima"); // Temp. Min e Max no detalhesForm
@@ -438,21 +449,27 @@ public class prevTemp extends MIDlet implements CommandListener {
         } else if (displayable == previsaoForm) {
             if (command == homeBackCommand) {//GEN-END:|7-commandAction|11|30-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|12|30-postAction
+                switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|12|30-postAction
                 // write post-action user code here
-                limpar();
+                //limpar();
             } else if (command == proxCommand) {//GEN-LINE:|7-commandAction|13|132-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|14|132-postAction
                 // write post-action user code here
                 proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
 
-                data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
-                temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                data1StringItem.setText((String) dia.elementAt(1)+"\n"+(String) tempo.elementAt(1)); //Descrição da data no detalhesForm
+                temp1StringItem.setText((String) tempMaxima.elementAt(1)+"ºC Máxima\n"+(String) tempMinima.elementAt(1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                //data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
+                //temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
                 //prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
 
-                data2StringItem.setText("--------------------------\n"+(String) dia.elementAt(getList().getSelectedIndex()+2)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da data da previsão no detalhesForm
-                temp2StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+2)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                data2StringItem.setText("--------------------------\n"+(String) dia.elementAt(2)+"\n"+(String) tempo.elementAt(2)); //Descrição da data da previsão no detalhesForm
+                temp2StringItem.setText((String) tempMaxima.elementAt(2)+"ºC Máxima\n"+(String) tempMinima.elementAt(2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
+                //prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
+
+                data3StringItem.setText("--------------------------\n"+(String) dia.elementAt(3)+"\n"+(String) tempo.elementAt(3)); //Descrição da data da previsão no detalhesForm
+                temp3StringItem.setText((String) tempMaxima.elementAt(3)+"ºC Máxima\n"+(String) tempMinima.elementAt(3)+"ºC Minima"); // Temp. Min e Max no detalhesForm
                 //prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
 
             }//GEN-BEGIN:|7-commandAction|15|137-preAction
@@ -1673,7 +1690,7 @@ public class prevTemp extends MIDlet implements CommandListener {
     public Form getProxForm() {
         if (proxForm == null) {//GEN-END:|135-getter|0|135-preInit
             // write pre-init user code here
-            proxForm = new Form("Previs\u00E3o p/ Pr\u00F3ximos Dias", new Item[] { getData1StringItem(), getTemp1StringItem(), getData2StringItem(), getTemp2StringItem() });//GEN-BEGIN:|135-getter|1|135-postInit
+            proxForm = new Form("Previs\u00E3o p/ Pr\u00F3ximos Dias", new Item[] { getData1StringItem(), getTemp1StringItem(), getData2StringItem(), getTemp2StringItem(), getData3StringItem(), getTemp3StringItem() });//GEN-BEGIN:|135-getter|1|135-postInit
             proxForm.addCommand(getHojeBackCommand());
             proxForm.setCommandListener(this);//GEN-END:|135-getter|1|135-postInit
             // write post-init user code here
@@ -1798,6 +1815,37 @@ public class prevTemp extends MIDlet implements CommandListener {
         return stringItem;
     }
     //</editor-fold>//GEN-END:|154-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: data3StringItem ">//GEN-BEGIN:|159-getter|0|159-preInit
+    /**
+     * Returns an initiliazed instance of data3StringItem component.
+     * @return the initialized component instance
+     */
+    public StringItem getData3StringItem() {
+        if (data3StringItem == null) {//GEN-END:|159-getter|0|159-preInit
+            // write pre-init user code here
+            data3StringItem = new StringItem("", "data3");//GEN-LINE:|159-getter|1|159-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|159-getter|2|
+        return data3StringItem;
+    }
+    //</editor-fold>//GEN-END:|159-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: temp3StringItem ">//GEN-BEGIN:|160-getter|0|160-preInit
+    /**
+     * Returns an initiliazed instance of temp3StringItem component.
+     * @return the initialized component instance
+     */
+    public StringItem getTemp3StringItem() {
+        if (temp3StringItem == null) {//GEN-END:|160-getter|0|160-preInit
+            // write pre-init user code here
+            temp3StringItem = new StringItem("", "temp3");//GEN-BEGIN:|160-getter|1|160-postInit
+            temp3StringItem.setFont(getFontTemp());//GEN-END:|160-getter|1|160-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|160-getter|2|
+        return temp3StringItem;
+    }
+    //</editor-fold>//GEN-END:|160-getter|2|
 
 
 
