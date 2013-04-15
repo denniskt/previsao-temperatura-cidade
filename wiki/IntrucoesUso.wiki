@@ -1,5 +1,5 @@
 #summary Como utilizar o aplicativo
-#labels Featured,Phase-Deploy
+#labels Featured
 =Instruções de Uso=
 
 Instruções de uso do aplicativo de Previsão do Tempo
