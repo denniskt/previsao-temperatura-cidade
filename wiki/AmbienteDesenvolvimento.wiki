@@ -1,5 +1,5 @@
 #summary Instruções para criação de ambiente de desenvolvimento.
-#labels Featured,Phase-Implementation,Phase-Deploy
+#labels Featured,Phase-Implementation,Phase-Requirements
 
 = Instalação do Ambiente de Desenvolvimento =
 
@@ -15,8 +15,10 @@
 
 ==http://i.imgur.com/7dZG5rQ.jpg Configuração ==
   # Realizar a instalação do Java SE Development Kit (JDK);
-  # Realizar a instalação do Subversion;
+  # Realizar a instalação do _Subversion_;
   # Realizar a instalação do NetBeans, habilitando a opção JavaME durante a instalação;
-  # Realizar o checkout do projeto no NetBeans https://code.google.com/p/previsao-temperatura-cidade/source/checkout
-<code>URI do Repositório
-http://previsao-temperatura-cidade.googlecode.com/svn/trunk/</code>
+  # Abrir o programa NetBeans, clicar em "Equipe", "_Subversion_", "_Checkout_";
+  # Preencher o campo URI do Repositório e clicar em "Próximo";
+  # <code>URI do Repositório - http://previsao-temperatura-cidade.googlecode.com/svn/trunk/</code>
+  # Em "Pasta Local", selecione o local onde o projeto será salvo no seu computador;
+  # Clicar em "Finalizar".
