@@ -229,12 +229,13 @@ public class prevTemp extends MIDlet implements CommandListener {
                             public void characters(char[] ch, int start, int lenght) throws SAXException{
                                 String chars = new String(ch, start, lenght).trim();
                                 if(chars.length() > 0){
-                                    if (currentName.equals("nome")){ // nome da cidade
+                                    if (currentName.equals("nome")){
                                         cidadeEstado = chars;
                                     }if(currentName.equals("uf")){
-                                        // Inserir a sigla da UF depois do nome da cidade na lista
+                                        // Inserir a sigla da UF depois do nome da cidade na lista, pq existem cidades com o mesmo nome
                                         getList().append(cidadeEstado+" - "+chars, getButtonImage());
-                                    }if(currentName.equals("id")){ // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
+                                    // id necessária pois a url da xml, necessita do código da cidade para realiza a consulta
+                                    }if(currentName.equals("id")){
                                         codCidade.addElement(chars);
                                     }
                                 }
@@ -267,6 +268,7 @@ public class prevTemp extends MIDlet implements CommandListener {
                 limpar();
             } else if (command == previsaoCommand) {//GEN-LINE:|7-commandAction|9|37-preAction
                 // write pre-action user code here
+                // Obtem o codigo da cidade selecionada e preenche na url para obter os dados de clima/tempo da cidade na consulta
                 String codCidadeUrl = (String) codCidade.elementAt(getList().getSelectedIndex());
                 String url = "http://servicos.cptec.inpe.br/XML/cidade/"+codCidadeUrl+"/previsao.xml";
                     try{
@@ -432,46 +434,36 @@ public class prevTemp extends MIDlet implements CommandListener {
                 String tempMaximaCidade = "";
                 String tempMinimoCidade = "";
                 String tempoCidade = "";
-
-                String cidade = getList().getString(getList().getSelectedIndex()); // Obtem o nome da cidade na lista
-                tempMaximaCidade = (String) tempMaxima.elementAt(0); // Obtem a temp máxima da lista
-                tempMinimoCidade = (String) tempMinima.elementAt(0); // Obtem a temp minima da lista
-                tempoCidade = (String) tempo.elementAt(0); // Obtem a descrição do tempo da lista
-                //tempMaximaCidade = (String) tempMaxima.elementAt(getList().getSelectedIndex()); // Obtem a temp máxima da lista
-                //tempMinimoCidade = (String) tempMinima.elementAt(getList().getSelectedIndex()); // Obtem a temp minima da lista
-                //tempoCidade = (String) tempo.elementAt(getList().getSelectedIndex()); // Obtem a descrição do tempo da lista
-
-                previsaoForm.setTitle(cidade); // Nome da cidade no detalhesForm
-                temperaturaStringItem.setText(tempMaximaCidade+"ºC Máxima\n"+tempMinimoCidade+"ºC Mínima"); // Temp. Min e Max no detalhesForm
-                tempoStringItem.setText(tempoCidade); //Descrição da previsão do tempo no detalhesForm
-                tempoImageItem.setImage(imgTempo); // Iagem da previsão do tempo no detalhesForm
+                // Obtem os dados do vetor preenchido com os dados da cidade escolhida, iniciando pelo 0 (hoje)
+                String cidade = getList().getString(getList().getSelectedIndex());
+                tempMaximaCidade = (String) tempMaxima.elementAt(0);
+                tempMinimoCidade = (String) tempMinima.elementAt(0);
+                tempoCidade = (String) tempo.elementAt(0);
+                // Preenche o form da previsão de hoje
+                previsaoForm.setTitle(cidade);
+                temperaturaStringItem.setText(tempMaximaCidade+"ºC Máxima\n"+tempMinimoCidade+"ºC Mínima");
+                tempoStringItem.setText(tempoCidade);
+                tempoImageItem.setImage(imgTempo);
             }//GEN-BEGIN:|7-commandAction|11|30-preAction
         } else if (displayable == previsaoForm) {
             if (command == homeBackCommand) {//GEN-END:|7-commandAction|11|30-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getList());//GEN-LINE:|7-commandAction|12|30-postAction
                 // write post-action user code here
-                //limpar();
             } else if (command == proxCommand) {//GEN-LINE:|7-commandAction|13|132-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getProxForm());//GEN-LINE:|7-commandAction|14|132-postAction
                 // write post-action user code here
                 proxForm.setTitle(getList().getString(getList().getSelectedIndex())); // Nome da cidade no detalhesForm
-
+                // Previsão 1 dia seguinte
                 data1StringItem.setText((String) dia.elementAt(1)+"\n"+(String) tempo.elementAt(1)); //Descrição da data no detalhesForm
                 temp1StringItem.setText((String) tempMaxima.elementAt(1)+"ºC Máxima\n"+(String) tempMinima.elementAt(1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                //data1StringItem.setText((String) dia.elementAt(getList().getSelectedIndex()+1)+"\n"+(String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da data no detalhesForm
-                //temp1StringItem.setText((String) tempMaxima.elementAt(getList().getSelectedIndex()+1)+"ºC Máxima\n"+(String) tempMinima.elementAt(getList().getSelectedIndex()+1)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                //prev1StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+1)); //Descrição da previsão do tempo no detalhesForm
-
+                // Previsão 2 dias seguintes
                 data2StringItem.setText("--------------------------\n"+(String) dia.elementAt(2)+"\n"+(String) tempo.elementAt(2)); //Descrição da data da previsão no detalhesForm
                 temp2StringItem.setText((String) tempMaxima.elementAt(2)+"ºC Máxima\n"+(String) tempMinima.elementAt(2)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                //prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-
+                // Previsão 3 dias seguintes
                 data3StringItem.setText("--------------------------\n"+(String) dia.elementAt(3)+"\n"+(String) tempo.elementAt(3)); //Descrição da data da previsão no detalhesForm
                 temp3StringItem.setText((String) tempMaxima.elementAt(3)+"ºC Máxima\n"+(String) tempMinima.elementAt(3)+"ºC Minima"); // Temp. Min e Max no detalhesForm
-                //prev2StringItem.setText((String) tempo.elementAt(getList().getSelectedIndex()+2)); //Descrição da previsão do tempo no detalhesForm
-
             }//GEN-BEGIN:|7-commandAction|15|137-preAction
         } else if (displayable == proxForm) {
             if (command == hojeBackCommand) {//GEN-END:|7-commandAction|15|137-preAction
